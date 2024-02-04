@@ -1,0 +1,82 @@
+.levels-container{
+    position: relative;
+    width: 100%;
+    height: auto;
+    background: bisque;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.levels-container h1{
+    font-family:cursive;
+    color: white;
+    text-shadow: 2px 2px 5px black;
+}
+.levels-container h1:first-of-type{
+    font-size: 5em;
+    margin-block: 0.6em 0.5em;
+}
+
+.levels-container h1:nth-of-type(2){
+    font-size: 2em;
+}
+
+.level{
+    width: 15em;
+    height: 15em;
+    border-radius: 50%;
+    border: 3px solid black;
+    margin: 6em;
+    z-index: 1;
+    /*Glassmorphism $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
+    background: rgba(255, 255, 255, 0.21);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 7px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.5s ease-in-out;
+}
+
+/*Unlocked levels shaking effect $$$$$$$$$$$$$$$$$$$$$$$$*/
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25%, 75% { transform: translateX(-5px) rotate(0.5deg); }
+    50% { transform: translateX(5px) rotate(-0.5deg); }
+}
+
+.chained-level:hover {
+    animation: shake 0.5s ease-in-out forwards;
+}
+
+.level:not(.chained-level):hover{
+    transform: scale(1.05);
+}
+
+.level .level-image{
+    transform: scale(0.4);
+}
+
+.level .chains{
+    position: absolute;
+    transform: scale(0.5);
+}
+
+.chained-level{
+    filter:brightness(50%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.central-line{
+    position: absolute;
+    width: 5px;
+    height: 80%;
+    background: white;
+    box-shadow: 1px 0px 5px 3px rgba(0, 0, 0, 0.1);
+    z-index: 0;
+}
