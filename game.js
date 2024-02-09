@@ -6,6 +6,10 @@ const meter = document.getElementsByClassName("meter")[0];
 const meterStop = document.getElementsByClassName("meter-stop")[0];
 let showHealth = document.getElementsByClassName("health")[0];
 const pickaxe = document.getElementsByClassName("pickaxe")[0];
+//Getting the images of miner swinging
+const minerSwingBack = document.getElementsByClassName("miner-swing-back")[0];
+const minerSwingUp = document.getElementsByClassName("miner-swing-up")[0];
+const minerSwingFront = document.getElementsByClassName("miner-swing-front")[0];
 let damage = 0;
 let health = 2000;
 let chosenBlock = null;
@@ -13,15 +17,18 @@ let chosenBlock = null;
 // Apply the transition on click for each block
 for (const block of blocks) {
     block.addEventListener('click', function () {
-        //Let the health be 2000 on every new block and display it
+        //Change the health for every new clicked block
         health = 2000;
+        setTimeout(()=>{        
+            minerSwingBack.style.visibility = "visible";
+            minerSwingBack.style.display = "block";
+        }, 1000)
         showHealth.innerHTML = showHealth.innerHTML.slice(0, 7) + " " + health;
         console.log(health);
         // Get the position of the clicked block
         const blockRect = block.getBoundingClientRect();
         
-        // Move the stickman to the position of the clicked block
-        //This should be changed
+        // Move the miner to the position of the clicked block
         setTimeout(()=>{miner.style.top = blockRect.top - 50 + 'px';}, 500);
         miner.style.left = blockRect.left + 60 + 'px';
         setTimeout(()=>{
@@ -30,21 +37,26 @@ for (const block of blocks) {
     });
 }
 
-//Stop the meter with a click and calculate how much damage to deal
+//Stop the meter with a click
 meter.addEventListener("click", () => {
     // Pause the animation by setting the animation-play-state to "paused"
     meterStop.style.animationPlayState = "paused";
+    //Get the width of the meter
     const meterStyle = window.getComputedStyle(meterStop.parentElement);
     const width = meterStyle.getPropertyValue("width");
+    //Get the position of the stopper according to the meter
     const meterStopStyle = window.getComputedStyle(meterStop);
     const left = meterStopStyle.getPropertyValue("left");
     //Calculate and show the damage
     damage = Math.round(Number(left.slice(0, -2)) / Number(width.slice(0, -2)) * 1000);
     health -= damage;
+    //Check if the health is below 0 
     if(health <= 0){
-        breakingContainer.style.visibility = "hidden";
         health = 0;
+        //Hide the window where the block is breaking and the block
+        breakingContainer.style.visibility = "hidden";
         chosenBlock.style.visibility = "hidden";
+        minerSwingBack.style.display = "none";
     }
     showHealth.innerHTML = showHealth.innerHTML.slice(0, 7) + " " + health;
     //Move the axe to the cube and deal the damage
@@ -53,7 +65,9 @@ meter.addEventListener("click", () => {
   
   // Rotate the pickaxe to 90 degrees
   pickaxe.style.transform ="rotate(120deg)";
-  
+  //Animation of the miner breaking the block
+  minerBreakingBlock();
+
   // Reset the rotation after 0.5 seconds
   setTimeout(() => {
     pickaxe.style.transform = 'rotate(0deg)'; // Reset rotation
@@ -64,4 +78,25 @@ meter.addEventListener("click", () => {
 }, 1000);
 });
 
-//After it is broken, the div disappears, the cube disappears
+function minerBreakingBlock() {
+    minerSwingBack.style.visibility = "visible";
+    setTimeout(() => {   
+        minerSwingBack.style.visibility = "hidden";
+        minerSwingUp.style.visibility = "visible";
+        setTimeout(() => {   
+            minerSwingUp.style.visibility = "hidden";
+            minerSwingFront.style.visibility = "visible";
+            setTimeout(() => {
+                minerSwingFront.style.visibility = "hidden";
+                minerSwingUp.style.visibility = "visible";
+                setTimeout(() => {
+                    minerSwingUp.style.visibility = "hidden";
+                    minerSwingBack.style.visibility = "visible";
+                     // Wait 0.5 seconds after showing minerSwingUp again
+                }, 50); // Wait 0.5 seconds after hiding minerSwingFront
+            }, 200); // Wait 0.5 seconds after showing minerSwingFront
+        }, 50); // Wait 0.5 seconds after showing minerSwingUp
+    }, 50); // Wait 0.5 seconds after showing minerSwingBack
+}
+
+

@@ -103,6 +103,7 @@
     border-radius: 15px;
     background: linear-gradient(to right, green, yellow, red);
     cursor: pointer;
+    z-index: 2;
 }
 
 .meter-stop {
@@ -116,6 +117,7 @@
     left: 0;
     bottom: 0;
     animation: moveMeter 1.5s infinite; /* Animation duration is 1.5 seconds */
+    z-index: 2;
 }
 
 @keyframes moveMeter {
@@ -142,4 +144,13 @@
     z-index: 3;
     width: 50%;
     transition: all 1s ease-in-out;
+    visibility: hidden;
+}
+
+.miner-swing{
+    transform: scale(0.07);
+    position: absolute;
+    visibility: hidden;
+    z-index: 1;
+    margin-left: -30%;
 }
