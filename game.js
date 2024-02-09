@@ -54,9 +54,11 @@ meter.addEventListener("click", () => {
     if(health <= 0){
         health = 0;
         //Hide the window where the block is breaking and the block
-        breakingContainer.style.visibility = "hidden";
-        chosenBlock.style.visibility = "hidden";
-        minerSwingBack.style.display = "none";
+        setTimeout(()=>{
+            breakingContainer.style.visibility = "hidden";
+            chosenBlock.style.visibility = "hidden";
+            minerSwingBack.style.display = "none";
+        }, 1000)
     }
     showHealth.innerHTML = showHealth.innerHTML.slice(0, 7) + " " + health;
     //Move the axe to the cube and deal the damage
@@ -97,10 +99,10 @@ function minerBreakingBlock() {
                     // Hide the second swing up and show the second swing back
                     minerSwingUp.style.visibility = "hidden";
                     minerSwingBack.style.visibility = "visible";
-                }, 10); 
-            }, 400);
-        }, 10);
-    }, 10); 
+                }, 300); 
+            }, 500);
+        }, 300);
+    }, 300); 
 }
 
 
