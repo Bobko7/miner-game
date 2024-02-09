@@ -79,24 +79,29 @@ meter.addEventListener("click", () => {
 });
 
 function minerBreakingBlock() {
+    // Show the first swing back
     minerSwingBack.style.visibility = "visible";
     setTimeout(() => {   
+        // Hide the first swing back and show the first swing up
         minerSwingBack.style.visibility = "hidden";
         minerSwingUp.style.visibility = "visible";
         setTimeout(() => {   
+            // Hide the first swing up and show the swing front
             minerSwingUp.style.visibility = "hidden";
             minerSwingFront.style.visibility = "visible";
             setTimeout(() => {
+                // Hide the swing front and show the second swing up
                 minerSwingFront.style.visibility = "hidden";
                 minerSwingUp.style.visibility = "visible";
                 setTimeout(() => {
+                    // Hide the second swing up and show the second swing back
                     minerSwingUp.style.visibility = "hidden";
                     minerSwingBack.style.visibility = "visible";
-                     // Wait 0.5 seconds after showing minerSwingUp again
-                }, 50); // Wait 0.5 seconds after hiding minerSwingFront
-            }, 200); // Wait 0.5 seconds after showing minerSwingFront
-        }, 50); // Wait 0.5 seconds after showing minerSwingUp
-    }, 50); // Wait 0.5 seconds after showing minerSwingBack
+                }, 10); 
+            }, 400);
+        }, 10);
+    }, 10); 
 }
+
 
 
