@@ -4,6 +4,8 @@
     align-items: center;
     flex-direction: column;
     background: url('images/levels_background.png');
+    /*background-size: cover;
+    background-repeat: no-repeat;*/
     background-size: 20em 30em;
 }
 
