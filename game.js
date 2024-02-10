@@ -15,49 +15,35 @@ let damage = 0;
 let resilience = 2000;
 let chosenBlock = null;
 
+
 // Apply the transition on click for each block
 for (const block of blocks) {
     block.addEventListener('click', function () {
-        //Change the health for every new clicked block
-        resilience = 2000;  
+        chosenBlock = block;
+        //Move the miner to the chosen block
+        moveElementToElement(miner, block);
+        //Move the miner images to the same block
+        moveElementToElement(minerSwingBack, block, 20, -20);
+        moveElementToElement(minerSwingUp, block, -15, -20);
+        moveElementToElement(minerSwingFront, block, -40, -20);
+
+        //Hide the normal miner image and show the swing
         setTimeout(()=>{
             miner.style.visibility = "hidden";
             setTimeout(()=>{
                 minerSwingBack.style.visibility = "visible";
                 minerSwingBack.style.display = "inline-block";
             }, 500)
-        }, 800)  
-        
-        
+        }, 800);
+
+        //Renew the resilience for every new block
+        resilience = 2000;    
+        //Display resilience on the screen
         displayResilience();
 
-        // Get the position of the clicked block
-        /*const blockRect = block.getBoundingClientRect();
-        
-        // Move the miner to the position of the clicked block
-        setTimeout(()=>{miner.style.top = blockRect.top - 50 + 'px';}, 500);
-        miner.style.left = blockRect.left + 60 + 'px';*/
-
-        //Move the miner to the chosen block
-        moveSthToSth(miner, block);
-        /*setTimeout(()=>{
-            for(const swing of minerSwing){
-                moveSthToSth(swing, miner);
-            }
-        }, 1500)*/
-        moveSthToSth(minerSwingBack, block, 20, -20);
-        moveSthToSth(minerSwingUp, block, -15, -20);
-        moveSthToSth(minerSwingFront, block, -40, -20);
-        /*
-        setTimeout(()=>{
-            moveSthToSth(minerSwingFront, miner);
-            minerSwingFront.style.visibility = "hidden";
-            console.log("moved")
-        }, 6000)*/
-
+        //Make visible the resilience and the meter
         setTimeout(()=>{
             breakingContainer.style.visibility = "visible";}, 1000);
-        chosenBlock = block;
     });
 }
 
@@ -65,49 +51,53 @@ for (const block of blocks) {
 meter.addEventListener("click", () => {
     // Pause the animation by setting the animation-play-state to "paused"
     meterStop.style.animationPlayState = "paused";
+
     //Get the width of the meter
     const meterStyle = window.getComputedStyle(meterStop.parentElement);
     const width = meterStyle.getPropertyValue("width");
     //Get the position of the stopper according to the meter
     const meterStopStyle = window.getComputedStyle(meterStop);
     const left = meterStopStyle.getPropertyValue("left");
-    //Calculate and show the damage
+    //Calculate and show the damage 
+    //Formula: traveledDistance / wholeWidth * maxDamage; (Calculate the percentage that the stop has traveled and use this percentage as a measure for the damage)
     damage = Math.round(Number(left.slice(0, -2)) / Number(width.slice(0, -2)) * 1000);
+    //Add the damage
     resilience -= damage;
-    //Check if the health is below 0 
+    //Check if the resilience is below 0 
     if(resilience <= 0){
         resilience = 0;
-        //Hide the window where the block is breaking and the block
         setTimeout(()=>{
+            //Hide the window with the meter and the chosen block
             breakingContainer.style.visibility = "hidden";
             chosenBlock.style.visibility = "hidden";
-
+            //Hide the miner swing image and show the normal image
             minerSwingBack.style.display = "none";
             setTimeout(()=>{      
-                 miner.style.visibility = "visible";
+                miner.style.visibility = "visible";
         }, 500)
         }, 1000)
     }
 
-    displayResilience();
-  
-  //Animation of the miner breaking the block
-  minerBlockBreakingAnimation();
+    //Animation of the miner breaking the block
+    minerBlockBreakingAnimation();
 
-    //Let the arrow move again
+    //Display the changed value of resilience
+    displayResilience();
+
+    //Let the meter stop move again
     setTimeout(()=>{    
         meterStop.style.animationPlayState = "running";
 }, 1000);
 });
 
 //Function to move some element to another element
-function moveSthToSth(elementToBeMoved, elementTarget, inaccuracyX = 0, inaccuracyY = 0){
+function moveElementToElement(elementToBeMoved, elementTarget, inaccuracyX = 0, inaccuracyY = 0){
     const targetRect = elementTarget.getBoundingClientRect();
     setTimeout(()=>{elementToBeMoved.style.top = targetRect.top + inaccuracyY + 'px';}, 500);
     elementToBeMoved.style.left = targetRect.left + inaccuracyX + 'px';
 }
 
-//Shows block's resilience on the screen
+//Function to show block's resilience on the screen
 function displayResilience(){
     resilienceHeading.innerHTML = resilienceHeading.innerHTML.slice(0, 11) + " " + resilience;
 }
