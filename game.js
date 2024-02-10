@@ -1,4 +1,5 @@
 const blocks = document.querySelectorAll(".block");
+const minerContainer = document.querySelector(".miner-container");
 const miner = document.querySelector(".miner");
 const breakingContainer = document.querySelector(".breaking-container");
 const breakingBlock = document.querySelector(".block-to-break");
@@ -9,6 +10,7 @@ let resilienceHeading = document.querySelector(".resilience");
 const minerSwingBack = document.querySelector(".miner-swing-back");
 const minerSwingUp = document.querySelector(".miner-swing-up");
 const minerSwingFront = document.querySelector(".miner-swing-front");
+const minerSwing = document.querySelectorAll(".mine-swing");
 let damage = 0;
 let resilience = 2000;
 let chosenBlock = null;
@@ -17,20 +19,42 @@ let chosenBlock = null;
 for (const block of blocks) {
     block.addEventListener('click', function () {
         //Change the health for every new clicked block
-        resilience = 2000;
-        setTimeout(()=>{        
-            minerSwingBack.style.visibility = "visible";
-            minerSwingBack.style.display = "block";
-        }, 1000)
+        resilience = 2000;  
+        setTimeout(()=>{
+            miner.style.visibility = "hidden";
+            setTimeout(()=>{
+                minerSwingBack.style.visibility = "visible";
+                minerSwingBack.style.display = "inline-block";
+            }, 500)
+        }, 800)  
+        
         
         displayResilience();
 
         // Get the position of the clicked block
-        const blockRect = block.getBoundingClientRect();
+        /*const blockRect = block.getBoundingClientRect();
         
         // Move the miner to the position of the clicked block
         setTimeout(()=>{miner.style.top = blockRect.top - 50 + 'px';}, 500);
-        miner.style.left = blockRect.left + 60 + 'px';
+        miner.style.left = blockRect.left + 60 + 'px';*/
+
+        //Move the miner to the chosen block
+        moveSthToSth(miner, block);
+        /*setTimeout(()=>{
+            for(const swing of minerSwing){
+                moveSthToSth(swing, miner);
+            }
+        }, 1500)*/
+        moveSthToSth(minerSwingBack, block, 20, -20);
+        moveSthToSth(minerSwingUp, block, -15, -20);
+        moveSthToSth(minerSwingFront, block, -40, -20);
+        /*
+        setTimeout(()=>{
+            moveSthToSth(minerSwingFront, miner);
+            minerSwingFront.style.visibility = "hidden";
+            console.log("moved")
+        }, 6000)*/
+
         setTimeout(()=>{
             breakingContainer.style.visibility = "visible";}, 1000);
         chosenBlock = block;
@@ -57,7 +81,11 @@ meter.addEventListener("click", () => {
         setTimeout(()=>{
             breakingContainer.style.visibility = "hidden";
             chosenBlock.style.visibility = "hidden";
+
             minerSwingBack.style.display = "none";
+            setTimeout(()=>{      
+                 miner.style.visibility = "visible";
+        }, 500)
         }, 1000)
     }
 
@@ -72,11 +100,19 @@ meter.addEventListener("click", () => {
 }, 1000);
 });
 
-function displayResilience(){
-    resilienceHeading.innerHTML = resilienceHeading.innerHTML.slice(0, 11) + " " + resilience;
-
+//Function to move some element to another element
+function moveSthToSth(elementToBeMoved, elementTarget, inaccuracyX = 0, inaccuracyY = 0){
+    const targetRect = elementTarget.getBoundingClientRect();
+    setTimeout(()=>{elementToBeMoved.style.top = targetRect.top + inaccuracyY + 'px';}, 500);
+    elementToBeMoved.style.left = targetRect.left + inaccuracyX + 'px';
 }
 
+//Shows block's resilience on the screen
+function displayResilience(){
+    resilienceHeading.innerHTML = resilienceHeading.innerHTML.slice(0, 11) + " " + resilience;
+}
+
+//Function for the miner breaking the block animation
 function minerBlockBreakingAnimation() {
     // Show the first swing back
     minerSwingBack.style.visibility = "visible";
