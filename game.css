@@ -69,10 +69,9 @@
 .breaking-container{
     visibility: hidden;
     position: absolute;
-    width: 20%;
-    aspect-ratio: 1 / 1;
+    width: 50%;
+    height: 40%;
     border-radius: 3em;
-    background: white;
     z-index: 2;
     align-self: flex-start;
     justify-self: center;
@@ -80,7 +79,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     transition: all 0.4s ease-in-out;
 }
 
@@ -142,6 +141,13 @@
     margin-left: -30%;
 }
 */
+
+.resilience{
+    font-size: 4em;
+    color:brown;
+    font-family: cursive;
+    margin: 0.7em;
+}
 
 .miner-swing{
     visibility: hidden;
