@@ -15,6 +15,41 @@ let damage = 0;
 let resilience = 2000;
 let chosenBlock = null;
 
+/*
+class Block{
+    constructor(name){
+        this.name = name;
+    }
+    resilience = 2000;
+    getResilience(){
+        return this.resilience;
+    }
+    dealDamage(dealtDamage){
+        this.resilience -= dealtDamage;
+    }
+}
+/*
+//Make 
+const blockObjects = [];
+for(let i = 1; i <= 16; i++){
+    const name = "block" + i;
+    blockObjects.push(new Block(name));
+}*/
+
+//Add resilience property to every block
+blocks.forEach((block)=>{
+    block.resilience = 2000;
+})
+
+//Get the resilience of a chosen block
+function getResilience(block) {
+    return block.resilience;
+}
+
+//Deal damage to a block
+function dealDamage(block, damage){
+    block.resilience -= damage;
+}
 
 // Apply the transition on click for each block
 for (const block of blocks) {
@@ -37,7 +72,7 @@ for (const block of blocks) {
         }, 800);
 
         //Renew the resilience for every new block
-        resilience = 2000;    
+        //resilience = 2000;    
         //Display resilience on the screen
         displayResilience();
 
@@ -62,10 +97,10 @@ meter.addEventListener("click", () => {
     //Formula: traveledDistance / wholeWidth * maxDamage; (Calculate the percentage that the stop has traveled and use this percentage as a measure for the damage)
     damage = Math.round(Number(left.slice(0, -2)) / Number(width.slice(0, -2)) * 1000);
     //Add the damage
-    resilience -= damage;
+    dealDamage(chosenBlock, damage);
     //Check if the resilience is below 0 
-    if(resilience <= 0){
-        resilience = 0;
+    if(chosenBlock.resilience <= 0){
+        chosenBlock.resilience = 0;
         setTimeout(()=>{
             //Hide the window with the meter and the chosen block
             breakingContainer.style.visibility = "hidden";
@@ -99,7 +134,7 @@ function moveElementToElement(elementToBeMoved, elementTarget, inaccuracyX = 0, 
 
 //Function to show block's resilience on the screen
 function displayResilience(){
-    resilienceHeading.innerHTML = resilienceHeading.innerHTML.slice(0, 11) + " " + resilience;
+    resilienceHeading.innerHTML = resilienceHeading.innerHTML.slice(0, 11) + " " + chosenBlock.resilience;
 }
 
 //Function for the miner breaking the block animation
