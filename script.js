@@ -1,5 +1,5 @@
 function scrollToTopSmoothly() {
-    const scrollDuration = 1700; // 4 seconds
+    const scrollDuration = 1700;
     const startTime = performance.now();
 
     function scroll() {

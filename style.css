@@ -10,22 +10,24 @@
 }
 
 .levels-container{
+    margin-top: 6em;
     position: relative;
     width: 100%;
-    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    row-gap: 12em;
 }
 
-/*Main headings styling $$$$$$$$$$$$$$$$$$*/
+/*Main Headings $$$$$$$$$$$$$$$$$$*/
 .main-container h1{
     font-family:cursive;
     color: white;
     text-shadow: 2px 2px 5px black;
 }
-.main-container h1:first-of-type{
+
+.main-container h1:nth-of-type(1){
     font-size: 5em;
     margin-block: 0.6em 0.5em;
 }
@@ -38,10 +40,8 @@
     width: 15em;
     height: 15em;
     border-radius: 50%;
-    border: 3px solid black;
-    margin: 6em;
     z-index: 1;
-    /*Glassmorphism $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
+    /*Glassmorphism Effect $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
     background: rgba(255, 255, 255, 0.21);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
@@ -52,9 +52,15 @@
     align-items: center;
     cursor: pointer;
     transition: transform 0.5s ease-in-out;
+
 }
 
-/*Unlocked levels shaking effect $$$$$$$$$$$$$$$$$$$$$$$$*/
+/*Round The Link Space For The Levels $$$$$$$$$$$$$$$*/
+.level-one-link{
+    border-radius: 50%;
+}
+
+/*Locked Levels Shaking Animation $$$$$$$$$$$$$$$$$$$$$$$$*/
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
     25%, 75% { transform: translateX(-5px) rotate(0.5deg); }
@@ -71,11 +77,13 @@
 
 .level .level-image{
     transform: scale(0.4);
+    pointer-events: none;
 }
 
 .level .chains{
     position: absolute;
     transform: scale(0.5);
+    pointer-events: none;
 }
 
 .chained-level{
