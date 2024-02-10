@@ -132,14 +132,6 @@
     aspect-ratio: 1 / 1;
     margin-top: auto;
 }
-/*
-.pickaxe{
-    position: absolute;
-    z-index: 3;
-    width: 50%;
-    transition: all 1s ease-in-out;
-    visibility: hidden;
-}*/
 
 .miner-swing{
     transform: scale(0.07);

@@ -1,30 +1,30 @@
-const blocks = document.getElementsByClassName("block");
-const miner = document.getElementsByClassName("miner")[0];
-const breakingContainer = document.getElementsByClassName("breaking-container")[0];
-const breakingBlock = document.getElementsByClassName("block-to-break")[0];
-const meter = document.getElementsByClassName("meter")[0];
-const meterStop = document.getElementsByClassName("meter-stop")[0];
-let showHealth = document.getElementsByClassName("health")[0];
-const pickaxe = document.getElementsByClassName("pickaxe")[0];
+const blocks = document.querySelectorAll(".block");
+const miner = document.querySelector(".miner");
+const breakingContainer = document.querySelector(".breaking-container");
+const breakingBlock = document.querySelector(".block-to-break");
+const meter = document.querySelector(".meter");
+const meterStop = document.querySelector(".meter-stop");
+let resilienceHeading = document.querySelector(".resilience");
 //Getting the images of miner swinging
-const minerSwingBack = document.getElementsByClassName("miner-swing-back")[0];
-const minerSwingUp = document.getElementsByClassName("miner-swing-up")[0];
-const minerSwingFront = document.getElementsByClassName("miner-swing-front")[0];
+const minerSwingBack = document.querySelector(".miner-swing-back");
+const minerSwingUp = document.querySelector(".miner-swing-up");
+const minerSwingFront = document.querySelector(".miner-swing-front");
 let damage = 0;
-let health = 2000;
+let resilience = 2000;
 let chosenBlock = null;
 
 // Apply the transition on click for each block
 for (const block of blocks) {
     block.addEventListener('click', function () {
         //Change the health for every new clicked block
-        health = 2000;
+        resilience = 2000;
         setTimeout(()=>{        
             minerSwingBack.style.visibility = "visible";
             minerSwingBack.style.display = "block";
         }, 1000)
-        showHealth.innerHTML = showHealth.innerHTML.slice(0, 7) + " " + health;
-        console.log(health);
+        
+        displayResilience();
+
         // Get the position of the clicked block
         const blockRect = block.getBoundingClientRect();
         
@@ -49,10 +49,10 @@ meter.addEventListener("click", () => {
     const left = meterStopStyle.getPropertyValue("left");
     //Calculate and show the damage
     damage = Math.round(Number(left.slice(0, -2)) / Number(width.slice(0, -2)) * 1000);
-    health -= damage;
+    resilience -= damage;
     //Check if the health is below 0 
-    if(health <= 0){
-        health = 0;
+    if(resilience <= 0){
+        resilience = 0;
         //Hide the window where the block is breaking and the block
         setTimeout(()=>{
             breakingContainer.style.visibility = "hidden";
@@ -60,27 +60,24 @@ meter.addEventListener("click", () => {
             minerSwingBack.style.display = "none";
         }, 1000)
     }
-    showHealth.innerHTML = showHealth.innerHTML.slice(0, 7) + " " + health;
-    //Move the axe to the cube and deal the damage
-    pickaxe.style.transition = 'transform 0.5s ease-in-out';
-  pickaxe.style.transformOrigin = 'center'; // Set the transform origin to center
-  
-  // Rotate the pickaxe to 90 degrees
-  pickaxe.style.transform ="rotate(120deg)";
-  //Animation of the miner breaking the block
-  minerBreakingBlock();
 
-  // Reset the rotation after 0.5 seconds
-  setTimeout(() => {
-    pickaxe.style.transform = 'rotate(0deg)'; // Reset rotation
-  }, 500); // 500 milliseconds = 0.5 seconds
+    displayResilience();
+  
+  //Animation of the miner breaking the block
+  minerBlockBreakingAnimation();
+
     //Let the arrow move again
     setTimeout(()=>{    
         meterStop.style.animationPlayState = "running";
 }, 1000);
 });
 
-function minerBreakingBlock() {
+function displayResilience(){
+    resilienceHeading.innerHTML = resilienceHeading.innerHTML.slice(0, 11) + " " + resilience;
+
+}
+
+function minerBlockBreakingAnimation() {
     // Show the first swing back
     minerSwingBack.style.visibility = "visible";
     setTimeout(() => {   
