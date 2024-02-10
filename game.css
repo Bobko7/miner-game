@@ -47,10 +47,8 @@
 }
 
 .block{
-    height: 100%;
-    aspect-ratio: 1 / 1;
     width: 8em;
-    height: 5em;
+    aspect-ratio: 1 / 1;
     position: relative;
     filter: drop-shadow(0px 0px 5px yellow);
     transition: transform 0.4s ease-in-out;
@@ -134,14 +132,14 @@
     aspect-ratio: 1 / 1;
     margin-top: auto;
 }
-
+/*
 .pickaxe{
     position: absolute;
     z-index: 3;
     width: 50%;
     transition: all 1s ease-in-out;
     visibility: hidden;
-}
+}*/
 
 .miner-swing{
     transform: scale(0.07);
