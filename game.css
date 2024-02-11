@@ -160,3 +160,12 @@
     transform: translate(-50%, -50%);
     pointer-events: none;
 }
+
+.miner-animation{
+    position: absolute;
+    z-index: 3;
+    visibility: hidden;
+    left: 50%; /* Position relative to parent (.miner) */
+    top: 50%; /* Position relative to parent (.miner) */
+    transform: translate(-50%, -50%) scale(0.1);
+}

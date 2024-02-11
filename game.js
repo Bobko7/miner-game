@@ -8,12 +8,16 @@ const meterStop = document.querySelector(".meter-stop");
 let resilienceHeading = document.querySelector(".resilience");
 //Getting the images of miner swinging
 const minerSwingBack = document.querySelector(".miner-swing-back");
+const minerSwingBackToUp = document.querySelector(".miner-swing-back-to-up");
 const minerSwingUp = document.querySelector(".miner-swing-up");
+const minerSwingUpToFront = document.querySelector(".miner-swing-up-to-front");
 const minerSwingFront = document.querySelector(".miner-swing-front");
 const minerSwing = document.querySelectorAll(".mine-swing");
+const minerAnimation = document.querySelector(".miner-animation");
 let damage = 0;
 let resilience = 2000;
 let chosenBlock = null;
+let trickyCounter = 0;
 
 /*
 class Block{
@@ -59,9 +63,10 @@ for (const block of blocks) {
         moveElementToElement(miner, block);
         //Move the miner images to the same block
         moveElementToElement(minerSwingBack, block, 20, -20);
-        moveElementToElement(minerSwingUp, block, -15, -20);
+        moveElementToElement(minerSwingBackToUp, block, 0, -20);
+        moveElementToElement(minerSwingUp, block, -10, -20);
+        moveElementToElement(minerSwingUpToFront, block, -30, -20);
         moveElementToElement(minerSwingFront, block, -40, -20);
-
         //Hide the normal miner image and show the swing
         setTimeout(()=>{
             miner.style.visibility = "hidden";
@@ -141,27 +146,46 @@ function displayResilience(){
 function minerBlockBreakingAnimation() {
     // Show the first swing back
     minerSwingBack.style.visibility = "visible";
-    setTimeout(() => {   
-        // Hide the first swing back and show the first swing up
-        minerSwingBack.style.visibility = "hidden";
-        minerSwingUp.style.visibility = "visible";
-        setTimeout(() => {   
-            // Hide the first swing up and show the swing front
-            minerSwingUp.style.visibility = "hidden";
-            minerSwingFront.style.visibility = "visible";
+        
             setTimeout(() => {
-                // Hide the swing front and show the second swing up
-                minerSwingFront.style.visibility = "hidden";
-                minerSwingUp.style.visibility = "visible";
+                // Show the first swing back
+                minerSwingBack.style.visibility = "visible";
                 setTimeout(() => {
-                    // Hide the second swing up and show the second swing back
-                    minerSwingUp.style.visibility = "hidden";
-                    minerSwingBack.style.visibility = "visible";
-                }, 300); 
-            }, 500);
-        }, 300);
-    }, 300); 
-}
+                    minerSwingBack.style.visibility = "hidden";
+                    minerSwingBackToUp.style.visibility = "visible";
+                    setTimeout(() => {
+                        minerSwingBackToUp.style.visibility = "hidden";
+                        minerSwingUp.style.visibility = "visible";
+                        setTimeout(() => {
+                            minerSwingUp.style.visibility = "hidden";
+                            minerSwingUpToFront.style.visibility = "visible";
+                            setTimeout(() => {
+                                minerSwingUpToFront.style.visibility = "hidden";
+                                minerSwingFront.style.visibility = "visible";
+                                setTimeout(() => {
+                                    minerSwingFront.style.visibility = "hidden";
+                                    minerSwingUpToFront.style.visibility = "visible";
+                                    setTimeout(() => {
+                                        minerSwingUpToFront.style.visibility = "hidden";
+                                        minerSwingUp.style.visibility = "visible";
+                                        setTimeout(() => {
+                                            minerSwingUp.style.visibility = "hidden";
+                                            minerSwingBackToUp.style.visibility = "visible";
+                                            setTimeout(() => {
+                                                minerSwingBackToUp.style.visibility = "hidden";
+                                                minerSwingBack.style.visibility = "visible";
+                                            }, 60);
+                                        }, 60);
+                                    }, 60);
+                                }, 250);
+                            }, 60);
+                        }, 60);
+                    }, 60);
+                }, 60);
+            }, 60);
+        
+        
+        }
 
 
 
