@@ -33,3 +33,5 @@ function scrollToTopSmoothly() {
   window.onload = function() {
     scrollToTopSmoothly();
   };
+
+  export let coins = 5;

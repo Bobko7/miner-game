@@ -14,31 +14,12 @@ const minerSwingUpToFront = document.querySelector(".miner-swing-up-to-front");
 const minerSwingFront = document.querySelector(".miner-swing-front");
 const minerSwing = document.querySelectorAll(".mine-swing");
 const minerAnimation = document.querySelector(".miner-animation");
+const coinsHeading = document.querySelector("coins");
 let damage = 0;
 let resilience = 2000;
 let chosenBlock = null;
-let trickyCounter = 0;
-
-/*
-class Block{
-    constructor(name){
-        this.name = name;
-    }
-    resilience = 2000;
-    getResilience(){
-        return this.resilience;
-    }
-    dealDamage(dealtDamage){
-        this.resilience -= dealtDamage;
-    }
-}
-/*
-//Make 
-const blockObjects = [];
-for(let i = 1; i <= 16; i++){
-    const name = "block" + i;
-    blockObjects.push(new Block(name));
-}*/
+//import {gameCoins} from './store.js';
+let coins = 200;
 
 //Add resilience property to every block
 blocks.forEach((block)=>{
@@ -88,6 +69,7 @@ for (const block of blocks) {
 }
 
 //Stop the meter with a click
+try{
 meter.addEventListener("click", () => {
     // Pause the animation by setting the animation-play-state to "paused"
     meterStop.style.animationPlayState = "paused";
@@ -128,7 +110,8 @@ meter.addEventListener("click", () => {
     setTimeout(()=>{    
         meterStop.style.animationPlayState = "running";
 }, 1000);
-});
+});}
+catch(er){};
 
 //Function to move some element to another element
 function moveElementToElement(elementToBeMoved, elementTarget, inaccuracyX = 0, inaccuracyY = 0){
@@ -183,9 +166,6 @@ function minerBlockBreakingAnimation() {
                     }, 60);
                 }, 60);
             }, 60);
-        
-        
         }
 
-
-
+export {coins};

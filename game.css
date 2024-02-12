@@ -10,6 +10,26 @@
     position: relative;
 }
 
+.coins{
+    position: absolute;
+    color:chocolate;
+    font-size: 3em;
+    margin: 0.5em;
+}
+
+.store-link{
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 2;
+}
+.store{
+    position: absolute;
+    right: 0;
+    font-size: 2em;
+}
+
+
 .miner{
     position: absolute;
     left: 50%;

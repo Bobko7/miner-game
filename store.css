@@ -1,0 +1,23 @@
+.store-container{
+    background: url('images/store-shelves-background.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.items{
+    border: 3px solid red;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+.pickaxe-store-item{
+    font-size: 3em;
+}
