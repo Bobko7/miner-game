@@ -14,12 +14,22 @@ const minerSwingUpToFront = document.querySelector(".miner-swing-up-to-front");
 const minerSwingFront = document.querySelector(".miner-swing-front");
 const minerSwing = document.querySelectorAll(".mine-swing");
 const minerAnimation = document.querySelector(".miner-animation");
-const coinsHeading = document.querySelector("coins");
+//Get coins heading
+const coinsHeading = document.querySelector(".coins");
 let damage = 0;
 let resilience = 2000;
 let chosenBlock = null;
-//import {gameCoins} from './store.js';
-let coins = 200;
+
+localStorage.setItem("gameCoins", 600);
+// Define the shared value
+if(localStorage.getItem("gameCoins") != localStorage.getItem("storeCoins")){
+    localStorage.removeItem("gameCoins");
+    localStorage.setItem("gameCoins", localStorage.getItem("storeCoins"));
+}
+console.log(localStorage.getItem("gameCoins"));
+
+console.log(coinsHeading);
+coinsHeading.innerHTML = coinsHeading.innerHTML.slice(0, 7) + localStorage.getItem("gameCoins");
 
 //Add resilience property to every block
 blocks.forEach((block)=>{
@@ -167,5 +177,3 @@ function minerBlockBreakingAnimation() {
                 }, 60);
             }, 60);
         }
-
-export {coins};
