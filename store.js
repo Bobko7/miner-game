@@ -1,7 +1,9 @@
+//Set storeCoins to be equal to gameCoins in localStorage
 localStorage.setItem("storeCoins", localStorage.getItem("gameCoins"));
-console.log(localStorage.getItem("storeCoins"));
+//Use gameCoins in order to buy store items
 let gameCoins = localStorage.getItem("storeCoins");
 
+//Get some store.html elements
 const coinsLabel = document.querySelector('.coins');
 const buyItem1 = document.querySelector(".buy-item1");
 const buyItem2 = document.querySelector(".buy-item2");

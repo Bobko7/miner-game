@@ -20,8 +20,9 @@ let damage = 0;
 let resilience = 2000;
 let chosenBlock = null;
 
+//Set gameCoins 
 localStorage.setItem("gameCoins", 600);
-// Define the shared value
+// Change if anything is bought in the store
 if(localStorage.getItem("gameCoins") != localStorage.getItem("storeCoins")){
     localStorage.removeItem("gameCoins");
     localStorage.setItem("gameCoins", localStorage.getItem("storeCoins"));
