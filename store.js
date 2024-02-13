@@ -18,6 +18,9 @@ buyItem1.addEventListener("click", ()=>{
         localStorage.setItem("storeCoins", localStorage.getItem("storeCoins") - 100);
         coinsLabel.innerHTML = "" + gameCoins;
         localStorage.setItem("damage", 800);
+        buyItem1.innerHTML = "Bought";
+        buyItem1.style.pointerEvents = "none";
+        buyItem1.style.background = "lightgray";
     }
 })
 
@@ -27,6 +30,9 @@ buyItem2.addEventListener("click", ()=>{
         localStorage.setItem("storeCoins", localStorage.getItem("storeCoins") - 150);
         coinsLabel.innerHTML = "" + gameCoins;
         localStorage.setItem("damage", 1000);
+        buyItem2.innerHTML = "Bought";
+        buyItem2.style.pointerEvents = "none";
+        buyItem2.style.background = "lightgray";
     }
 })
 
@@ -36,5 +42,8 @@ buyItem3.addEventListener("click", ()=>{
         localStorage.setItem("storeCoins", localStorage.getItem("storeCoins") - 250);
         coinsLabel.innerHTML = "" + gameCoins;
         localStorage.setItem("damage", 2000);
+        buyItem3.innerHTML = "Bought";
+        buyItem3.style.pointerEvents = "none";
+        buyItem3.style.background = "lightgray";
     }
 })
