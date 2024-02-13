@@ -7,18 +7,21 @@ const meter = document.querySelector(".meter");
 const meterStop = document.querySelector(".meter-stop");
 let resilienceHeading = document.querySelector(".resilience");
 //Getting the images of miner swinging
+const minerSwings = document.querySelectorAll(".miner-swing");
 const minerSwingBack = document.querySelector(".miner-swing-back");
 const minerSwingBackToUp = document.querySelector(".miner-swing-back-to-up");
 const minerSwingUp = document.querySelector(".miner-swing-up");
 const minerSwingUpToFront = document.querySelector(".miner-swing-up-to-front");
 const minerSwingFront = document.querySelector(".miner-swing-front");
 const minerSwing = document.querySelectorAll(".mine-swing");
+
 const minerAnimation = document.querySelector(".miner-animation");
 //Get coins heading
 const coinsHeading = document.querySelector(".coins");
 let damage = 0;
 let resilience = 2000;
-let chosenBlock = null;
+let chosenBlock = blocks[0];
+let lowResilience = false;
 
 //Set gameCoins 
 localStorage.setItem("gameCoins", 600);
@@ -42,6 +45,30 @@ function getResilience(block) {
     return block.resilience;
 }
 
+function checkResilience(block){
+    if(block.resilience < 1500 && block.resilience > 1000){
+        setTimeout(()=>{
+            block.querySelector("img").src = 'images/broken-block1.png';
+        }, 500)
+    }
+    else if(block.resilience < 1000){
+        setTimeout(()=>{
+            lowResilience = true;
+            block.querySelector("img").src = 'images/broken-block2.png';
+        }, 500)
+    }
+}
+
+function blockCollapse(block){
+    setTimeout(()=>{
+        block.querySelector("img").src = 'images/broken-block3.png';
+        setTimeout(()=>{
+            block.querySelector("img").src = 'images/broken-block4.png';
+            lowResilience = false;
+        }, 300);
+    }, 500);
+}
+
 //Deal damage to a block
 function dealDamage(block, damage){
     block.resilience -= damage;
@@ -59,6 +86,8 @@ for (const block of blocks) {
         moveElementToElement(minerSwingUp, block, -10, -20);
         moveElementToElement(minerSwingUpToFront, block, -30, -20);
         moveElementToElement(minerSwingFront, block, -40, -20);
+        moveElementToElement(minerAnimation, block, -3, -25);
+
         //Hide the normal miner image and show the swing
         setTimeout(()=>{
             miner.style.visibility = "hidden";
@@ -96,23 +125,29 @@ meter.addEventListener("click", () => {
     damage = Math.round(Number(left.slice(0, -2)) / Number(width.slice(0, -2)) * 1000);
     //Add the damage
     dealDamage(chosenBlock, damage);
+    if(!lowResilience){
+        checkResilience(chosenBlock);
+    }
     //Check if the resilience is below 0 
     if(chosenBlock.resilience <= 0){
         chosenBlock.resilience = 0;
+        blockCollapse(chosenBlock);
         setTimeout(()=>{
             //Hide the window with the meter and the chosen block
-            breakingContainer.style.visibility = "hidden";
+            setTimeout(()=>{breakingContainer.style.visibility = "hidden";
             chosenBlock.style.visibility = "hidden";
             //Hide the miner swing image and show the normal image
-            minerSwingBack.style.display = "none";
+        }, 800)
             setTimeout(()=>{      
                 miner.style.visibility = "visible";
-        }, 500)
-        }, 1000)
+                minerSwingBack.style.display = "none";
+        }, 1200)
+        }, 200)
     }
 
     //Animation of the miner breaking the block
-    minerBlockBreakingAnimation();
+    setTimeout(()=>{    minerBlockBreakingAnimation();
+    }, 10)
 
     //Display the changed value of resilience
     displayResilience();
@@ -138,9 +173,9 @@ function displayResilience(){
 
 //Function for the miner breaking the block animation
 function minerBlockBreakingAnimation() {
-    // Show the first swing back
+    
     minerSwingBack.style.visibility = "visible";
-        
+        console.log("The miner is swinging");
             setTimeout(() => {
                 // Show the first swing back
                 minerSwingBack.style.visibility = "visible";
@@ -168,13 +203,13 @@ function minerBlockBreakingAnimation() {
                                             setTimeout(() => {
                                                 minerSwingBackToUp.style.visibility = "hidden";
                                                 minerSwingBack.style.visibility = "visible";
-                                            }, 60);
-                                        }, 60);
-                                    }, 60);
+                                            }, 70);
+                                        }, 70);
+                                    }, 70);
                                 }, 250);
-                            }, 60);
-                        }, 60);
-                    }, 60);
-                }, 60);
-            }, 60);
+                            }, 70);
+                        }, 70);
+                    }, 70);
+                }, 70);
+            }, 70);
         }

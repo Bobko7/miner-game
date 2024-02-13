@@ -9,26 +9,78 @@
     grid-template-rows: repeat(2, 1fr);
     position: relative;
 }
+/* Levels Link */
+.levels-link{
+    position: absolute;
+    left: 0.5em;
+    top: 0.5em;
+    z-index: 2;
+    transition: all 0.4s ease-in-out;
+    cursor: pointer;
+}
+.levels{
+    position: absolute;
+    font-size: 2em;
+    background: rgba(255, 255, 255, 0.21);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    padding: 0.5em 0.6em;
+    border: 3px solid brown;
+    border-radius: 50%;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.8);
+}
+.fa-bars{
+    filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.4));
+    color: brown;
+}
+.coins-div{
+    position: absolute;
+    align-self: flex-start;
+    justify-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.coins-image{
+    width: 5em;
+    height: 5em;
+}
 
 .coins{
-    position: absolute;
-    color:chocolate;
-    font-size: 3em;
-    margin: 0.5em;
+    font-size: 5em;
 }
 
 .store-link{
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 0.5em;
+    top: 0.5em;
     z-index: 2;
+    transition: all 0.4s ease-in-out;
+    cursor: pointer;
 }
 .store{
     position: absolute;
     right: 0;
     font-size: 2em;
+    background: rgba(255, 255, 255, 0.21);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    padding: 0.5em 0.5em;
+    border: 3px solid brown;
+    border-radius: 50%;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.8);
+}
+.fa-store{
+    filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.4));
+    color: brown;
 }
 
+.levels-link:hover, .store-link:hover{
+    transform: scale(1.1);
+}
 
 .miner{
     position: absolute;
@@ -173,8 +225,8 @@
     visibility: hidden;
     position: absolute;
     z-index: 3;
-    width: 20em;
-    height: 18em;
+    width: 18em;
+    height: 18.5em;
     left: 50%; /* Position relative to parent (.miner) */
     top: 50%; /* Position relative to parent (.miner) */
     transform: translate(-50%, -50%);
@@ -184,8 +236,10 @@
 .miner-animation{
     position: absolute;
     z-index: 3;
+    width: 18em;
+    height: 18.5em;
     visibility: hidden;
     left: 50%; /* Position relative to parent (.miner) */
     top: 50%; /* Position relative to parent (.miner) */
-    transform: translate(-50%, -50%) scale(0.1);
+    transform: translate(-50%, -50%);
 }
