@@ -1,6 +1,7 @@
-const blocks = document.querySelectorAll(".block");
-const minerContainer = document.querySelector(".miner-container");
+//Getting the miner and the blocks
 const miner = document.querySelector(".miner");
+const blocks = document.querySelectorAll(".block");
+//Getting the container with the meter
 const breakingContainer = document.querySelector(".breaking-container");
 const breakingBlock = document.querySelector(".block-to-break");
 const meter = document.querySelector(".meter");
@@ -14,31 +15,28 @@ const minerSwingUp = document.querySelector(".miner-swing-up");
 const minerSwingUpToFront = document.querySelector(".miner-swing-up-to-front");
 const minerSwingFront = document.querySelector(".miner-swing-front");
 const minerSwing = document.querySelectorAll(".mine-swing");
+/*Code for later for fixing miner animation
+const minerAnimation = document.querySelector(".miner-animation");*/
 
-const minerAnimation = document.querySelector(".miner-animation");
 //Get coins heading
 const coinsHeading = document.querySelector(".coins");
 let damage = 0;
 let resilience = 2000;
 let chosenBlock = blocks[0];
-let lowResilience = false;
+//Use this variable to see in which direction the miner
 let movingLeft = false;
-//Set gameCoins 
-localStorage.setItem("gameCoins", 600);
 
-//Set damage if it hasn't been set
+//Set gameCoins 
+if(!localStorage.getItem("coins")){
+    localStorage.setItem("coins", 0);
+}
+
+//Set max damage for the pickaxe
 if (!localStorage.getItem("damage")) {
     localStorage.setItem("damage", 500);
 }
-// Change if anything is bought in the store
-if(localStorage.getItem("gameCoins") != localStorage.getItem("storeCoins")){
-    localStorage.removeItem("gameCoins");
-    localStorage.setItem("gameCoins", localStorage.getItem("storeCoins"));
-}
-console.log(localStorage.getItem("gameCoins"));
 
-console.log(coinsHeading);
-coinsHeading.innerHTML = coinsHeading.innerHTML.slice(0, 7) + localStorage.getItem("gameCoins");
+coinsHeading.innerHTML = coinsHeading.innerHTML.slice(0, 7) + localStorage.getItem("coins");
 
 //Add resilience property to every block
 blocks.forEach((block)=>{
@@ -59,7 +57,7 @@ function checkResilience(block){
     }
     else if(block.resilience < 1000){
         setTimeout(()=>{
-            lowResilience = true;
+            block.lowResilience = true;
             block.querySelector("img").src = 'images/broken-block2.png';
         }, 500)
     }
@@ -70,7 +68,7 @@ function blockCollapse(block){
         block.querySelector("img").src = 'images/broken-block3.png';
         setTimeout(()=>{
             block.querySelector("img").src = 'images/broken-block4.png';
-            lowResilience = false;
+            block.lowResilience = false;
         }, 300);
     }, 500);
 }
@@ -85,14 +83,16 @@ for (const block of blocks) {
     block.addEventListener('click', function () {
         chosenBlock = block;
         //Move the miner to the chosen block
-        moveElementToElement(minerSwingBack, block, 20, -20);
         moveMinerToBlock(miner, block, 0, 0);
         //Move the miner images to the same block
+        moveElementToElement(minerSwingBack, block, 20, -20);
         moveElementToElement(minerSwingBackToUp, block, 0, -20);
         moveElementToElement(minerSwingUp, block, -10, -20);
         moveElementToElement(minerSwingUpToFront, block, -30, -20);
         moveElementToElement(minerSwingFront, block, -40, -20);
-        moveElementToElement(minerAnimation, block, -3, -25);
+
+        //This is ready code for later to fix the miner animation
+        // moveElementToElement(minerAnimation, block, -3, -25);
 
         //Hide the normal miner image and show the swing
         setTimeout(()=>{
@@ -103,8 +103,6 @@ for (const block of blocks) {
             }, 10)
         }, 2500);
 
-        //Renew the resilience for every new block
-        //resilience = 2000;    
         //Display resilience on the screen
         displayResilience();
 
@@ -168,45 +166,12 @@ catch(er){};
 //Function to move some element to another element
 function moveElementToElement(elementToBeMoved, elementTarget, inaccuracyX = 0, inaccuracyY = 0){
     const targetRect = elementTarget.getBoundingClientRect();
-    const elementRect = elementToBeMoved.getBoundingClientRect();
-    /*const difference = elementRect.left - targetRect.left;
-    console.log("difference"+difference);*/
+    
     setTimeout(()=>{
         elementToBeMoved.style.top = targetRect.top + inaccuracyY + 'px';
 }, 500);
     elementToBeMoved.style.left = targetRect.left + inaccuracyX + 'px';
 }
-/*
-function moveMinerToBlock(elementToBeMoved, elementTarget, inaccuracyX = 0, inaccuracyY = 0) {
-    const targetRect = elementTarget.getBoundingClientRect();
-    const elementRect = elementToBeMoved.getBoundingClientRect();
-
-    // Define image URLs
-    const imageUrls = ['images/miner-walking-left1.png', 'images/miner-walking-left2.png'];
-
-    // Initialize image index
-    let imageIndex = 0;
-
-    // Set initial image source
-    elementToBeMoved.src = imageUrls[imageIndex];
-
-    // Clear interval and set final position after 500ms
-    setTimeout(() => {
-        clearInterval(myInterval);
-        elementToBeMoved.style.top = targetRect.top + inaccuracyY + 'px';
-    }, 500);
-
-    // Change image source every 50ms
-    let myInterval = setInterval(() => {
-        // Toggle between image URLs
-        imageIndex = (imageIndex + 1) % imageUrls.length;
-        elementToBeMoved.src = imageUrls[imageIndex];
-        console.log(imageUrls[imageIndex])
-    }, 50);
-
-    // Set target position
-    elementToBeMoved.style.left = targetRect.left + inaccuracyX + 'px';
-}*/
 
 function moveMinerToBlock(elementToBeMoved, elementTarget, inaccuracyX = 0, inaccuracyY = 0){
     const targetRect = elementTarget.getBoundingClientRect();
@@ -224,8 +189,7 @@ function moveMinerToBlock(elementToBeMoved, elementTarget, inaccuracyX = 0, inac
     else{
         movingLeft = null;
     }
-    /*const difference = elementRect.left - targetRect.left;
-    console.log("difference"+difference);*/
+    
     setTimeout(()=>{
         elementToBeMoved.src = 'images/miner.png';
         elementToBeMoved.style.width = '90em';
@@ -241,25 +205,7 @@ function moveMinerToBlock(elementToBeMoved, elementTarget, inaccuracyX = 0, inac
     elementToBeMoved.style.width = '200em';
     elementToBeMoved.style.height = '200em';
 }
-/*function moveMinerToBlock(elementToBeMoved, elementTarget){
-    const targetRect = elementTarget.getBoundingClientRect();
-    const elementRect = elementToBeMoved.getBoundingClientRect();
-    const difference = elementRect.left - targetRect.left;
-    steps = Math.round(difference/20);
-    step = 1;
-    while(step < steps){
-        setTimeout(()=>{
-            if(    elementToBeMoved.src != 'images/miner-walking-left1.png'){
-                elementToBeMoved.src = 'images/miner-walking-left1.png';
-            }
-            else{
-                elementToBeMoved.src = 'images/mine-walking-left2.png';
-            }
-            step++;
-        }, 300)
-    }
-}*/
-
+    
 //Function to show block's resilience on the screen
 function displayResilience(){
     resilienceHeading.innerHTML = resilienceHeading.innerHTML.slice(0, 11) + " " + chosenBlock.resilience;

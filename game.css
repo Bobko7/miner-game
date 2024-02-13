@@ -234,13 +234,13 @@
     pointer-events: none;
 }
 
+/*This is ready code for later to fix the miner animation
 .miner-animation{
     position: absolute;
     z-index: 3;
     width: 18em;
     height: 18.5em;
-    visibility: hidden;
-    left: 50%; /* Position relative to parent (.miner) */
-    top: 50%; /* Position relative to parent (.miner) */
+    left: 50%; 
+    top: 50%; 
     transform: translate(-50%, -50%);
-}
+}*/
