@@ -22,9 +22,15 @@ let damage = 0;
 let resilience = 2000;
 let chosenBlock = blocks[0];
 let lowResilience = false;
-
+let movingLeft = false;
+let movingRight = false;
 //Set gameCoins 
 localStorage.setItem("gameCoins", 600);
+
+//Set damage if it hasn't been set
+if (!localStorage.getItem("damage")) {
+    localStorage.setItem("damage", 500);
+}
 // Change if anything is bought in the store
 if(localStorage.getItem("gameCoins") != localStorage.getItem("storeCoins")){
     localStorage.removeItem("gameCoins");
@@ -38,6 +44,7 @@ coinsHeading.innerHTML = coinsHeading.innerHTML.slice(0, 7) + localStorage.getIt
 //Add resilience property to every block
 blocks.forEach((block)=>{
     block.resilience = 2000;
+    block.lowResilience = false;
 })
 
 //Get the resilience of a chosen block
@@ -79,9 +86,9 @@ for (const block of blocks) {
     block.addEventListener('click', function () {
         chosenBlock = block;
         //Move the miner to the chosen block
-        moveElementToElement(miner, block);
-        //Move the miner images to the same block
         moveElementToElement(minerSwingBack, block, 20, -20);
+        moveMinerToBlock(miner, block, 0, 0);
+        //Move the miner images to the same block
         moveElementToElement(minerSwingBackToUp, block, 0, -20);
         moveElementToElement(minerSwingUp, block, -10, -20);
         moveElementToElement(minerSwingUpToFront, block, -30, -20);
@@ -95,7 +102,7 @@ for (const block of blocks) {
                 minerSwingBack.style.visibility = "visible";
                 minerSwingBack.style.display = "inline-block";
             }, 500)
-        }, 800);
+        }, 2800);
 
         //Renew the resilience for every new block
         //resilience = 2000;    
@@ -122,10 +129,10 @@ meter.addEventListener("click", () => {
     const left = meterStopStyle.getPropertyValue("left");
     //Calculate and show the damage 
     //Formula: traveledDistance / wholeWidth * maxDamage; (Calculate the percentage that the stop has traveled and use this percentage as a measure for the damage)
-    damage = Math.round(Number(left.slice(0, -2)) / Number(width.slice(0, -2)) * 1000);
+    damage = Math.round(Number(left.slice(0, -2)) / Number(width.slice(0, -2)) * localStorage.getItem("damage"));
     //Add the damage
     dealDamage(chosenBlock, damage);
-    if(!lowResilience){
+    if(!chosenBlock.lowResilience){
         checkResilience(chosenBlock);
     }
     //Check if the resilience is below 0 
@@ -162,9 +169,81 @@ catch(er){};
 //Function to move some element to another element
 function moveElementToElement(elementToBeMoved, elementTarget, inaccuracyX = 0, inaccuracyY = 0){
     const targetRect = elementTarget.getBoundingClientRect();
-    setTimeout(()=>{elementToBeMoved.style.top = targetRect.top + inaccuracyY + 'px';}, 500);
+    const elementRect = elementToBeMoved.getBoundingClientRect();
+    /*const difference = elementRect.left - targetRect.left;
+    console.log("difference"+difference);*/
+    setTimeout(()=>{
+        elementToBeMoved.style.top = targetRect.top + inaccuracyY + 'px';
+}, 500);
     elementToBeMoved.style.left = targetRect.left + inaccuracyX + 'px';
 }
+/*
+function moveMinerToBlock(elementToBeMoved, elementTarget, inaccuracyX = 0, inaccuracyY = 0) {
+    const targetRect = elementTarget.getBoundingClientRect();
+    const elementRect = elementToBeMoved.getBoundingClientRect();
+
+    // Define image URLs
+    const imageUrls = ['images/miner-walking-left1.png', 'images/miner-walking-left2.png'];
+
+    // Initialize image index
+    let imageIndex = 0;
+
+    // Set initial image source
+    elementToBeMoved.src = imageUrls[imageIndex];
+
+    // Clear interval and set final position after 500ms
+    setTimeout(() => {
+        clearInterval(myInterval);
+        elementToBeMoved.style.top = targetRect.top + inaccuracyY + 'px';
+    }, 500);
+
+    // Change image source every 50ms
+    let myInterval = setInterval(() => {
+        // Toggle between image URLs
+        imageIndex = (imageIndex + 1) % imageUrls.length;
+        elementToBeMoved.src = imageUrls[imageIndex];
+        console.log(imageUrls[imageIndex])
+    }, 50);
+
+    // Set target position
+    elementToBeMoved.style.left = targetRect.left + inaccuracyX + 'px';
+}*/
+
+function moveMinerToBlock(elementToBeMoved, elementTarget, inaccuracyX = 0, inaccuracyY = 0){
+    const targetRect = elementTarget.getBoundingClientRect();
+    const elementRect = elementToBeMoved.getBoundingClientRect();
+    /*const difference = elementRect.left - targetRect.left;
+    console.log("difference"+difference);*/
+    setTimeout(()=>{
+        elementToBeMoved.src = 'images/miner.png';
+        elementToBeMoved.style.width = '90em';
+        elementToBeMoved.style.height = '180em';
+        elementToBeMoved.style.top = targetRect.top + inaccuracyY + 'px';
+}, 2000);
+
+    elementToBeMoved.style.left = targetRect.left + inaccuracyX + 'px';
+    elementToBeMoved.src = 'images/miner-walk-left.gif';
+elementToBeMoved.style.width = '200em';
+elementToBeMoved.style.height = '200em';
+}
+/*function moveMinerToBlock(elementToBeMoved, elementTarget){
+    const targetRect = elementTarget.getBoundingClientRect();
+    const elementRect = elementToBeMoved.getBoundingClientRect();
+    const difference = elementRect.left - targetRect.left;
+    steps = Math.round(difference/20);
+    step = 1;
+    while(step < steps){
+        setTimeout(()=>{
+            if(    elementToBeMoved.src != 'images/miner-walking-left1.png'){
+                elementToBeMoved.src = 'images/miner-walking-left1.png';
+            }
+            else{
+                elementToBeMoved.src = 'images/mine-walking-left2.png';
+            }
+            step++;
+        }, 300)
+    }
+}*/
 
 //Function to show block's resilience on the screen
 function displayResilience(){

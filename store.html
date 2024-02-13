@@ -7,28 +7,41 @@
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="store.css">
     <script src="store.js" type="module" defer></script>
+    <script src="https://kit.fontawesome.com/94421114f4.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="store-container">
-    <a href="game.html" class="store-to-game-link"><h1>Return</h1></a>
-    <h1 class="coins">Coins: </h1>
-    <div class="items">
+    <!-- <div class="items"> -->
     <div class="item1">
-        <h1>100coins</h1>
-        <h1 class="pickaxe-store-item">Pickaxe 1</h1>
-        <button class="buy-item1">buy</button>
+        <div class="links">
+            <a href="game.html" class="store-to-game-link">
+                <div class="store-to-game">
+                    <i class="fa-solid fa-gamepad"></i>
+                </div>
+            </a>
+            <div class="store-coins-container">  
+                <img src="images/coin.png" alt="" class="store-coin-image">
+                   <h1 class="store-coins"></h1> 
+            </div>
+        </div>
+        <h1 class="store-price">100coins</h1>
+        <img src="images/store-pickaxe1.png" alt="" class="store-pickaxe">
+        <button class="buy-item1 store-buy-button">Buy</button>
+        <img src="images/store-shelf.png" alt="" class="store-shelf">
     </div>
     <div class="item2">
-        <h1>150coins</h1>
-        <h1 class="pickaxe-store-item">Pickaxe 2</h1>
-        <button class="buy-item2">buy</button>
+        <h1 class="store-price">150coins</h1>
+        <img src="images/store-pickaxe2.png" alt="" class="store-pickaxe">
+        <button class="buy-item2 store-buy-button">Buy</button>
+        <img src="images/store-shelf.png" alt="" class="store-shelf">
     </div>
     <div class="item3">
-        <h1>250 coins</h1>
-        <h1 class="pickaxe-store-item">Pickaxe 3</h1>
-        <button class="buy-item3">buy</button>
+        <h1 class="store-price">250 coins</h1>
+        <img src="images/store-pickaxe3.png" alt="" class="store-pickaxe">
+        <button class="buy-item3 store-buy-button">Buy</button>
+        <img src="images/store-shelf.png" alt="" class="store-shelf">
     </div>
-</div>
+<!-- </div> -->
 </div>
 </body>
 </html>

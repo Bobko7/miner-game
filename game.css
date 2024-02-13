@@ -34,6 +34,7 @@
     filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.4));
     color: brown;
 }
+/* Coins */
 .coins-div{
     position: absolute;
     align-self: flex-start;
@@ -51,7 +52,7 @@
 .coins{
     font-size: 5em;
 }
-
+/* Store link */
 .store-link{
     position: absolute;
     right: 0.5em;
@@ -90,7 +91,7 @@
     scale(0.1);
     cursor: pointer;
     filter: drop-shadow( 0px 0px 2em black);
-    transition: all 0.4s ease-in-out;
+    transition: left 2s ease-in-out;
     transform-origin: center center;
     z-index: 1;
 }
