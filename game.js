@@ -23,7 +23,6 @@ let resilience = 2000;
 let chosenBlock = blocks[0];
 let lowResilience = false;
 let movingLeft = false;
-let movingRight = false;
 //Set gameCoins 
 localStorage.setItem("gameCoins", 600);
 
@@ -101,8 +100,8 @@ for (const block of blocks) {
             setTimeout(()=>{
                 minerSwingBack.style.visibility = "visible";
                 minerSwingBack.style.display = "inline-block";
-            }, 500)
-        }, 2800);
+            }, 10)
+        }, 2500);
 
         //Renew the resilience for every new block
         //resilience = 2000;    
@@ -212,6 +211,19 @@ function moveMinerToBlock(elementToBeMoved, elementTarget, inaccuracyX = 0, inac
 function moveMinerToBlock(elementToBeMoved, elementTarget, inaccuracyX = 0, inaccuracyY = 0){
     const targetRect = elementTarget.getBoundingClientRect();
     const elementRect = elementToBeMoved.getBoundingClientRect();
+
+    const distanceX = targetRect.left - elementToBeMoved.getBoundingClientRect().left;
+    console.log(distanceX);
+    // Check the direction of movement
+    if(distanceX > 0){
+        movingLeft = false;
+    }
+    else if(distanceX < 0){
+        movingLeft = true;
+    }
+    else{
+        movingLeft = null;
+    }
     /*const difference = elementRect.left - targetRect.left;
     console.log("difference"+difference);*/
     setTimeout(()=>{
@@ -222,9 +234,12 @@ function moveMinerToBlock(elementToBeMoved, elementTarget, inaccuracyX = 0, inac
 }, 2000);
 
     elementToBeMoved.style.left = targetRect.left + inaccuracyX + 'px';
+    if(movingLeft)
     elementToBeMoved.src = 'images/miner-walk-left.gif';
-elementToBeMoved.style.width = '200em';
-elementToBeMoved.style.height = '200em';
+    else if(!movingLeft)
+    elementToBeMoved.src = 'images/miner-walk-right.gif';
+    elementToBeMoved.style.width = '200em';
+    elementToBeMoved.style.height = '200em';
 }
 /*function moveMinerToBlock(elementToBeMoved, elementTarget){
     const targetRect = elementTarget.getBoundingClientRect();
