@@ -53,6 +53,8 @@ function saveBlockData() {
     localStorage.setItem('blocksData', blocksData);
     console.log(blocksData);
 }
+
+//When the damage to a block is dealt, save the data in the localStorage
 function saveDamageData(){
     let blockss = JSON.parse(localStorage.getItem("blocksData"));
     console.log((blockss[indexOfChosenBlock].resilience - damage) < 0 + 'Checking the if of saveDamageData')
@@ -72,6 +74,7 @@ else{
     console.log(localStorage.getItem('blocksData'));
 }
 // Assuming you have an array of blocks obtained from querySelectorAll
+
 // Initialize blocks array if it's not already in localStorage
 if (!localStorage.getItem('blocksData')) {
     // Initialize blocks array with default values
@@ -90,6 +93,8 @@ if (!localStorage.getItem('blocksData')) {
     blocksSecond = JSON.parse(blocksData);
 }
 // Use the blocks array in your game logic...
+
+//When the page is loaded check if there are broken blocks from the last session
 const resilienceBetween1000and1500 = [];
 const resilienceBetween0and1000 = [];
 const resilience0 = [];
@@ -106,6 +111,8 @@ blocksSecond.forEach((block, index)=>{
     }
 });
 console.log(resilienceBetween1000and1500, resilienceBetween0and1000, resilience0);
+
+//When the page is loaded display the respective images for the broken blocks
 blocks.forEach((block, index)=>{
     if(resilienceBetween1000and1500.includes(index)){
         block.querySelector("img").src = 'images/broken-block1.png';
@@ -114,7 +121,7 @@ blocks.forEach((block, index)=>{
         block.querySelector("img").src = 'images/broken-block2.png';
     }
     else if(resilience0.includes(index)){
-        block.querySelector("img").src = '';
+        block.style.visibility = "hidden";
     }
 })
 
