@@ -14,7 +14,7 @@ buyItem1.addEventListener("click", ()=>{
         gameCoins -= 100;
         localStorage.setItem("coins", localStorage.getItem("coins") - 100);
         coinsLabel.innerHTML = "" + gameCoins;
-        localStorage.setItem("damage", 800);
+        localStorage.setItem("maxDamage", 800);
         buyItem1.innerHTML = "Bought";
         buyItem1.style.pointerEvents = "none";
         buyItem1.style.background = "lightgray";
@@ -26,7 +26,7 @@ buyItem2.addEventListener("click", ()=>{
         gameCoins -= 150;
         localStorage.setItem("coins", localStorage.getItem("coins") - 150);
         coinsLabel.innerHTML = "" + gameCoins;
-        localStorage.setItem("damage", 1000);
+        localStorage.setItem("maxDamage", 1000);
         buyItem2.innerHTML = "Bought";
         buyItem2.style.pointerEvents = "none";
         buyItem2.style.background = "lightgray";
@@ -38,7 +38,7 @@ buyItem3.addEventListener("click", ()=>{
         gameCoins -= 250;
         localStorage.setItem("coins", localStorage.getItem("coins") - 250);
         coinsLabel.innerHTML = "" + gameCoins;
-        localStorage.setItem("damage", 2000);
+        localStorage.setItem("maxDamage", 2000);
         buyItem3.innerHTML = "Bought";
         buyItem3.style.pointerEvents = "none";
         buyItem3.style.background = "lightgray";
