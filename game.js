@@ -18,6 +18,7 @@ const minerSwingFront = document.querySelector(".miner-swing-front");
 const minerSwing = document.querySelectorAll(".mine-swing");
 /*Code for later for fixing miner animation
 const minerAnimation = document.querySelector(".miner-animation");*/
+//This is the index of the block the user chooses
 let indexOfChosenBlock;
 //Get coins heading
 const coinsHeading = document.querySelector(".coins");
@@ -44,34 +45,25 @@ coinsHeading.innerHTML = coinsHeading.innerHTML.slice(0, 7) + localStorage.getIt
 })*/
 
 
-// Function to save block data to localStorage
+// Function to save blocks data to localStorage
 function saveBlockData() {
     // Serialize the blocks array into a JSON string
     let blocksData = JSON.stringify(blocksSecond);
-    
-    // Save the JSON string to lo+calStorage
+    // Save the JSON string to localStorage
     localStorage.setItem('blocksData', blocksData);
-    console.log(blocksData);
 }
 
 //When the damage to a block is dealt, save the data in the localStorage
 function saveDamageData(){
-    let blockss = JSON.parse(localStorage.getItem("blocksData"));
-    console.log((blockss[indexOfChosenBlock].resilience - damage) < 0 + 'Checking the if of saveDamageData')
-    console.log("check again" + blockss[indexOfChosenBlock].resilience, damage)
-    console.log('check again again ' + !((blockss[indexOfChosenBlock].resilience - damage) < 0))
-    if(!((blockss[indexOfChosenBlock].resilience - damage) <= 0)){
-        console.log("I'm in the if of saveDamageData");
-    blockss[indexOfChosenBlock].resilience -= damage;
+    let blocksData = getBlocksData();
+    if(!((blocksData[indexOfChosenBlock].resilience - damage) <= 0)){
+        blocksData[indexOfChosenBlock].resilience -= damage;
     }
-else{
-    console.log('Im in the else of saveDamageData')
-    blockss[indexOfChosenBlock].resilience = 0;
-
-}
+    else{
+        blocksData[indexOfChosenBlock].resilience = 0;
+    }
     // Save the JSON string to localStorage
-    localStorage.setItem('blocksData', JSON.stringify(blockss));
-    console.log(localStorage.getItem('blocksData'));
+    localStorage.setItem('blocksData', JSON.stringify(blocksData));
 }
 // Assuming you have an array of blocks obtained from querySelectorAll
 
@@ -82,14 +74,12 @@ if (!localStorage.getItem('blocksData')) {
         block.resilience = 2000;
         block.lowResilience = false;
     });
-    console.log("I'm in the if statement");
     // Save initial block data to localStorage
     saveBlockData();
 } else {
     // Retrieve blocks data from localStorage
     let blocksData = localStorage.getItem('blocksData');
     // Parse JSON string back into blocks array
-    console.log("I'm in the else statement!");
     blocksSecond = JSON.parse(blocksData);
 }
 // Use the blocks array in your game logic...
@@ -110,8 +100,11 @@ blocksSecond.forEach((block, index)=>{
         resilience0.push(index);
     }
 });
-console.log(resilienceBetween1000and1500, resilienceBetween0and1000, resilience0);
 
+//Get the block data
+function getBlocksData(){
+    return JSON.parse(localStorage.getItem("blocksData"));
+}
 //When the page is loaded display the respective images for the broken blocks
 blocks.forEach((block, index)=>{
     if(resilienceBetween1000and1500.includes(index)){
@@ -127,15 +120,13 @@ blocks.forEach((block, index)=>{
 
 //Check for the resilience and change the image accordingly
 function checkResilience(block){
-    console.log("I'm in check resilience function");
-    console.log(block);
-    if(JSON.parse(localStorage.getItem('blocksData'))[indexOfChosenBlock].resilience < 1500 && JSON.parse(localStorage.getItem('blocksData'))[indexOfChosenBlock].resilience > 1000){
-        console.log("I'm in check resilience if")
+    let blockResilience = getBlocksData()[indexOfChosenBlock].resilience;
+    if(blockResilience < 1500 && blockResilience > 1000){
         setTimeout(()=>{
             block.querySelector("img").src = 'images/broken-block1.png';
         }, 500)
     }
-    else if(JSON.parse(localStorage.getItem('blocksData'))[indexOfChosenBlock].resilience < 1000){
+    else if(blockResilience < 1000){
         setTimeout(()=>{
             block.lowResilience = true;
             block.querySelector("img").src = 'images/broken-block2.png';
@@ -154,18 +145,11 @@ function blockCollapse(block){
     }, 500);
 }
 
-//Deal damage to a block
-function dealDamage(block, damage){
-    block.resilience -= damage;
-    //saveBlockData(); // Save updated block data to localStorage
-}
-
 // Apply the transition on click for each block
 blocks.forEach((block, index) => {
     block.addEventListener('click', function () {
         chosenBlock = block;
         indexOfChosenBlock = index;
-        console.log("index of chosen block" + indexOfChosenBlock);
         //Move the miner to the chosen block
         moveMinerToBlock(miner, block, 0, 0);
         //Move the miner images to the same block
@@ -210,8 +194,7 @@ meter.addEventListener("click", () => {
     //Calculate and show the damage 
     //Formula: traveledDistance / wholeWidth * maxDamage; (Calculate the percentage that the stop has traveled and use this percentage as a measure for the damage)
     damage = Math.round(Number(left.slice(0, -2)) / Number(width.slice(0, -2)) * localStorage.getItem("maxDamage"));
-    //Add the damage
-    dealDamage(chosenBlock, damage);
+    //Deal the damage
     saveDamageData();
     if(!chosenBlock.lowResilience){
         checkResilience(chosenBlock);
@@ -281,12 +264,11 @@ function moveMinerToBlock(elementToBeMoved, elementTarget, inaccuracyX = 0, inac
         elementToBeMoved.style.height = '180em';
         elementToBeMoved.style.top = targetRect.top + inaccuracyY + 'px';
 }, 2000);
-
     elementToBeMoved.style.left = targetRect.left + inaccuracyX + 'px';
     if(movingLeft)
-    elementToBeMoved.src = 'images/miner-walk-left.gif';
+    elementToBeMoved.src = 'images/miner-walking-left-fast.gif';
     else if(!movingLeft)
-    elementToBeMoved.src = 'images/miner-walk-right.gif';
+    elementToBeMoved.src = 'images/miner-walking-right-animation-fast.gif';
     elementToBeMoved.style.width = '200em';
     elementToBeMoved.style.height = '200em';
 }
@@ -338,3 +320,6 @@ function minerBlockBreakingAnimation() {
                 }, 70);
             }, 70);
         }
+
+        // const img1 = document.createElement("img");
+        // img1.src = 'images/c'
