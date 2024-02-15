@@ -30,13 +30,15 @@ let movingLeft = false;
 if(!localStorage.getItem("coins")){
     localStorage.setItem("coins", 0);
 }
-
 //Set max damage for the pickaxe
 if (!localStorage.getItem("maxDamage")) {
     localStorage.setItem("maxDamage", 500);
 }
 //Show the coins in the game page
-coinsHeading.innerHTML = coinsHeading.innerHTML.slice(0, 7) + localStorage.getItem("coins");
+function showCoins(){
+    coinsHeading.innerHTML = localStorage.getItem("coins");
+}
+showCoins();
 //Add resilience property to every block
 /*blocks.forEach((block)=>{
     if(!block.resilience)
@@ -205,8 +207,11 @@ meter.addEventListener("click", () => {
         blockCollapse(chosenBlock);
         setTimeout(()=>{
             //Hide the window with the meter and the chosen block
-            setTimeout(()=>{breakingContainer.style.visibility = "hidden";
+            setTimeout(()=>{
+            breakingContainer.style.visibility = "hidden";
             chosenBlock.style.visibility = "hidden";
+            checkSpecialBlocks();
+            showCoins();
             //Hide the miner swing image and show the normal image
         }, 800)
             setTimeout(()=>{      
@@ -321,5 +326,78 @@ function minerBlockBreakingAnimation() {
             }, 70);
         }
 
-        // const img1 = document.createElement("img");
-        // img1.src = 'images/c'
+        let firstSpecialBlock, secondSpecialBlock, thirdSpecialBlock;
+        const img1 = document.createElement("img");
+        img1.src = 'images/coin-alexander-the-great.png';
+        img1.style.zIndex = "-1";
+        img1.style.position = "absolute";
+        const img2 = document.createElement("img");
+        img2.src = 'images/coin-julius-caesar.png';
+        img2.style.position = "absolute";
+        img2.style.zIndex = "-1";
+        const img3 = document.createElement("img");
+        img3.src = 'images/ancient-pot.png';
+        img3.style.position = "absolute";
+        img3.style.zIndex = "-1";
+        img3.style.transform = "scale(0.7)";
+        let firstRandomNum, secondRandomNum, thirdRandomNum;
+        blocks[10].appendChild(img1);
+        function createRandomBetween0and17(){
+            return Math.floor(Math.random() * 18);
+        }
+        function hideImagesRandom(){
+            let randomNums = [];
+            let random = createRandomBetween0and17();
+            firstRandomNum = random;
+            console.log("First random: " + random);
+            firstSpecialBlock = blocks[random];
+            let secondRandom = false;
+            let thirdRandom = false;
+            randomNums.push(random);
+            blocks[random].appendChild(img1);
+            while(!secondRandom){
+                random = createRandomBetween0and17();
+                if(randomNums.includes(random)){
+                    continue;
+                }
+                else{
+                    blocks[random].appendChild(img2);
+                    console.log("Second random: " + random);
+                    secondRandom = true;
+                    secondSpecialBlock = blocks[random];
+                    secondRandomNum = random;
+                }
+            }
+            while(!thirdRandom){
+                random = createRandomBetween0and17();
+                if(randomNums.includes(random)){
+                    continue;
+                }
+                else{
+                    blocks[random].appendChild(img3);
+                    console.log("Third random: " + random);
+                    thirdSpecialBlock = blocks[random];
+                    thirdRandom = true;
+                    thirdRandomNum = random;
+                }
+            }
+        }
+        hideImagesRandom();
+
+        function checkSpecialBlocks(){
+            if(Array.from(blocks).indexOf(chosenBlock) == firstRandomNum){
+                console.log(Number(localStorage.getItem("coins")) + 30);
+                localStorage.setItem("coins", Number(localStorage.getItem("coins")) + 30);
+            }
+            else if(Array.from(blocks).indexOf(chosenBlock) == secondRandomNum){
+                console.log(typeof Number(localStorage.getItem("coins")) + 50);
+
+                localStorage.setItem("coins", Number(localStorage.getItem("coins")) + 50);
+            }
+            else if(Array.from(blocks).indexOf(chosenBlock) == thirdRandomNum){
+                console.log(typeof Number(localStorage.getItem("coins")) + 70);
+
+                localStorage.setItem("coins", Number(localStorage.getItem("coins")) + 70);
+            }
+        }
+
