@@ -18,15 +18,22 @@ const minerSwingFront = document.querySelector(".miner-swing-front");
 const minerSwing = document.querySelectorAll(".mine-swing");
 /*Code for later for fixing miner animation
 const minerAnimation = document.querySelector(".miner-animation");*/
+//These are the artifacts of the first level
+const artifactContainer = document.querySelector(".artifact-container");
+const artifactImage = document.querySelector('.artifact-image');
+const artifactName = document.querySelector('.artifact-name');
+const artifactInfo = document.querySelector('.artifact-info');
 //This is the index of the block the user chooses
 let indexOfChosenBlock;
 //Get coins heading
 const coinsHeading = document.querySelector(".coins");
 let damage = 0;
 let chosenBlock = blocks[0];
+let currentArtifact = null;
 //Use this variable to see in which direction the miner should move
 let movingLeft = false;
 //Set gameCoins 
+localStorage.removeItem("blocksData");
 if(!localStorage.getItem("coins")){
     localStorage.setItem("coins", 0);
 }
@@ -197,6 +204,7 @@ meter.addEventListener("click", () => {
     //Formula: traveledDistance / wholeWidth * maxDamage; (Calculate the percentage that the stop has traveled and use this percentage as a measure for the damage)
     damage = Math.round(Number(left.slice(0, -2)) / Number(width.slice(0, -2)) * localStorage.getItem("maxDamage"));
     //Deal the damage
+    console.log(currentArtifact + "this is the current artifact of the hit")
     saveDamageData();
     if(!chosenBlock.lowResilience){
         checkResilience(chosenBlock);
@@ -208,9 +216,10 @@ meter.addEventListener("click", () => {
         setTimeout(()=>{
             //Hide the window with the meter and the chosen block
             setTimeout(()=>{
+                checkSpecialBlocks();
+                showArtifactInfo(currentArtifact);
             breakingContainer.style.visibility = "hidden";
             chosenBlock.style.visibility = "hidden";
-            checkSpecialBlocks();
             showCoins();
             //Hide the miner swing image and show the normal image
         }, 800)
@@ -340,12 +349,51 @@ function minerBlockBreakingAnimation() {
         img3.style.position = "absolute";
         img3.style.zIndex = "-1";
         img3.style.transform = "scale(0.7)";
-        let firstRandomNum, secondRandomNum, thirdRandomNum;
+        let artifactsIndexes = [];
+        if (!localStorage.getItem('levelOneArtifactsIndexes')) {
+            // Initialize blocks array with default values
+            //create and save them in local storage
+            let randomNums = [];
+            let random = createRandomBetween0and17();
+            let secondRandom = false;
+            let thirdRandom = false;
+            randomNums.push(random);
+            while(!secondRandom){
+                random = createRandomBetween0and17();
+                if(randomNums.includes(random)){
+                    continue;
+                }
+                else{
+                    secondRandom = true;
+                    randomNums.push(random);
+                }
+            }
+            while(!thirdRandom){
+                random = createRandomBetween0and17();
+                if(randomNums.includes(random)){
+                    continue;
+                }
+                else{
+                    thirdRandom = true;
+                    randomNums.push(random);
+                }
+            }
+            localStorage.setItem("levelOneArtifactsIndexes", JSON.stringify(randomNums));
+        }
+        else{
+            // Retrieve blocks data from localStorage
+            artifactsIndexes = JSON.parse(localStorage.getItem("levelOneArtifactsIndexes"));
+        }
         blocks[10].appendChild(img1);
         function createRandomBetween0and17(){
             return Math.floor(Math.random() * 18);
         }
+        console.log(artifactsIndexes[0], artifactsIndexes[1], artifactsIndexes[2] + ' these are the indexes')
         function hideImagesRandom(){
+            blocks[artifactsIndexes[0]].appendChild(img1);
+            blocks[artifactsIndexes[1]].appendChild(img2);
+            blocks[artifactsIndexes[2]].appendChild(img3);
+            /*
             let randomNums = [];
             let random = createRandomBetween0and17();
             firstRandomNum = random;
@@ -380,24 +428,57 @@ function minerBlockBreakingAnimation() {
                     thirdRandom = true;
                     thirdRandomNum = random;
                 }
-            }
+            }*/
         }
         hideImagesRandom();
 
         function checkSpecialBlocks(){
-            if(Array.from(blocks).indexOf(chosenBlock) == firstRandomNum){
+            console.log("I'm in checkSpecialBlocks");
+            Array.from(blocks).indexOf(chosenBlock) == artifactsIndexes[0]
+            if(Array.from(blocks).indexOf(chosenBlock) == artifactsIndexes[0]){
                 console.log(Number(localStorage.getItem("coins")) + 30);
                 localStorage.setItem("coins", Number(localStorage.getItem("coins")) + 30);
+                currentArtifact = img1;
+                console.log(currentArtifact);
             }
-            else if(Array.from(blocks).indexOf(chosenBlock) == secondRandomNum){
+            else if(Array.from(blocks).indexOf(chosenBlock) == artifactsIndexes[1]){
                 console.log(typeof Number(localStorage.getItem("coins")) + 50);
-
                 localStorage.setItem("coins", Number(localStorage.getItem("coins")) + 50);
+                currentArtifact = img2;
             }
-            else if(Array.from(blocks).indexOf(chosenBlock) == thirdRandomNum){
+            else if(Array.from(blocks).indexOf(chosenBlock) == artifactsIndexes[2]){
                 console.log(typeof Number(localStorage.getItem("coins")) + 70);
-
                 localStorage.setItem("coins", Number(localStorage.getItem("coins")) + 70);
+                currentArtifact = img3;
             }
         }
+
+        function showArtifactInfo(artifact){
+            console.log("I'n in show artifact info");
+            console.log("This is the artifact" + artifact);
+            if(artifact == img1){
+                artifactContainer.style.visibility = "visible";
+                artifactImage.src = img1.src;
+                artifactName.innerHTML = 'Golden coin of Alexander the great';
+                artifactInfo.innerHTML = "This is a coin of great emperor of Ancient Greece Alexander the Great!";
+            }
+            else if(artifact == img2){
+                artifactContainer.style.visibility = "visible";
+                artifactImage.src = img2.src;
+                artifactName.innerHTML = 'Silver coin of Julius Caesar';
+                artifactInfo.innerHTML = "This is a coin of great emperor Julius Caesar!";
+            }
+            else if(artifact == img3){
+                artifactContainer.style.visibility = "visible";
+                artifactImage.src = img3.src;
+                artifactName.innerHTML = 'The pot of Mesungii Harasfati';
+                artifactInfo.innerHTML = "This is the pot from which Mesungii Harsfati drank his wine!";
+            }
+        }
+        
+window.addEventListener("click", ()=>{
+    artifactContainer.style.visibility = "hidden";
+    currentArtifact = null;
+})
+
 
