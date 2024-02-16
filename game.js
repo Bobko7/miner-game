@@ -61,7 +61,7 @@ const minerSwingsContainer = document.querySelector(".miner-swings-container");
 //try to preload some images
 // Function to preload images
 // Function to preload images
-window.addEventListener("load", ()=>{
+/*window.addEventListener("load", ()=>{
     minerBlockBreakingAnimation();
     setTimeout(()=>{
         minerSwingBack.style.visibility = "hidden";
@@ -70,7 +70,7 @@ window.addEventListener("load", ()=>{
         minerSwingsContainer.style.overflow = 'visible';
         minerSwingsContainer.width = "30em";
     }, 3000)
-})
+})*/
 //Set gameCoins 
 localStorage.removeItem("blocksData");
 if(!localStorage.getItem("coins")){
@@ -299,14 +299,26 @@ function moveElementToElement(elementToBeMoved, elementTarget, inaccuracyX = 0, 
 }, 500);
     elementToBeMoved.style.left = targetRect.left + inaccuracyX + 'px';
 }
-
 //Function to move specifically the miner to a block
 function moveMinerToBlock(elementToBeMoved, elementTarget, inaccuracyX = 0, inaccuracyY = 0){
+    
+
     const targetRect = elementTarget.getBoundingClientRect();
     const distanceX = targetRect.left - elementToBeMoved.getBoundingClientRect().left;
+    console.log("This is the distance: " + distanceX);
+    let duration = 1.5 + Math.abs(distanceX) / window.innerWidth * 1.5;
+    console.log("this is the window width: " + window.innerWidth)
+    console.log("This is the duration" + duration);
+    elementToBeMoved.style.transition = `left ${duration}s ease-in-out, top 0.4s ease-in-out`;
     // Check the direction of movement
     if(distanceX > 0){
+        if(Math.round(distanceX) == 72){
+            movingLeft = null;
+            duration = 0;
+        }
+        else{
         movingLeft = false;
+        }
     }
     else if(distanceX < 0){
         movingLeft = true;
@@ -314,23 +326,20 @@ function moveMinerToBlock(elementToBeMoved, elementTarget, inaccuracyX = 0, inac
     else{
         movingLeft = null;
     }
-    
     setTimeout(()=>{
         elementToBeMoved.src = 'images/miner.png';
         elementToBeMoved.style.width = '90em';
         elementToBeMoved.style.height = '180em';
         elementToBeMoved.style.top = targetRect.top + inaccuracyY + 'px';
-}, 2000);
+}, duration * 1000);
     if(movingLeft)
     elementToBeMoved.src = 'images/miner-walking-left-fast.gif';
     else if(!movingLeft)
     elementToBeMoved.src = 'images/miner-walking-right-animation-fast.gif';
     elementToBeMoved.style.width = '200em';
     elementToBeMoved.style.height = '200em';
-    console.log("start moving");
     elementToBeMoved.style.left = targetRect.left + inaccuracyX + 'px';
     elementToBeMoved.style.zIndex = "6";
-    
 }
     
 //Function to show block's resilience on the screen
@@ -340,9 +349,7 @@ function displayResilience(){
 
 //Function for the miner breaking the block animation
 function minerBlockBreakingAnimation() {
-    
-    minerSwingBack.style.visibility = "visible";
-        console.log("The miner is swinging");
+        /*console.log("The miner is swinging");
             setTimeout(() => {
                 // Show the first swing back
                 minerSwingBack.style.visibility = "visible";
@@ -378,8 +385,46 @@ function minerBlockBreakingAnimation() {
                         }, 70);
                     }, 70);
                 }, 70);
+            }, 70);*/
+            /*window.addEventListener('DOMContentLoaded', () => {
+                // Animation code here
+            minerSwingBack.style.visibility = "visible";
+            setTimeout(() => {
+                // Show the first swing back
+                minerSwingBack.src = 'images/miner-swing-back-to-up.png';
+                setTimeout(() => {
+                    minerSwingBack.src = 'images/miner-swing-up.png'
+                    setTimeout(() => {
+                       minerSwingBack.src = 'images/miner-swing-up-to-front.png';
+                        setTimeout(() => {
+                            minerSwingBack.src = 'images/miner-swing-front.png'
+                            setTimeout(() => {
+                                minerSwingBack.src = 'images/miner-swing-up-to-front.png';
+                                setTimeout(() => {
+                                    minerSwingBack.src = 'images/miner-swing-up.png'
+                                    setTimeout(() => {
+                                        minerSwingBack.src = 'images/miner-swing-back-to-up.png'
+                                        setTimeout(() => {
+                                            minerSwingBack.src = 'images/miner-swing-back.png'
+                                            
+                                        }, 70);
+                                    }, 70);
+                                }, 250);
+                            }, 70);
+                        }, 70);
+                    }, 70);
+                }, 70);
             }, 70);
-        }
+        });*/
+        setTimeout(()=>{
+            minerSwingBack.src = 'images/miner-swing-back.png';
+            minerSwingBack.style.width = '18em';
+        minerSwingBack.style.height = '18.5em';
+        }, 1000)
+        minerSwingBack.src = 'images/breaking-animation.gif';
+        minerSwingBack.style.width = '23em';
+        minerSwingBack.style.height = '26em';
+}
 
         let firstSpecialBlock, secondSpecialBlock, thirdSpecialBlock;
         const img1 = document.createElement("img");
