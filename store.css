@@ -52,10 +52,12 @@
     top: 1.5em;
 }
 .store-coin-image{
-    width: 2em;
-    height: 2em;
+    width: 3em;
+    height: 3em;
 }
-
+.store-coins{
+    font-size: 3em;
+}
 
 .store-price{
     left: 35%;

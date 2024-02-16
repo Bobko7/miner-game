@@ -16,6 +16,29 @@ const minerSwingUp = document.querySelector(".miner-swing-up");
 const minerSwingUpToFront = document.querySelector(".miner-swing-up-to-front");
 const minerSwingFront = document.querySelector(".miner-swing-front");
 const minerSwing = document.querySelectorAll(".mine-swing");
+/*const minerSwingBack = new Image();
+
+        // Set the source of the image to the URL of the image you want to preload
+        minerSwingBack.src = 'images/miner-swing-back.png';
+
+        const minerSwingBackToUp = new Image();
+
+        // Set the source of the image to the URL of the image you want to preload
+        minerSwingBackToUp.src = 'images/miner-swing-back-to-up.png';
+
+        const minerSwingUp = new Image();
+
+        // Set the source of the image to the URL of the image you want to preload
+        minerSwingUp.src = 'images/miner-swing-up.png';
+
+        const minerSwingUpToFront= new Image();
+
+        // Set the source of the image to the URL of the image you want to preload
+        minerSwingUpToFront.src = 'images/miner-swing-front-to-up.png';
+        const minerSwingFront = new Image();
+
+        // Set the source of the image to the URL of the image you want to preload
+        minerSwingFront.src = 'images/miner-swing-front.png';*/
 /*Code for later for fixing miner animation
 const minerAnimation = document.querySelector(".miner-animation");*/
 //These are the artifacts of the first level
@@ -32,6 +55,22 @@ let chosenBlock = blocks[0];
 let currentArtifact = null;
 //Use this variable to see in which direction the miner should move
 let movingLeft = false;
+
+const minerSwingsContainer = document.querySelector(".miner-swings-container");
+
+//try to preload some images
+// Function to preload images
+// Function to preload images
+window.addEventListener("load", ()=>{
+    minerBlockBreakingAnimation();
+    setTimeout(()=>{
+        minerSwingBack.style.visibility = "hidden";
+        console.log("hide its");
+        minerSwingsContainer.style.visibility = 'visible';
+        minerSwingsContainer.style.overflow = 'visible';
+        minerSwingsContainer.width = "30em";
+    }, 3000)
+})
 //Set gameCoins 
 localStorage.removeItem("blocksData");
 if(!localStorage.getItem("coins")){
@@ -157,6 +196,9 @@ function blockCollapse(block){
 // Apply the transition on click for each block
 blocks.forEach((block, index) => {
     block.addEventListener('click', function () {
+        for(let block of blocks){
+            block.style.pointerEvents = "none";
+        }
         chosenBlock = block;
         indexOfChosenBlock = index;
         //Move the miner to the chosen block
@@ -220,6 +262,10 @@ meter.addEventListener("click", () => {
                 showArtifactInfo(currentArtifact);
             breakingContainer.style.visibility = "hidden";
             chosenBlock.style.visibility = "hidden";
+            for(let block of blocks){
+                //Unable pointer events for the blocks
+                block.style.pointerEvents = "all";
+            }
             showCoins();
             //Hide the miner swing image and show the normal image
         }, 800)
@@ -257,10 +303,7 @@ function moveElementToElement(elementToBeMoved, elementTarget, inaccuracyX = 0, 
 //Function to move specifically the miner to a block
 function moveMinerToBlock(elementToBeMoved, elementTarget, inaccuracyX = 0, inaccuracyY = 0){
     const targetRect = elementTarget.getBoundingClientRect();
-    const elementRect = elementToBeMoved.getBoundingClientRect();
-
     const distanceX = targetRect.left - elementToBeMoved.getBoundingClientRect().left;
-    console.log(distanceX);
     // Check the direction of movement
     if(distanceX > 0){
         movingLeft = false;
@@ -278,13 +321,16 @@ function moveMinerToBlock(elementToBeMoved, elementTarget, inaccuracyX = 0, inac
         elementToBeMoved.style.height = '180em';
         elementToBeMoved.style.top = targetRect.top + inaccuracyY + 'px';
 }, 2000);
-    elementToBeMoved.style.left = targetRect.left + inaccuracyX + 'px';
     if(movingLeft)
     elementToBeMoved.src = 'images/miner-walking-left-fast.gif';
     else if(!movingLeft)
     elementToBeMoved.src = 'images/miner-walking-right-animation-fast.gif';
     elementToBeMoved.style.width = '200em';
     elementToBeMoved.style.height = '200em';
+    console.log("start moving");
+    elementToBeMoved.style.left = targetRect.left + inaccuracyX + 'px';
+    elementToBeMoved.style.zIndex = "6";
+    
 }
     
 //Function to show block's resilience on the screen
