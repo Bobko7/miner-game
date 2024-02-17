@@ -58,6 +58,8 @@ let movingLeft = false;
 
 const minerSwingsContainer = document.querySelector(".miner-swings-container");
 
+//Change miner's size accordingly
+
 //try to preload some images
 // Function to preload images
 // Function to preload images
@@ -262,6 +264,8 @@ meter.addEventListener("click", () => {
                 showArtifactInfo(currentArtifact);
             breakingContainer.style.visibility = "hidden";
             chosenBlock.style.visibility = "hidden";
+            //The user gets 5 coins when he breaks a normal block
+            localStorage.setItem("coins", Number(localStorage.getItem("coins")) + 5);
             for(let block of blocks){
                 //Unable pointer events for the blocks
                 block.style.pointerEvents = "all";
@@ -328,16 +332,38 @@ function moveMinerToBlock(elementToBeMoved, elementTarget, inaccuracyX = 0, inac
     }
     setTimeout(()=>{
         elementToBeMoved.src = 'images/miner.png';
-        elementToBeMoved.style.width = '90em';
-        elementToBeMoved.style.height = '180em';
+        if(window.innerWidth > 900){
+            elementToBeMoved.style.width = '9em';
+        }
+        else if(window.innerWidth < 900 && window.innerWidth > 750){
+            elementToBeMoved.style.width = '7.5em'
+        }
+        else if(window.innerWidth < 750 && window.innerWidth > 600){
+            elementToBeMoved.style.width = '6em';
+        }
+        else if(window.innerWidth < 600){
+            elementToBeMoved.style.width = '6.5em';
+        }
+         //elementToBeMoved.style.height = '180em';
         elementToBeMoved.style.top = targetRect.top + inaccuracyY + 'px';
 }, duration * 1000);
     if(movingLeft)
     elementToBeMoved.src = 'images/miner-walking-left-fast.gif';
     else if(!movingLeft)
     elementToBeMoved.src = 'images/miner-walking-right-animation-fast.gif';
-    elementToBeMoved.style.width = '200em';
-    elementToBeMoved.style.height = '200em';
+    if(window.innerWidth > 900){
+        elementToBeMoved.style.width = '20em';
+    }
+    else if(window.innerWidth < 900 && window.innerWidth > 750){
+        elementToBeMoved.style.width = '16em';
+    }
+    else if(window.innerWidth < 750 && window.innerWidth > 600){
+        elementToBeMoved.style.width = '13em';
+    }
+    else if(window.innerWidth < 600){
+        elementToBeMoved.style.width = '13em';
+    }
+    //elementToBeMoved.style.height = '200em';
     elementToBeMoved.style.left = targetRect.left + inaccuracyX + 'px';
     elementToBeMoved.style.zIndex = "6";
 }
@@ -418,12 +444,44 @@ function minerBlockBreakingAnimation() {
         });*/
         setTimeout(()=>{
             minerSwingBack.src = 'images/miner-swing-back.png';
-            minerSwingBack.style.width = '18em';
-        minerSwingBack.style.height = '18.5em';
+            if(window.innerWidth > 900){
+                minerSwingBack.style.width = '18em';
+                minerSwingBack.style.height = '18.5em';
+            }
+            else if(window.innerWidth < 900 && window.innerWidth > 750){
+                minerSwingBack.style.width = '15em';
+                minerSwingBack.style.height = '15em';
+            }
+            else if(window.innerWidth < 750 && window.innerWidth > 600){
+                minerSwingBack.style.width = '12em';
+                minerSwingBack.style.height = '12em';
+            }
+            else if(window.innerWidth < 600){
+                minerSwingBack.style.width = '12em';
+                minerSwingBack.style.height = '12em';
+            }
+        minerSwingBack.style.transform = 'translate(-50%, -50%)';
         }, 1000)
-        minerSwingBack.src = 'images/breaking-animation.gif';
-        minerSwingBack.style.width = '23em';
-        minerSwingBack.style.height = '26em';
+        minerSwingBack.src = 'images/real-block-breaking.gif';
+        console.log(window.innerWidth);
+        if(window.innerWidth > 900){
+            minerSwingBack.style.width = '20em';
+        minerSwingBack.style.height = '20em';
+        }
+        else if(window.innerWidth < 900 && window.innerWidth > 750){
+            console.log("innerWidth is below 900")
+            minerSwingBack.style.width = '16em';
+        minerSwingBack.style.height = '16em';
+        }
+        else if(window.innerWidth < 750 && window.innerWidth > 600){
+            minerSwingBack.style.width = '13em';
+            minerSwingBack.style.height = '12.5em';
+        }
+        else if(window.innerWidth < 600){
+            minerSwingBack.style.width = '13.5em';
+            minerSwingBack.style.height = '13em';
+        }
+        minerSwingBack.style.transform = 'translate(-60%, -53%)';
 }
 
         let firstSpecialBlock, secondSpecialBlock, thirdSpecialBlock;
