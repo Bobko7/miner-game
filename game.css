@@ -1,15 +1,13 @@
 .main-container{
-    /*background-image: url('images/background.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    */
     max-width: 100%;
     height: 100vh;
     display: grid;
     grid-template-rows: repeat(2, 1fr);
     position: relative;
+    overflow: hidden;
 }
-/* Levels Link */
+
+/* Levels Link $$$$$$$$$$$$$$$$$$$$$$$*/
 .levels-link{
     position: absolute;
     left: 0.5em;
@@ -18,7 +16,7 @@
     transition: all 0.4s ease-in-out;
     cursor: pointer;
 }
-.levels{
+.levels-link-container{
     position: relative;
     font-size: 2em;
     background: rgba(255, 255, 255, 0.21);
@@ -34,7 +32,8 @@
     filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.4));
     color: brown;
 }
-/* Coins */
+
+/* Coins $$$$$$$$$$$$$$$$$$$$$$$$$$$*/
 .coins-div{
     position: absolute;
     top: 0.5em;
@@ -54,7 +53,8 @@
 .coins{
     font-size: 4em;
 }
-/* Store link */
+
+/* Store link $$$$$$$$$$$$$$$$$$$$$$$*/
 .store-link{
     position: absolute;
     right: 0.5em;
@@ -63,7 +63,7 @@
     transition: all 0.4s ease-in-out;
     cursor: pointer;
 }
-.store{
+.store-link-container{
     position: relative;
     right: 0;
     font-size: 2em;
@@ -81,32 +81,21 @@
     color: brown;
 }
 
+/* Links hover effects $$$$$$$$$$$$$$$$$$*/
 .levels-link:hover, .store-link:hover{
     transform: scale(1.1);
 }
 
-.miner{
-    position: absolute;
-    left: 50%;
-    top: 30%;
-    width: 9em;
-    transform: translate(-50%, -50%);
-    /* scale(0.1); */
-    filter: drop-shadow( 0px 0px 2em black);
-    /* transition: left 2s ease-in-out, top 0.4s ease-in-out;  */
-    transform-origin: center center;
-    z-index: 1;
-    pointer-events: none;
-}
-
+/* Setting the background $$$$$$$$$$$$$$$$$*/
 .sky{
     grid-row: span 1;
     background: url('images/try-game-background.png');
-    background-size: cover; /* This will make the image cover the width and height of the container */
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center bottom;
 }
 
+/* Styling the blocks $$$$$$$$$$$$$$$$$$$$ */
 .blocks{
     display: flex;
     align-items: center;
@@ -146,7 +135,7 @@
 
 /*Breaking the blocks*/
 .breaking-container{
-    background: rgba(249, 195, 18, 0.71);
+    background:  rgba(255, 195, 18, 0.9);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
@@ -155,7 +144,7 @@
     top: 25%;
     transform: translate(0, -50%);
     width: 40%;
-    padding: 2em 0em;
+    padding: 0em 0em 1em 0em;
     border-radius: 3em;
     z-index: 2;
     align-self: flex-start;
@@ -168,11 +157,13 @@
     transition: all 0.4s ease-in-out;
 }
 
-.breaking-container h1{
-    margin-top: 15px;
+.resilience{
     width: 100%;
-    font-size: 3em;
     text-align: center;
+    font-size: 4em;
+    color: rgb(255, 77, 0);
+    font-family: cursive;
+    margin: 0.7em;
 }
 
 .meter{
@@ -196,10 +187,11 @@
     position: absolute;
     left: 0;
     bottom: 0;
-    animation: moveMeter 1.5s infinite; /* Animation duration is 1.5 seconds */
+    animation: moveMeter 1.5s infinite;
     z-index: 2;
 }
 
+/* Animation to move the stop from the left to the right */
 @keyframes moveMeter {
     0% {
         left: 0; /* Initial position at the left */
@@ -219,11 +211,17 @@
     margin-top: auto;
 }
 
-.resilience{
-    font-size: 4em;
-    color:brown;
-    font-family: cursive;
-    margin: 0.7em;
+/* Miner styling $$$$$$$$$$$$$$$$$$$$$$$$$$$$ */
+.miner{
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    width: 9em;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow( 0px 0px 2em black);
+    transform-origin: center center;
+    z-index: 1;
+    pointer-events: none;
 }
 
 .miner-swing{
@@ -232,23 +230,13 @@
     z-index: 3;
     width: 18em;
     height: 18.5em;
-    left: 50%; /* Position relative to parent (.miner) */
-    top: 50%; /* Position relative to parent (.miner) */
+    left: 50%;
+    top: 50%;
     transform: translate(-50%, -50%);
     pointer-events: none;
 }
 
-/*This is ready code for later to fix the miner animation
-.miner-animation{
-    position: absolute;
-    z-index: 3;
-    width: 18em;
-    height: 18.5em;
-    left: 50%; 
-    top: 50%; 
-    transform: translate(-50%, -50%);
-}*/
-
+/* Artifacts styling $$$$$$$$$$$$$$$$$$$$$$$ */
 .artifact-container{
     position: absolute;
     align-self: center;
@@ -262,6 +250,7 @@
     background: white;
 }
 
+/* Media queries $$$$$$$$$$$$$$$$$$$$$$$$$$$ */
 @media only screen and (max-width: 900px) and (min-width: 750px){
     .miner{
         width: 7.5em;
