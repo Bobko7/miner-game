@@ -1,5 +1,5 @@
 //Getting the miner and the blocks
-const miner = document.querySelector(".miner-level-two");
+const miner = document.querySelector(".miner-level-three");
 let blocks = document.querySelectorAll(".block");
 let blocksSecond = [...blocks];
 //Getting the container with the meter
@@ -25,7 +25,7 @@ const artifactInfo = document.querySelector('.artifact-info');
 const coinsHeading = document.querySelector(".coins");
 
 //Remove this after finished: ease for debugging
-localStorage.removeItem("blocksData");
+localStorage.removeItem("blocksDataLevelThree");
 
 
 //Index of the block selected by the user and the block
@@ -50,30 +50,30 @@ function showCoins(){
 showCoins();
 
 //Set blocksData array if it's not already in localStorage
-if (!localStorage.getItem('blocksDataLevelTwo')) {
+if (!localStorage.getItem('blocksDataLevelThree')) {
     // Initialize blocks array with default values
     blocksSecond.forEach((block) => {
-        block.resilience = 4000;
+        block.resilience = 8000;
         block.lowResilience = false;
     });
     // Save initial block data to localStorage
     saveBlockData();
 } else {
     // Retrieve blocks data from localStorage
-    let blocksData = localStorage.getItem('blocksDataLevelTwo');
+    let blocksData = localStorage.getItem('blocksDataLevelThree');
     // Parse JSON string back into blocks array
     blocksSecond = JSON.parse(blocksData);
 }
 //Function to get the blocksData
 function getBlocksData(){
-    return JSON.parse(localStorage.getItem("blocksDataLevelTwo"));
+    return JSON.parse(localStorage.getItem("blocksDataLevelThree"));
 }
 // Function to save blocksData to localStorage
 function saveBlockData() {
     // Serialize the blocks array into a JSON string
     let blocksData = JSON.stringify(blocksSecond);
     // Save the JSON string to localStorage
-    localStorage.setItem('blocksDataLevelTwo', blocksData);
+    localStorage.setItem('blocksDataLevelThree', blocksData);
 }
 //Function to save the dealt damage data to localStorage
 function saveDamageData(){
@@ -85,7 +85,7 @@ function saveDamageData(){
         blocksData[indexOfChosenBlock].resilience = 0;
     }
     // Save the JSON string to localStorage
-    localStorage.setItem('blocksDataLevelTwo', JSON.stringify(blocksData));
+    localStorage.setItem('blocksDataLevelThree', JSON.stringify(blocksData));
 }
 
 //Set max damage for the pickaxe
@@ -230,7 +230,6 @@ meter.addEventListener("click", () => {
             setTimeout(()=>{      
                 miner.style.visibility = "visible";
                 minerSwingBack.style.display = "none";
-                unlockLevelThreeAttempt();
         }, 1200)
         }, 200)
     }
@@ -250,16 +249,6 @@ meter.addEventListener("click", () => {
 });}
 catch(er){};
 
-function unlockLevelThreeAttempt(){
-    let allHidden = true;
-    for(let block of blocks){
-        if(block.style.visibility != "hidden"){
-            allHidden = false;
-        }
-    }
-    console.log("attempt");
-    localStorage.setItem("levelTwoCleared", true);
-}
 //Function to move an element to another element
 function moveElementToElement(elementToBeMoved, elementTarget, inaccuracyX = 0, inaccuracyY = 0){
     const targetRect = elementTarget.getBoundingClientRect();

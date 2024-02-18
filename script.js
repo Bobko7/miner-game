@@ -40,5 +40,14 @@ function scrollToTopSmoothly() {
     console.log(levelTwoContainer, levelTwoLink);
     levelTwoContainer.classList.remove("chained-level");
     levelTwoLink.href = 'second.html';
+    levelTwoLink.querySelector(".chains").style.visibility = "hidden";
     console.log(levelTwoLink.src)
+  }
+
+  const levelThreeContainer = document.querySelector(".level-three");
+  const levelThreeLink = document.querySelector(".level-three-link");
+  if(localStorage.getItem("levelThreeCleared")){
+    levelThreeContainer.classList.remove("chained-level");
+    levelThreeLink.href = 'third.html';
+    levelThreeLink.querySelector(".chains").style.visibility = "hidden";
   }
