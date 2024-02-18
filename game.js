@@ -27,6 +27,8 @@ const coinsHeading = document.querySelector(".coins");
 //Remove this after finished: ease for debugging
 localStorage.removeItem("blocksData");
 
+//Import from the file with the common code
+import {showCoins} from './commonLevelsCode.js';
 
 //Index of the block selected by the user and the block
 let indexOfChosenBlock;
@@ -43,10 +45,8 @@ let movingLeft = false;
 if(!localStorage.getItem("coins")){
     localStorage.setItem("coins", 0);
 }
-//Show the coins in the game page
-function showCoins(){
-    coinsHeading.innerHTML = localStorage.getItem("coins");
-}
+
+//Show the coins on the game page
 showCoins();
 
 //Set blocksData array if it's not already in localStorage
@@ -256,6 +256,7 @@ function displayResilienceFancy(){
             resilienceHeading.innerHTML = resilienceHeading.innerHTML.slice(0, 11) + Number(resilienceHeading.innerHTML.slice(11) - 20)
         }
         else{
+            resilienceHeading.innerHTML = resilienceHeading.innerHTML.slice(0, 11) + getBlocksData()[indexOfChosenBlock].resilience;
             clearInterval(interval);
         }
 }, 20)

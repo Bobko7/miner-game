@@ -240,7 +240,7 @@ meter.addEventListener("click", () => {
     }, 10)
 
     //Display the changed value of resilience
-    displayResilience();
+    displayResilienceFancy();
 
     //Let the meter stop move again
     setTimeout(()=>{    
@@ -249,6 +249,19 @@ meter.addEventListener("click", () => {
 });}
 catch(er){};
 
+function displayResilienceFancy(){
+    let interval = setInterval(()=>{
+        if(Number(resilienceHeading.innerHTML.slice(11)) > getBlocksData()[indexOfChosenBlock].resilience)
+        {
+            console.log(resilienceHeading.innerHTML.slice(0, 11),  Number(resilienceHeading.innerHTML.slice(11)))
+            resilienceHeading.innerHTML = resilienceHeading.innerHTML.slice(0, 11) + Number(resilienceHeading.innerHTML.slice(11) - 20)
+        }
+        else{
+            resilienceHeading.innerHTML = resilienceHeading.innerHTML.slice(0, 11) + getBlocksdata()[indexOfchosenBlock].resilience;
+            clearInterval(interval);
+        }
+}, 5)
+}
 //Function to move an element to another element
 function moveElementToElement(elementToBeMoved, elementTarget, inaccuracyX = 0, inaccuracyY = 0){
     const targetRect = elementTarget.getBoundingClientRect();
