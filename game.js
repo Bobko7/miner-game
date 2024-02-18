@@ -25,10 +25,22 @@ const artifactInfo = document.querySelector('.artifact-info');
 const coinsHeading = document.querySelector(".coins");
 
 //Remove this after finished: ease for debugging
-localStorage.removeItem("blocksData");
+//localStorage.removeItem("blocksDataLevelOne");
 
 //Import from the file with the common code
-import {showCoins} from './commonLevelsCode.js';
+import {showCoins,
+    moveMinerToBlock,
+    minerBlockBreakingAnimation,
+    moveElementToElement,
+    blockCollapse,
+    checkLocalStorageForCoins,
+    getBlocksData,
+    checkLocalStorageForMaxDamage,
+    saveDamageData,
+    checkResilience,
+    saveBlockData,
+    displayResilience,
+    displayResilienceFancy} from './commonLevelsCode.js';
 
 //Index of the block selected by the user and the block
 let indexOfChosenBlock;
@@ -38,66 +50,39 @@ let chosenBlock = blocks[0];
 let damage = 0;
 //Variable to track the artifacts that are found
 let currentArtifact = null;
-//Use this variable to see in which direction the miner should move
-let movingLeft = false;
 
-//Set gameCoins 
-if(!localStorage.getItem("coins")){
-    localStorage.setItem("coins", 0);
-}
-
+//Checks if there is a coins variable saved in localStorage, if not creates one
+checkLocalStorageForCoins();
 //Show the coins on the game page
 showCoins();
 
 //Set blocksData array if it's not already in localStorage
-if (!localStorage.getItem('blocksData')) {
-    // Initialize blocks array with default values
-    blocksSecond.forEach((block) => {
-        block.resilience = 2000;
-        block.lowResilience = false;
-    });
-    // Save initial block data to localStorage
-    saveBlockData();
-} else {
-    // Retrieve blocks data from localStorage
-    let blocksData = localStorage.getItem('blocksData');
-    // Parse JSON string back into blocks array
-    blocksSecond = JSON.parse(blocksData);
-}
-//Function to get the blocksData
-function getBlocksData(){
-    return JSON.parse(localStorage.getItem("blocksData"));
-}
-// Function to save blocksData to localStorage
-function saveBlockData() {
-    // Serialize the blocks array into a JSON string
-    let blocksData = JSON.stringify(blocksSecond);
-    // Save the JSON string to localStorage
-    localStorage.setItem('blocksData', blocksData);
-}
-//Function to save the dealt damage data to localStorage
-function saveDamageData(){
-    let blocksData = getBlocksData();
-    if(!((blocksData[indexOfChosenBlock].resilience - damage) <= 0)){
-        blocksData[indexOfChosenBlock].resilience -= damage;
-    }
-    else{
-        blocksData[indexOfChosenBlock].resilience = 0;
-    }
-    // Save the JSON string to localStorage
-    localStorage.setItem('blocksData', JSON.stringify(blocksData));
-}
 
-//Set max damage for the pickaxe
-if (!localStorage.getItem("maxDamage")) {
-    localStorage.setItem("maxDamage", 500);
+function createBlocksData(){
+    if (!localStorage.getItem(`blocksDataLevelOne`)) {
+        // Initialize blocks array with default values
+        blocksSecond.forEach((block) => {
+            block.resilience = 2000;
+            block.lowResilience = false;
+        });
+        // Save initial block data to localStorage
+        saveBlockData(blocksSecond);
+    } else {
+        // Retrieve blocks data from localStorage
+        
+        blocksSecond = getBlocksData('blocksDataLevelOne');
+        console.log(blocksSecond);
+    }
 }
+createBlocksData();
+// Now blocksSecond should have the resilience property
+//Checks if there is a maxDamage variable saved in localStorage, if not creates one
+checkLocalStorageForMaxDamage();
 
 //When the page is loaded check if there are broken blocks from the last session
 const resilienceBetween1000and1500 = [];
 const resilienceBetween0and1000 = [];
 const resilience0 = [];
-
 blocksSecond.forEach((block, index)=>{
     if(block.resilience > 1000 && block.resilience < 1500){
         resilienceBetween1000and1500.push(index);
@@ -109,6 +94,7 @@ blocksSecond.forEach((block, index)=>{
         resilience0.push(index);
     }
 });
+console.log(resilienceBetween1000and1500, resilienceBetween0and1000, resilience0);
 //When the page is loaded display the respective images for the broken blocks
 blocks.forEach((block, index)=>{
     if(resilienceBetween1000and1500.includes(index)){
@@ -121,31 +107,6 @@ blocks.forEach((block, index)=>{
         block.style.visibility = "hidden";
     }
 })
-//Check for the resilience and change the image accordingly
-function checkResilience(block){
-    let blockResilience = getBlocksData()[indexOfChosenBlock].resilience;
-    if(blockResilience < 1500 && blockResilience > 1000){
-        setTimeout(()=>{
-            block.querySelector("img").src = 'images/broken-block1.png';
-        }, 500)
-    }
-    else if(blockResilience < 1000){
-        setTimeout(()=>{
-            block.lowResilience = true;
-            block.querySelector("img").src = 'images/broken-block2.png';
-        }, 500)
-    }
-}
-//Collapsing block animation
-function blockCollapse(block){
-    setTimeout(()=>{
-        block.querySelector("img").src = 'images/broken-block3.png';
-        setTimeout(()=>{
-            block.querySelector("img").src = 'images/broken-block4.png';
-            block.lowResilience = false;
-        }, 300);
-    }, 500);
-}
 
 // Apply the transition on click for each block
 blocks.forEach((block, index) => {
@@ -158,6 +119,7 @@ blocks.forEach((block, index) => {
         //Save reference to the chosen block
         chosenBlock = block;
         indexOfChosenBlock = index;
+        console.log(getBlocksData('blocksDataLevelOne')[indexOfChosenBlock].resilience);
         //Move the miner to the chosen block
         moveMinerToBlock(miner, block, 0, 0);
         //Move the miner images to the same block
@@ -177,7 +139,7 @@ blocks.forEach((block, index) => {
         }, 2500);
 
         //Display resilience on the screen
-        displayResilience();
+        displayResilience('blocksDataLevelOne', indexOfChosenBlock, resilienceHeading);
 
         //Make visible the resilience and the meter
         setTimeout(()=>{
@@ -200,16 +162,22 @@ meter.addEventListener("click", () => {
     //Calculate and show the damage 
     //Formula: traveledDistance / wholeWidth * maxDamage; (Calculate the percentage that the stop has traveled and use this percentage as a measure for the damage)
     damage = Math.round(Number(left.slice(0, -2)) / Number(width.slice(0, -2)) * localStorage.getItem("maxDamage"));
-    //Deal the damage
-    saveDamageData();
+    //Save the dealt damage data to the local storage
+    saveDamageData('blocksDataLevelOne', indexOfChosenBlock, damage);
+    //Prevent user of abusing with damage
+    meter.style.pointerEvents = "none";
+    setTimeout(()=>{
+        meter.style.pointerEvents = "all";
+    }, 1000)
     if(!chosenBlock.lowResilience){
-        checkResilience(chosenBlock);
+        //Function to check the resilience of the block and display the according image
+        checkResilience(chosenBlock, 'blocksDataLevelOne', indexOfChosenBlock, 1500, 1000, 'images/broken-block1.png', 'images/broken-block2.png');
     }
     //Check if the resilience is below 0 
-    if(JSON.parse(localStorage.getItem('blocksData'))[indexOfChosenBlock].resilience <= 0){
+    if(getBlocksData('blocksDataLevelOne')[indexOfChosenBlock].resilience <= 0){
         //Set the resilience to 0
-        JSON.parse(localStorage.getItem('blocksData'))[indexOfChosenBlock].resilience = 0;
-        blockCollapse(chosenBlock);
+        getBlocksData('blocksDataLevelOne')[indexOfChosenBlock].resilience = 0;
+        blockCollapse(chosenBlock, 'images/broken-block3.png', 'images/broken-block4.png');
         setTimeout(()=>{
             //Hide the window with the meter and the chosen block
             setTimeout(()=>{
@@ -240,7 +208,7 @@ meter.addEventListener("click", () => {
     }, 10)
 
     //Display the changed value of resilience
-    displayResilienceFancy();
+    displayResilienceFancy('blocksDataLevelOne', indexOfChosenBlock);
 
     //Let the meter stop move again
     setTimeout(()=>{    
@@ -248,19 +216,6 @@ meter.addEventListener("click", () => {
 }, 1000);
 });}
 catch(er){};
-function displayResilienceFancy(){
-    let interval = setInterval(()=>{
-        if(Number(resilienceHeading.innerHTML.slice(11)) > getBlocksData()[indexOfChosenBlock].resilience)
-        {
-            console.log(resilienceHeading.innerHTML.slice(0, 11),  Number(resilienceHeading.innerHTML.slice(11)))
-            resilienceHeading.innerHTML = resilienceHeading.innerHTML.slice(0, 11) + Number(resilienceHeading.innerHTML.slice(11) - 20)
-        }
-        else{
-            resilienceHeading.innerHTML = resilienceHeading.innerHTML.slice(0, 11) + getBlocksData()[indexOfChosenBlock].resilience;
-            clearInterval(interval);
-        }
-}, 20)
-}
 
 function unlockLevelTwoAttempt(){
     let allHidden = true;
@@ -270,154 +225,7 @@ function unlockLevelTwoAttempt(){
         }
     }
     allHidden && localStorage.setItem("levelOneCleared", true);
-}
-
-//Function to move an element to another element
-function moveElementToElement(elementToBeMoved, elementTarget, inaccuracyX = 0, inaccuracyY = 0){
-    const targetRect = elementTarget.getBoundingClientRect();
-    
-    setTimeout(()=>{
-        elementToBeMoved.style.top = targetRect.top + inaccuracyY + 'px';
-}, 500);
-    elementToBeMoved.style.left = targetRect.left + inaccuracyX + 'px';
-}
-//Function to move specifically the miner to a chosen block
-function moveMinerToBlock(elementToBeMoved, elementTarget, inaccuracyX = 0, inaccuracyY = 0){
-    //Setting the duration for the horizontal movement
-    const targetRect = elementTarget.getBoundingClientRect();
-    const distanceX = targetRect.left - elementToBeMoved.getBoundingClientRect().left;
-    let duration = 1.5 + Math.abs(distanceX) / window.innerWidth * 1.5;
-    elementToBeMoved.style.transition = `left ${duration}s ease-in-out, top 0.4s ease-in-out`;
-    // Check the direction of movement
-    if(distanceX > 0){
-        if(Math.round(distanceX) == 72){
-            movingLeft = null;
-            duration = 0;
-        }
-        else{
-        movingLeft = false;
-        }
-    }
-    else if(distanceX < 0){
-        movingLeft = true;
-    }
-    else{
-        movingLeft = null;
-    }
-    setTimeout(()=>{
-        elementToBeMoved.src = 'images/miner.png';
-        //Media queries to set the size of the elementToBeMoved after it's moved horizontally
-        if(window.innerWidth > 900){
-            elementToBeMoved.style.width = '9em';
-        }
-        else if(window.innerWidth < 900 && window.innerWidth > 750){
-            elementToBeMoved.style.width = '7.5em'
-        }
-        else if(window.innerWidth < 750 && window.innerWidth > 600){
-            elementToBeMoved.style.width = '6em';
-        }
-        else if(window.innerWidth < 600){
-            elementToBeMoved.style.width = '6.5em';
-        }
-         //elementToBeMoved.style.height = '180em';
-        elementToBeMoved.style.top = targetRect.top + inaccuracyY + 'px';
-}, duration * 1000);
-    //Check the movement direction to set the proper animations
-    if(movingLeft){
-        if(localStorage.getItem("maxDamage") == 500){
-            elementToBeMoved.src = 'images/miner-walking-left-fast.gif';
-        }
-        else if(localStorage.getItem("maxDamage") == 800){
-            elementToBeMoved.src = 'images/miner-walking-left-pickaxe-1.gif';
-        }
-        else if(localStorage.getItem("maxDamage") == 1000){
-            elementToBeMoved.src = 'images/miner-walking-left-pickaxe-2.gif';
-        }
-        else if(localStorage.getItem("maxDamage") == 2000){
-            elementToBeMoved.src = 'images/miner-walking-left-pickaxe-3.gif';
-        }
-    }
-    else if(!movingLeft){
-        if(localStorage.getItem("maxDamage") ==  500){
-            elementToBeMoved.src = 'images/miner-walking-right-animation-fast.gif';
-        }
-        else if(localStorage.getItem("maxDamage") == 800){
-            elementToBeMoved.src = 'images/miner-walking-right-pickaxe-1.gif';
-        }
-        else if(localStorage.getItem("maxDamage") == 1000){
-            elementToBeMoved.src = 'images/miner-walking-right-pickaxe-2.gif';
-        }
-        else if(localStorage.getItem("maxDamage") == 2000){
-            elementToBeMoved.src = 'images/miner-walking-right-pickaxe-3.gif';
-        }
-    }
-    
-    //Media queries to set the set the size of elementToBeMoved during the walking animations
-    if(window.innerWidth > 900){
-        elementToBeMoved.style.width = '20em';
-    }
-    else if(window.innerWidth < 900 && window.innerWidth > 750){
-        elementToBeMoved.style.width = '16em';
-    }
-    else if(window.innerWidth < 750 && window.innerWidth > 600){
-        elementToBeMoved.style.width = '13em';
-    }
-    else if(window.innerWidth < 600){
-        elementToBeMoved.style.width = '13em';
-    }
-    //elementToBeMoved.style.height = '200em';
-    elementToBeMoved.style.left = targetRect.left + inaccuracyX + 'px';
-    elementToBeMoved.style.zIndex = "6";
-}
-    
-//Function to show block's resilience on the screen
-function displayResilience(){
-    resilienceHeading.innerHTML = resilienceHeading.innerHTML.slice(0, 11) + JSON.parse(localStorage.getItem('blocksData'))[indexOfChosenBlock].resilience;
-}
-
-//Function for the miner breaking the block animation
-function minerBlockBreakingAnimation() {
-        setTimeout(()=>{
-            minerSwingBack.src = 'images/miner-swing-back.png';
-            if(window.innerWidth > 900){
-                minerSwingBack.style.width = '18em';
-                minerSwingBack.style.height = '18.5em';
-            }
-            else if(window.innerWidth < 900 && window.innerWidth > 750){
-                minerSwingBack.style.width = '15em';
-                minerSwingBack.style.height = '15em';
-            }
-            else if(window.innerWidth < 750 && window.innerWidth > 600){
-                minerSwingBack.style.width = '12em';
-                minerSwingBack.style.height = '12em';
-            }
-            else if(window.innerWidth < 600){
-                minerSwingBack.style.width = '12em';
-                minerSwingBack.style.height = '12em';
-            }
-        minerSwingBack.style.transform = 'translate(-50%, -50%)';
-        }, 1000)
-        //Change the src of the image to be the one of block-breaking animation
-            minerSwingBack.src = 'images/real-block-breaking.gif';
-        //Media queries for the size of the block breaking animation
-        if(window.innerWidth > 900){
-            minerSwingBack.style.width = '20em';
-        minerSwingBack.style.height = '20em';
-        }
-        else if(window.innerWidth < 900 && window.innerWidth > 750){
-            console.log("innerWidth is below 900")
-            minerSwingBack.style.width = '16em';
-        minerSwingBack.style.height = '16em';
-        }
-        else if(window.innerWidth < 750 && window.innerWidth > 600){
-            minerSwingBack.style.width = '13em';
-            minerSwingBack.style.height = '12.5em';
-        }
-        else if(window.innerWidth < 600){
-            minerSwingBack.style.width = '13.5em';
-            minerSwingBack.style.height = '13em';
-        }
-        minerSwingBack.style.transform = 'translate(-60%, -53%)';
+    window.location.href = 'index.html';
 }
 
 //Create new images for the artifacts and set them the css properties
