@@ -3,8 +3,9 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: url('images/levels_background.png');
-    background-size: 20em 30em;
+    background: url('images/reality-background.png');
+    background-repeat: repeat;
+    background-size: 30em 30em;
 }
 
 /*Main Headings $$$$$$$$$$$$$$$$$$*/

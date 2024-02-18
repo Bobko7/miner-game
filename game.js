@@ -311,10 +311,35 @@ function moveMinerToBlock(elementToBeMoved, elementTarget, inaccuracyX = 0, inac
         elementToBeMoved.style.top = targetRect.top + inaccuracyY + 'px';
 }, duration * 1000);
     //Check the movement direction to set the proper animations
-    if(movingLeft)
-    elementToBeMoved.src = 'images/miner-walking-left-fast.gif';
-    else if(!movingLeft)
-    elementToBeMoved.src = 'images/miner-walking-right-animation-fast.gif';
+    if(movingLeft){
+        if(localStorage.getItem("maxDamage") == 500){
+            elementToBeMoved.src = 'images/miner-walking-left-fast.gif';
+        }
+        else if(localStorage.getItem("maxDamage") == 800){
+            elementToBeMoved.src = 'images/miner-walking-left-pickaxe-1.gif';
+        }
+        else if(localStorage.getItem("maxDamage") == 1000){
+            elementToBeMoved.src = 'images/miner-walking-left-pickaxe-2.gif';
+        }
+        else if(localStorage.getItem("maxDamage") == 2000){
+            elementToBeMoved.src = 'images/miner-walking-left-pickaxe-3.gif';
+        }
+    }
+    else if(!movingLeft){
+        if(localStorage.getItem("maxDamage") ==  500){
+            elementToBeMoved.src = 'images/miner-walking-right-animation-fast.gif';
+        }
+        else if(localStorage.getItem("maxDamage") == 800){
+            elementToBeMoved.src = 'images/miner-walking-right-pickaxe-1.gif';
+        }
+        else if(localStorage.getItem("maxDamage") == 1000){
+            elementToBeMoved.src = 'images/miner-walking-right-pickaxe-2.gif';
+        }
+        else if(localStorage.getItem("maxDamage") == 2000){
+            elementToBeMoved.src = 'images/miner-walking-right-pickaxe-3.gif';
+        }
+    }
+    
     //Media queries to set the set the size of elementToBeMoved during the walking animations
     if(window.innerWidth > 900){
         elementToBeMoved.style.width = '20em';
@@ -361,7 +386,7 @@ function minerBlockBreakingAnimation() {
         minerSwingBack.style.transform = 'translate(-50%, -50%)';
         }, 1000)
         //Change the src of the image to be the one of block-breaking animation
-        minerSwingBack.src = 'images/real-block-breaking.gif';
+            minerSwingBack.src = 'images/real-block-breaking.gif';
         //Media queries for the size of the block breaking animation
         if(window.innerWidth > 900){
             minerSwingBack.style.width = '20em';

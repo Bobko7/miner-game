@@ -112,10 +112,10 @@ blocksSecond.forEach((block, index)=>{
 //When the page is loaded display the respective images for the broken blocks
 blocks.forEach((block, index)=>{
     if(resilienceBetween1000and1500.includes(index)){
-        block.querySelector("img").src = 'images/broken-block1.png';
+        block.querySelector("img").src = 'images/broken-block-level-three1.png';
     }
     else if(resilienceBetween0and1000.includes(index)){
-        block.querySelector("img").src = 'images/broken-block2.png';
+        block.querySelector("img").src = 'images/broken-block-level-three2.png';
     }
     else if(resilience0.includes(index)){
         block.style.visibility = "hidden";
@@ -126,22 +126,22 @@ function checkResilience(block){
     let blockResilience = getBlocksData()[indexOfChosenBlock].resilience;
     if(blockResilience < 1500 && blockResilience > 1000){
         setTimeout(()=>{
-            block.querySelector("img").src = 'images/broken-block1.png';
+            block.querySelector("img").src = 'images/broken-block-level-three1.png';
         }, 500)
     }
     else if(blockResilience < 1000){
         setTimeout(()=>{
             block.lowResilience = true;
-            block.querySelector("img").src = 'images/broken-block2.png';
+            block.querySelector("img").src = 'images/broken-block-level-three2.png';
         }, 500)
     }
 }
 //Collapsing block animation
 function blockCollapse(block){
     setTimeout(()=>{
-        block.querySelector("img").src = 'images/broken-block3.png';
+        block.querySelector("img").src = 'images/broken-block-level-three3.png';
         setTimeout(()=>{
-            block.querySelector("img").src = 'images/broken-block4.png';
+            block.querySelector("img").src = 'images/broken-block-level-three4.png';
             block.lowResilience = false;
         }, 300);
     }, 500);
