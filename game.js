@@ -240,7 +240,7 @@ meter.addEventListener("click", () => {
     }, 10)
 
     //Display the changed value of resilience
-    displayResilience();
+    displayResilienceFancy();
 
     //Let the meter stop move again
     setTimeout(()=>{    
@@ -248,6 +248,18 @@ meter.addEventListener("click", () => {
 }, 1000);
 });}
 catch(er){};
+function displayResilienceFancy(){
+    let interval = setInterval(()=>{
+        if(Number(resilienceHeading.innerHTML.slice(11)) > getBlocksData()[indexOfChosenBlock].resilience)
+        {
+            console.log(resilienceHeading.innerHTML.slice(0, 11),  Number(resilienceHeading.innerHTML.slice(11)))
+            resilienceHeading.innerHTML = resilienceHeading.innerHTML.slice(0, 11) + Number(resilienceHeading.innerHTML.slice(11) - 20)
+        }
+        else{
+            clearInterval(interval);
+        }
+}, 20)
+}
 
 function unlockLevelTwoAttempt(){
     let allHidden = true;
@@ -256,8 +268,7 @@ function unlockLevelTwoAttempt(){
             allHidden = false;
         }
     }
-    console.log("attempt");
-    localStorage.setItem("levelOneCleared", true);
+    allHidden && localStorage.setItem("levelOneCleared", true);
 }
 
 //Function to move an element to another element
