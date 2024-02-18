@@ -1,5 +1,5 @@
 //Getting the miner and the blocks
-const miner = document.querySelector(".miner");
+const miner = document.querySelector(".miner-level-two");
 let blocks = document.querySelectorAll(".block");
 let blocksSecond = [...blocks];
 //Getting the container with the meter
@@ -50,30 +50,30 @@ function showCoins(){
 showCoins();
 
 //Set blocksData array if it's not already in localStorage
-if (!localStorage.getItem('blocksData')) {
+if (!localStorage.getItem('blocksDataLevelTwo')) {
     // Initialize blocks array with default values
     blocksSecond.forEach((block) => {
-        block.resilience = 2000;
+        block.resilience = 4000;
         block.lowResilience = false;
     });
     // Save initial block data to localStorage
     saveBlockData();
 } else {
     // Retrieve blocks data from localStorage
-    let blocksData = localStorage.getItem('blocksData');
+    let blocksData = localStorage.getItem('blocksDataLevelTwo');
     // Parse JSON string back into blocks array
     blocksSecond = JSON.parse(blocksData);
 }
 //Function to get the blocksData
 function getBlocksData(){
-    return JSON.parse(localStorage.getItem("blocksData"));
+    return JSON.parse(localStorage.getItem("blocksDataLevelTwo"));
 }
 // Function to save blocksData to localStorage
 function saveBlockData() {
     // Serialize the blocks array into a JSON string
     let blocksData = JSON.stringify(blocksSecond);
     // Save the JSON string to localStorage
-    localStorage.setItem('blocksData', blocksData);
+    localStorage.setItem('blocksDataLevelTwo', blocksData);
 }
 //Function to save the dealt damage data to localStorage
 function saveDamageData(){
@@ -85,7 +85,7 @@ function saveDamageData(){
         blocksData[indexOfChosenBlock].resilience = 0;
     }
     // Save the JSON string to localStorage
-    localStorage.setItem('blocksData', JSON.stringify(blocksData));
+    localStorage.setItem('blocksDataLevelTwo', JSON.stringify(blocksData));
 }
 
 //Set max damage for the pickaxe
@@ -150,6 +150,7 @@ function blockCollapse(block){
 // Apply the transition on click for each block
 blocks.forEach((block, index) => {
     block.addEventListener('click', function () {
+        console.log("A block is selected")
         //Disable pointerEvents when a block is cliked
         //This disables the user to go another block before the chosen one is broken
         for(let block of blocks){
@@ -206,9 +207,9 @@ meter.addEventListener("click", () => {
         checkResilience(chosenBlock);
     }
     //Check if the resilience is below 0 
-    if(JSON.parse(localStorage.getItem('blocksData'))[indexOfChosenBlock].resilience <= 0){
+    if(getBlocksData()[indexOfChosenBlock].resilience <= 0){
         //Set the resilience to 0
-        JSON.parse(localStorage.getItem('blocksData'))[indexOfChosenBlock].resilience = 0;
+        JSON.parse(localStorage.getItem('blocksDataLevelTwo'))[indexOfChosenBlock].resilience = 0;
         blockCollapse(chosenBlock);
         setTimeout(()=>{
             //Hide the window with the meter and the chosen block
@@ -229,7 +230,6 @@ meter.addEventListener("click", () => {
             setTimeout(()=>{      
                 miner.style.visibility = "visible";
                 minerSwingBack.style.display = "none";
-                unlockLevelTwoAttempt();
         }, 1200)
         }, 200)
     }
@@ -248,17 +248,6 @@ meter.addEventListener("click", () => {
 }, 1000);
 });}
 catch(er){};
-
-function unlockLevelTwoAttempt(){
-    let allHidden = true;
-    for(let block of blocks){
-        if(block.style.visibility != "hidden"){
-            allHidden = false;
-        }
-    }
-    console.log("attempt");
-    localStorage.setItem("levelOneCleared", true);
-}
 
 //Function to move an element to another element
 function moveElementToElement(elementToBeMoved, elementTarget, inaccuracyX = 0, inaccuracyY = 0){
@@ -335,7 +324,7 @@ function moveMinerToBlock(elementToBeMoved, elementTarget, inaccuracyX = 0, inac
     
 //Function to show block's resilience on the screen
 function displayResilience(){
-    resilienceHeading.innerHTML = resilienceHeading.innerHTML.slice(0, 11) + JSON.parse(localStorage.getItem('blocksData'))[indexOfChosenBlock].resilience;
+    resilienceHeading.innerHTML = resilienceHeading.innerHTML.slice(0, 11) + getBlocksData()[indexOfChosenBlock].resilience;
 }
 
 //Function for the miner breaking the block animation

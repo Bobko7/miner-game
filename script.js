@@ -33,3 +33,12 @@ function scrollToTopSmoothly() {
   window.onload = function() {
     scrollToTopSmoothly();
   };
+
+  const levelTwoContainer = document.querySelector(".level-two");
+  const levelTwoLink = document.querySelector(".level-two-link");
+  if(localStorage.getItem("levelOneCleared")){
+    console.log(levelTwoContainer, levelTwoLink);
+    levelTwoContainer.classList.remove("chained-level");
+    levelTwoLink.href = 'second.html';
+    console.log(levelTwoLink.src)
+  }
