@@ -2,14 +2,14 @@
     grid-template-rows: repeat(2, 1fr);
 }
 .main-container-second-level{
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     background: url('images/background-level-two.png');
     background-size: cover;
 }
 .main-container-third-level{
     background: url('images/background-level-three.png');
     background-size: cover;
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
 
 }
 
@@ -138,7 +138,7 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    grid-row: span 2;
+    grid-row: span 1;
     position: relative;
     flex-wrap: wrap;
     background-size: cover;
@@ -150,7 +150,7 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    grid-row: span 2;
+    grid-row: span 1;
     position: relative;
     flex-wrap: wrap;
     background-size: cover;
