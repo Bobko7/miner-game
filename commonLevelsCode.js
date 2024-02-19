@@ -221,18 +221,19 @@ export function minerBlockBreakingAnimation() {
     minerSwingBack.style.transform = 'translate(-50%, -50%)';
     }, 1100)
     //Change the src of the image to be the one of block-breaking animation
-    // if(localStorage.getItem("maxDamage") == 500){
+    if(localStorage.getItem("maxDamage") == 500){
         minerSwingBack.src = 'images/real-block-breaking.gif';
-    /*}
-    else if(localStorage.getItem("maxDamage") == 800){
-        minerSwingBack.src = 'images/miner-block-breaking-animation-pickaxe-1.gif';
     }
     else if(localStorage.getItem("maxDamage") == 800){
+        console.log("I'm here")
         minerSwingBack.src = 'images/miner-block-breaking-animation-pickaxe-1.gif';
     }
-    else if(localStorage.getItem("maxDamage") == 800){
-        minerSwingBack.src = 'images/miner-block-breaking-animation-pickaxe-1.gif';
-    }*/
+    else if(localStorage.getItem("maxDamage") == 1000){
+        minerSwingBack.src = 'images/miner-block-breaking-animation-pickaxe-2.gif';
+    }
+    else if(localStorage.getItem("maxDamage") == 2000){
+        minerSwingBack.src = 'images/miner-block-breaking-animation-pickaxe-3.gif';
+    }
     //Media queries for the size of the block breaking animation
     if(window.innerWidth > 900){
         minerSwingBack.style.width = '20em';
