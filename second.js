@@ -11,11 +11,6 @@ let resilienceHeading = document.querySelector(".resilience");
 //Getting the images of miner swinging
 const minerSwings = document.querySelectorAll(".miner-swing");
 const minerSwingBack = document.querySelector(".miner-swing-back");
-const minerSwingBackToUp = document.querySelector(".miner-swing-back-to-up");
-const minerSwingUp = document.querySelector(".miner-swing-up");
-const minerSwingUpToFront = document.querySelector(".miner-swing-up-to-front");
-const minerSwingFront = document.querySelector(".miner-swing-front");
-const minerSwing = document.querySelectorAll(".mine-swing");
 //Getting the artifact container and its children elements
 const artifactContainer = document.querySelector(".artifact-container");
 const artifactImage = document.querySelector('.artifact-image');
@@ -40,7 +35,9 @@ import {showCoins,
     checkResilience,
     saveBlockData,
     displayResilience,
-    displayResilienceFancy} from './commonLevelsCode.js';
+    displayResilienceFancy,
+    checkMinerSwingBack,
+    checkMiner} from './commonLevelsCode.js';
 
 //Index of the block selected by the user and the block
 let indexOfChosenBlock;
@@ -55,6 +52,9 @@ let currentArtifact = null;
 checkLocalStorageForCoins();
 //Show the coins on the game page
 showCoins();
+
+//Check which image of the miner to display
+checkMiner(miner);
 
 //Set blocksData array if it's not already in localStorage
 
@@ -119,14 +119,12 @@ blocks.forEach((block, index) => {
         //Save reference to the chosen block
         chosenBlock = block;
         indexOfChosenBlock = index;
+
+        checkMinerSwingBack();
         //Move the miner to the chosen block
         moveMinerToBlock(miner, block, 0, 0);
         //Move the miner images to the same block
         moveElementToElement(minerSwingBack, block, 20, -20);
-        moveElementToElement(minerSwingBackToUp, block, 0, -20);
-        moveElementToElement(minerSwingUp, block, -10, -20);
-        moveElementToElement(minerSwingUpToFront, block, -30, -20);
-        moveElementToElement(minerSwingFront, block, -40, -20);
 
         //Hide the normal miner image and show the swing when the miner arrives at the location
         setTimeout(()=>{

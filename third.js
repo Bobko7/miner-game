@@ -9,13 +9,7 @@ const meter = document.querySelector(".meter");
 const meterStop = document.querySelector(".meter-stop");
 let resilienceHeading = document.querySelector(".resilience");
 //Getting the images of miner swinging
-const minerSwings = document.querySelectorAll(".miner-swing");
 const minerSwingBack = document.querySelector(".miner-swing-back");
-const minerSwingBackToUp = document.querySelector(".miner-swing-back-to-up");
-const minerSwingUp = document.querySelector(".miner-swing-up");
-const minerSwingUpToFront = document.querySelector(".miner-swing-up-to-front");
-const minerSwingFront = document.querySelector(".miner-swing-front");
-const minerSwing = document.querySelectorAll(".mine-swing");
 //Getting the artifact container and its children elements
 const artifactContainer = document.querySelector(".artifact-container");
 const artifactImage = document.querySelector('.artifact-image');
@@ -23,7 +17,6 @@ const artifactName = document.querySelector('.artifact-name');
 const artifactInfo = document.querySelector('.artifact-info');
 //Get coins heading
 const coinsHeading = document.querySelector(".coins");
-
 //Remove this after finished: ease for debugging
 //localStorage.removeItem("blocksDataLevelOne");
 
@@ -40,7 +33,9 @@ import {showCoins,
     checkResilience,
     saveBlockData,
     displayResilience,
-    displayResilienceFancy} from './commonLevelsCode.js';
+    displayResilienceFancy,
+    checkMiner,
+    checkMinerSwingBack} from './commonLevelsCode.js';
 
 //Index of the block selected by the user and the block
 let indexOfChosenBlock;
@@ -56,8 +51,9 @@ checkLocalStorageForCoins();
 //Show the coins on the game page
 showCoins();
 
-//Set blocksData array if it's not already in localStorage
+checkMiner(miner);
 
+//Set blocksData array if it's not already in localStorage
 function createBlocksData(){
     if (!localStorage.getItem(`blocksDataLevelThree`)) {
         // Initialize blocks array with default values
@@ -66,7 +62,7 @@ function createBlocksData(){
             block.lowResilience = false;
         });
         // Save initial block data to localStorage
-        saveBlockData(blocksSecond);
+        saveBlockData('blocksDataLevelThree', blocksSecond);
     } else {
         // Retrieve blocks data from localStorage
         
@@ -74,6 +70,8 @@ function createBlocksData(){
     }
 }
 createBlocksData();
+
+console.log(getBlocksData('blocksDataLevelThree'));
 // Now blocksSecond should have the resilience property
 //Checks if there is a maxDamage variable saved in localStorage, if not creates one
 checkLocalStorageForMaxDamage();
@@ -118,14 +116,11 @@ blocks.forEach((block, index) => {
         //Save reference to the chosen block
         chosenBlock = block;
         indexOfChosenBlock = index;
+        checkMinerSwingBack();
         //Move the miner to the chosen block
         moveMinerToBlock(miner, block, 0, 0);
         //Move the miner images to the same block
         moveElementToElement(minerSwingBack, block, 20, -20);
-        moveElementToElement(minerSwingBackToUp, block, 0, -20);
-        moveElementToElement(minerSwingUp, block, -10, -20);
-        moveElementToElement(minerSwingUpToFront, block, -30, -20);
-        moveElementToElement(minerSwingFront, block, -40, -20);
 
         //Hide the normal miner image and show the swing when the miner arrives at the location
         setTimeout(()=>{
@@ -137,7 +132,7 @@ blocks.forEach((block, index) => {
         }, 2500);
 
         //Display resilience on the screen
-        displayResilience('blocksDataLevelThree', indexOfChosenBlock, resilienceHeading);
+        displayResilience('blocksDataLevelThree', indexOfChosenBlock);
 
         //Make visible the resilience and the meter
         setTimeout(()=>{
