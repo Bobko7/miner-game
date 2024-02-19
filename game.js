@@ -9,13 +9,7 @@ const meter = document.querySelector(".meter");
 const meterStop = document.querySelector(".meter-stop");
 let resilienceHeading = document.querySelector(".resilience");
 //Getting the images of miner swinging
-const minerSwings = document.querySelectorAll(".miner-swing");
 const minerSwingBack = document.querySelector(".miner-swing-back");
-const minerSwingBackToUp = document.querySelector(".miner-swing-back-to-up");
-const minerSwingUp = document.querySelector(".miner-swing-up");
-const minerSwingUpToFront = document.querySelector(".miner-swing-up-to-front");
-const minerSwingFront = document.querySelector(".miner-swing-front");
-const minerSwing = document.querySelectorAll(".mine-swing");
 //Getting the artifact container and its children elements
 const artifactContainer = document.querySelector(".artifact-container");
 const artifactImage = document.querySelector('.artifact-image');
@@ -124,10 +118,6 @@ blocks.forEach((block, index) => {
         moveMinerToBlock(miner, block, 0, 0);
         //Move the miner images to the same block
         moveElementToElement(minerSwingBack, block, 20, -20);
-        moveElementToElement(minerSwingBackToUp, block, 0, -20);
-        moveElementToElement(minerSwingUp, block, -10, -20);
-        moveElementToElement(minerSwingUpToFront, block, -30, -20);
-        moveElementToElement(minerSwingFront, block, -40, -20);
 
         //Hide the normal miner image and show the swing when the miner arrives at the location
         setTimeout(()=>{
