@@ -22,9 +22,9 @@ buyItem1.addEventListener("click", ()=>{
 })
 
 buyItem2.addEventListener("click", ()=>{
-    if(gameCoins >= 150){
-        gameCoins -= 150;
-        localStorage.setItem("coins", localStorage.getItem("coins") - 150);
+    if(gameCoins >= 200){
+        gameCoins -= 200;
+        localStorage.setItem("coins", localStorage.getItem("coins") - 200);
         coinsLabel.innerHTML = "" + gameCoins;
         localStorage.setItem("maxDamage", 1000);
         buyItem2.innerHTML = "Bought";
@@ -34,9 +34,9 @@ buyItem2.addEventListener("click", ()=>{
 })
 
 buyItem3.addEventListener("click", ()=>{
-    if(gameCoins >= 250){
-        gameCoins -= 250;
-        localStorage.setItem("coins", localStorage.getItem("coins") - 250);
+    if(gameCoins >= 350){
+        gameCoins -= 350;
+        localStorage.setItem("coins", localStorage.getItem("coins") - 350);
         coinsLabel.innerHTML = "" + gameCoins;
         localStorage.setItem("maxDamage", 2000);
         buyItem3.innerHTML = "Bought";

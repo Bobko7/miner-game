@@ -66,7 +66,7 @@ function createBlocksData(){
             block.lowResilience = false;
         });
         // Save initial block data to localStorage
-        saveBlockData(blocksSecond);
+        saveBlockData('blocksDataLevelOne', blocksSecond);
     } else {
         // Retrieve blocks data from localStorage
         
@@ -224,8 +224,10 @@ function unlockLevelTwoAttempt(){
             allHidden = false;
         }
     }
-    allHidden && localStorage.setItem("levelOneCleared", true);
-    window.location.href = 'index.html';
+    if(allHidden){
+        localStorage.setItem("levelOneCleared", true);
+        window.location.href = 'index.html';
+    }
 }
 
 //Create new images for the artifacts and set them the css properties
@@ -319,18 +321,18 @@ function showArtifactInfo(artifact){
         artifactContainer.style.visibility = "visible";
         artifactImage.src = img1.src;
         artifactName.innerHTML = 'Golden coin of Alexander the great';
-        artifactInfo.innerHTML = "This is a coin of great emperor of Ancient Greece Alexander the Great!";
+        artifactInfo.innerHTML = "Alexander the Great was an ancient Macedonian ruler and one of history's most successful military commanders, known for his conquests that extended the Macedonian Empire across three continents. He was tutored by Aristotle and became king of Macedonia at age 20, embarking on campaigns that resulted in the defeat of the Persian Empire and the spread of Hellenistic culture. His empire stretched from Greece to Egypt and into modern-day India before his death at the age of 32.";
     }
     else if(artifact == img2){
         artifactContainer.style.visibility = "visible";
         artifactImage.src = img2.src;
-        artifactName.innerHTML = 'Silver coin of Julius Caesar';
-        artifactInfo.innerHTML = "This is a coin of great emperor Julius Caesar!";
+        artifactName.innerHTML = 'Golden coin of Julius Caesar';
+        artifactInfo.innerHTML = "Julius Caesar was a Roman statesman, general, and dictator who played a critical role in the events that led to the demise of the Roman Republic and the rise of the Roman Empire. He was a brilliant military strategist, known for his conquest of Gaul and his decisive victory in the Civil War against Pompey. Caesar's assassination in 44 BC by a group of Roman senators led to a period of political instability and ultimately the end of the Roman Republic.";
         }
     else if(artifact == img3){
         artifactContainer.style.visibility = "visible";
         artifactImage.src = img3.src;
-        artifactName.innerHTML = 'The pot of Mesungii Harasfati';
+        artifactName.innerHTML = 'The pot from Ancient Greece';
         artifactInfo.innerHTML = "This is the pot from which Mesungii Harsfati drank his wine!";
         }
     }

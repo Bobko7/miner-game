@@ -48,11 +48,11 @@ export function createBlocksData(localStorageNameOfData, blocksSecond){
 }
 
 //Function to save a change in blocks data to local storage
-export function saveBlockData(blocksSecond) {
+export function saveBlockData(localStorageNameOfData, blocksSecond) {
     // Serialize the blocks array into a JSON string
     let blocksData = JSON.stringify(blocksSecond);
     // Save the JSON string to localStorage
-    localStorage.setItem('blocksDataLevelOne', blocksData);
+    localStorage.setItem(`${localStorageNameOfData}`, blocksData);
 }
 
 //Function to check the resilience of a block in order to display the correct image
@@ -72,7 +72,8 @@ export function checkResilience(block, localStorageName, indexOfChosenBlock, fir
 }
 
 
-export function displayResilience(localStorageNameOfData, indexOfChosenBlock, resilienceHeading){
+export function displayResilience(localStorageNameOfData, indexOfChosenBlock){
+    console.log(getBlocksData(`${localStorageNameOfData}`))
     resilienceHeading.innerHTML = resilienceHeading.innerHTML.slice(0, 11) + getBlocksData(`${localStorageNameOfData}`)[indexOfChosenBlock].resilience;
 }
 
@@ -218,7 +219,7 @@ export function minerBlockBreakingAnimation() {
             minerSwingBack.style.height = '12em';
         }
     minerSwingBack.style.transform = 'translate(-50%, -50%)';
-    }, 1000)
+    }, 1100)
     //Change the src of the image to be the one of block-breaking animation
         minerSwingBack.src = 'images/real-block-breaking.gif';
     //Media queries for the size of the block breaking animation

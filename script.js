@@ -41,7 +41,6 @@ function scrollToTopSmoothly() {
     levelTwoContainer.classList.remove("chained-level");
     levelTwoLink.href = 'second.html';
     levelTwoLink.querySelector(".chains").style.visibility = "hidden";
-    console.log(levelTwoLink.src)
   }
 
   const levelThreeContainer = document.querySelector(".level-three");
