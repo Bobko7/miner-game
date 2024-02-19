@@ -215,7 +215,6 @@ meter.addEventListener("click", () => {
 catch(er){};
 
 function unlockLevelThreeAttempt(){
-    console.log("I'm inside unlock level three")
     let allHidden = true;
     for(let block of blocks){
         if(block.style.visibility != "hidden"){
@@ -227,26 +226,24 @@ function unlockLevelThreeAttempt(){
         window.location.href = 'index.html';
     }
 }
-
 //Create new images for the artifacts and set them the css properties
-let firstSpecialBlock, secondSpecialBlock, thirdSpecialBlock;
 const img1 = document.createElement("img");
-img1.src = 'images/coin-alexander-the-great.png';
+img1.src = 'images/scarab-amulet.png';
 img1.style.zIndex = "-1";
 img1.style.position = "absolute";
 const img2 = document.createElement("img");
-img2.src = 'images/coin-julius-caesar.png';
+img2.src = 'images/funerary-mask.png';
 img2.style.position = "absolute";
 img2.style.zIndex = "-1";
 const img3 = document.createElement("img");
-img3.src = 'images/ancient-pot.png';
+img3.src = 'images/egyptyan-canopic-jar.png';
 img3.style.position = "absolute";
 img3.style.zIndex = "-1";
 img3.style.transform = "scale(0.7)";
 let artifactsIndexes = [];
 //Check if the there are random indexes for the artifacts in the localStorage
 //If not, create ones
-if (!localStorage.getItem('levelOneArtifactsIndexes')) {
+if (!localStorage.getItem('levelTwoArtifactsIndexes')) {
 // Initialize blocks array with default values
 //create and save them in local storage
 let randomNums = [];
@@ -274,7 +271,8 @@ while(!secondRandom){
             randomNums.push(random);
         }
     }
-    localStorage.setItem("levelOneArtifactsIndexes", JSON.stringify(randomNums));
+    localStorage.setItem("levelTwoArtifactsIndexes", JSON.stringify(randomNums));
+    artifactsIndexes = randomNums;
 }
 //If there are random indexes for the artifacts, retrieve them
 else{
@@ -287,6 +285,7 @@ function createRandomBetween0and17(){
 }
 //Function to hide the artifacts at the random places
 function hideImagesRandom(){
+    console.log(blocks, artifactsIndexes);
     blocks[artifactsIndexes[0]].appendChild(img1);
     blocks[artifactsIndexes[1]].appendChild(img2);
     blocks[artifactsIndexes[2]].appendChild(img3);
@@ -302,12 +301,10 @@ function checkSpecialBlocks(){
         console.log(currentArtifact);
         }
         else if(Array.from(blocks).indexOf(chosenBlock) == artifactsIndexes[1]){
-            console.log(typeof Number(localStorage.getItem("coins")) + 50);
             localStorage.setItem("coins", Number(localStorage.getItem("coins")) + 50);
             currentArtifact = img2;
         }
         else if(Array.from(blocks).indexOf(chosenBlock) == artifactsIndexes[2]){
-            console.log(typeof Number(localStorage.getItem("coins")) + 70);
             localStorage.setItem("coins", Number(localStorage.getItem("coins")) + 70);
             currentArtifact = img3;
         }
@@ -318,20 +315,20 @@ function showArtifactInfo(artifact){
     if(artifact == img1){
         artifactContainer.style.visibility = "visible";
         artifactImage.src = img1.src;
-        artifactName.innerHTML = 'Golden coin of Alexander the great';
-        artifactInfo.innerHTML = "This is a coin of great emperor of Ancient Greece Alexander the Great!";
+        artifactName.innerHTML = 'Egyptyan Scarab Amulet';
+        artifactInfo.innerHTML = "Egyptian scarab amulets were small artifacts shaped like scarab beetles, representing the cycle of rebirth and regeneration in ancient Egyptian belief. They were often made of materials like stone, faience, or precious metals and were worn as jewelry or placed in tombs to provide protection and ensure a successful journey to the afterlife. These amulets were considered powerful symbols of protection and good fortune in Egyptian society.";
     }
     else if(artifact == img2){
         artifactContainer.style.visibility = "visible";
         artifactImage.src = img2.src;
-        artifactName.innerHTML = 'Silver coin of Julius Caesar';
-        artifactInfo.innerHTML = "This is a coin of great emperor Julius Caesar!";
+        artifactName.innerHTML = 'Egyptyan Funerary Mask';
+        artifactInfo.innerHTML = "Egyptian funerary masks were intricate artifacts placed over the face of the deceased to protect and guide their spirit in the afterlife. Often made of materials like gold, precious metals, or stone, these masks were adorned with elaborate designs and symbolic motifs representing deities and rituals associated with the journey to the afterlife. ";
         }
     else if(artifact == img3){
         artifactContainer.style.visibility = "visible";
         artifactImage.src = img3.src;
-        artifactName.innerHTML = 'The pot of Mesungii Harasfati';
-        artifactInfo.innerHTML = "This is the pot from which Mesungii Harsfati drank his wine!";
+        artifactName.innerHTML = 'Egyptyan Canopic Jar';
+        artifactInfo.innerHTML = " Canopic jars were essential containers used in ancient Egyptian funerary practices to store and protect the organs of the deceased during the mummification process. These jars typically had lids representing the four sons of Horus, who were associated with the safekeeping of the liver, lungs, stomach, and intestines. Each jar held a specific organ, ensuring its preservation for the journey to the afterlife according to Egyptian beliefs.";
         }
     }
 

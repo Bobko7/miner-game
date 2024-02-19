@@ -211,24 +211,23 @@ meter.addEventListener("click", () => {
 catch(er){};
 
 //Create new images for the artifacts and set them the css properties
-let firstSpecialBlock, secondSpecialBlock, thirdSpecialBlock;
 const img1 = document.createElement("img");
-img1.src = 'images/coin-alexander-the-great.png';
+img1.src = 'images/viking-brooch.png';
 img1.style.zIndex = "-1";
 img1.style.position = "absolute";
 const img2 = document.createElement("img");
-img2.src = 'images/coin-julius-caesar.png';
+img2.src = 'images/roman-oil-lamp.png';
 img2.style.position = "absolute";
 img2.style.zIndex = "-1";
 const img3 = document.createElement("img");
-img3.src = 'images/ancient-pot.png';
+img3.src = 'images/celtic-torc.png';
 img3.style.position = "absolute";
 img3.style.zIndex = "-1";
 img3.style.transform = "scale(0.7)";
 let artifactsIndexes = [];
 //Check if the there are random indexes for the artifacts in the localStorage
 //If not, create ones
-if (!localStorage.getItem('levelOneArtifactsIndexes')) {
+if (!localStorage.getItem('levelThreeArtifactsIndexes')) {
 // Initialize blocks array with default values
 //create and save them in local storage
 let randomNums = [];
@@ -256,12 +255,13 @@ while(!secondRandom){
             randomNums.push(random);
         }
     }
-    localStorage.setItem("levelOneArtifactsIndexes", JSON.stringify(randomNums));
+    localStorage.setItem("levelThreeArtifactsIndexes", JSON.stringify(randomNums));
+    artifactsIndexes = randomNums;
 }
 //If there are random indexes for the artifacts, retrieve them
 else{
     // Retrieve blocks data from localStorage
-       artifactsIndexes = JSON.parse(localStorage.getItem("levelOneArtifactsIndexes"));
+       artifactsIndexes = JSON.parse(localStorage.getItem("levelThreeArtifactsIndexes"));
     }
 //Function to create a random number between 0 and 17
 function createRandomBetween0and17(){
@@ -300,20 +300,20 @@ function showArtifactInfo(artifact){
     if(artifact == img1){
         artifactContainer.style.visibility = "visible";
         artifactImage.src = img1.src;
-        artifactName.innerHTML = 'Golden coin of Alexander the great';
-        artifactInfo.innerHTML = "This is a coin of great emperor of Ancient Greece Alexander the Great!";
+        artifactName.innerHTML = 'A Viking Brooch';
+        artifactInfo.innerHTML = "These brooches served as clasps for holding garments together, such as cloaks or apron dresses, while also showcasing intricate designs and craftsmanship. They were often made of materials like silver, bronze, or gold and adorned with motifs inspired by Norse mythology, animals, or geometric patterns, reflecting the artistic and cultural richness of the Viking era.";
     }
     else if(artifact == img2){
         artifactContainer.style.visibility = "visible";
         artifactImage.src = img2.src;
-        artifactName.innerHTML = 'Silver coin of Julius Caesar';
-        artifactInfo.innerHTML = "This is a coin of great emperor Julius Caesar!";
+        artifactName.innerHTML = 'A Roman Oil Lamp';
+        artifactInfo.innerHTML = "Roman oil lamps were common household items used for lighting in ancient Rome. Typically made of clay, they featured a round body with a central depression for holding oil, a spout for pouring, and a wick made of linen or other fibrous material. Decorations on these lamps ranged from simple geometric patterns to elaborate scenes depicting mythology, daily life, or religious motifs.";
         }
     else if(artifact == img3){
         artifactContainer.style.visibility = "visible";
         artifactImage.src = img3.src;
-        artifactName.innerHTML = 'The pot of Mesungii Harasfati';
-        artifactInfo.innerHTML = "This is the pot from which Mesungii Harsfati drank his wine!";
+        artifactName.innerHTML = 'A Celctic Torc';
+        artifactInfo.innerHTML = "Celtic torcs were elaborate neck ornaments worn by both men and women in ancient Celtic societies. These metal necklaces, often made of gold or other precious metals, featured intricate designs and were symbols of wealth, status, and power. They were worn in various Celtic cultures across Europe during the Iron Age.";
         }
     }
 

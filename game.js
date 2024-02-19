@@ -226,7 +226,6 @@ function unlockLevelTwoAttempt(){
 }
 
 //Create new images for the artifacts and set them the css properties
-let firstSpecialBlock, secondSpecialBlock, thirdSpecialBlock;
 const img1 = document.createElement("img");
 img1.src = 'images/coin-alexander-the-great.png';
 img1.style.zIndex = "-1";
@@ -272,6 +271,7 @@ while(!secondRandom){
         }
     }
     localStorage.setItem("levelOneArtifactsIndexes", JSON.stringify(randomNums));
+    artifactsIndexes = randomNums;
 }
 //If there are random indexes for the artifacts, retrieve them
 else{
@@ -327,8 +327,8 @@ function showArtifactInfo(artifact){
     else if(artifact == img3){
         artifactContainer.style.visibility = "visible";
         artifactImage.src = img3.src;
-        artifactName.innerHTML = 'The pot from Ancient Greece';
-        artifactInfo.innerHTML = "This is the pot from which Mesungii Harsfati drank his wine!";
+        artifactName.innerHTML = 'A pot from Ancient Greece';
+        artifactInfo.innerHTML = "Greek pottery, renowned for its exquisite craftsmanship and intricate designs, served both practical and artistic purposes, offering insights into ancient Greek culture and mythology through depictions of gods, heroes, and everyday life. These ceramic vessels, often adorned with black-figure or red-figure painting techniques, were used for various functions including storage, transport, and ritual offerings.";
         }
     }
 
