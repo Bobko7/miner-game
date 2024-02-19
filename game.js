@@ -34,7 +34,9 @@ import {showCoins,
     checkResilience,
     saveBlockData,
     displayResilience,
-    displayResilienceFancy} from './commonLevelsCode.js';
+    displayResilienceFancy,
+    checkMinerSwingBack,
+    checkMiner} from './commonLevelsCode.js';
 
 //Index of the block selected by the user and the block
 let indexOfChosenBlock;
@@ -51,6 +53,8 @@ checkLocalStorageForCoins();
 showCoins();
 
 //Set blocksData array if it's not already in localStorage
+
+checkMiner(miner);
 
 function createBlocksData(){
     if (!localStorage.getItem(`blocksDataLevelOne`)) {
@@ -113,7 +117,8 @@ blocks.forEach((block, index) => {
         //Save reference to the chosen block
         chosenBlock = block;
         indexOfChosenBlock = index;
-        console.log(getBlocksData('blocksDataLevelOne')[indexOfChosenBlock].resilience);
+        
+        checkMinerSwingBack();
         //Move the miner to the chosen block
         moveMinerToBlock(miner, block, 0, 0);
         //Move the miner images to the same block

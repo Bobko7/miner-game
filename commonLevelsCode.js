@@ -133,7 +133,6 @@ export function moveMinerToBlock(elementToBeMoved, elementTarget, inaccuracyX = 
         movingLeft = null;
     }
     setTimeout(()=>{
-        elementToBeMoved.src = 'images/miner.png';
         //Media queries to set the size of the elementToBeMoved after it's moved horizontally
         if(window.innerWidth > 900){
             elementToBeMoved.style.width = '9em';
@@ -147,7 +146,19 @@ export function moveMinerToBlock(elementToBeMoved, elementTarget, inaccuracyX = 
         else if(window.innerWidth < 600){
             elementToBeMoved.style.width = '6.5em';
         }
-         //elementToBeMoved.style.height = '180em';
+
+        if(localStorage.getItem("maxDamage") == 500){
+            elementToBeMoved.src = 'images/miner.png';
+        }
+        else if(localStorage.getItem("maxDamage") == 800){
+            elementToBeMoved.src = 'images/miner-pickaxe-1.png';
+        }
+        else if(localStorage.getItem("maxDamage") == 1000){
+            elementToBeMoved.src = 'images/miner-pickaxe-2.png';
+        }
+        else if(localStorage.getItem("maxDamage") == 2000){
+            elementToBeMoved.src = 'images/miner-pickaxe-3.png';
+        }
         elementToBeMoved.style.top = targetRect.top + inaccuracyY + 'px';
 }, duration * 1000);
     //Check the movement direction to set the proper animations
@@ -198,10 +209,55 @@ export function moveMinerToBlock(elementToBeMoved, elementTarget, inaccuracyX = 
     elementToBeMoved.style.zIndex = "6";
 }
 
+//Check which image to display on normal miner
+export function checkMiner(miner){
+    if(localStorage.getItem('maxDamage') == 500){
+        miner.src = 'images/miner.png';
+    }
+    else if(localStorage.getItem('maxDamage') == 800){
+        miner.src = 'images/miner-pickaxe-1.png';
+    }
+    else if(localStorage.getItem('maxDamage') == 1000){
+        miner.src = 'images/miner-pickaxe-2.png';
+    }
+    else if(localStorage.getItem('maxDamage') == 2000){
+        miner.src = 'images/miner-pickaxe-3.png';
+    }
+}
+
+//Check which image to display when the miner is swinging back
+export function checkMinerSwingBack(){
+    if(localStorage.getItem("maxDamage") == 500){
+        minerSwingBack.src = 'images/miner-swing-back.png'
+    }
+    else if(localStorage.getItem("maxDamage") == 800){
+        minerSwingBack.src = 'images/miner-swing-back-pickaxe-1.png';
+    }
+    else if(localStorage.getItem("maxDamage") == 1000){
+        minerSwingBack.src = 'images/miner-swing-back-pickaxe-2.png';
+    }
+    else if(localStorage.getItem("maxDamage") == 2000){
+        minerSwingBack.src = 'images/miner-swing-back-pickaxe-3.png';
+    }
+}
+
 //Function for the miner breaking a block animation
 export function minerBlockBreakingAnimation() {
     setTimeout(()=>{
         minerSwingBack.src = 'images/miner-swing-back.png';
+        if(localStorage.getItem("maxDamage") == 500){
+            minerSwingBack.src = 'images/miner-swing-back.png';
+        }
+        else if(localStorage.getItem("maxDamage") == 800){
+            console.log("I'm here")
+            minerSwingBack.src = 'images/miner-swing-back-pickaxe-1.png';
+        }
+        else if(localStorage.getItem("maxDamage") == 1000){
+            minerSwingBack.src = 'images/miner-swing-back-pickaxe-2.png';
+        }
+        else if(localStorage.getItem("maxDamage") == 2000){
+            minerSwingBack.src = 'images/miner-swing-back-pickaxe-3.png';
+        }
         if(window.innerWidth > 900){
             minerSwingBack.style.width = '18em';
             minerSwingBack.style.height = '18.5em';

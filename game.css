@@ -335,7 +335,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    z-index: 6;
+    z-index: 8;
     background-color:beige;
     border-radius: 3em;
     padding: 10px;

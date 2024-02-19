@@ -71,6 +71,17 @@
     border-radius: 50%;
 }
 
+.level-image{
+    width: 150%;
+}
+
+.second-level-image{
+    filter: brightness(1);
+}
+
+.third-level-image{
+    filter: brightness(0.4);
+}
 /*Locked Levels Shaking Animation $$$$$$$$$$$$$$$$$$$$$$$$*/
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
