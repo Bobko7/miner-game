@@ -330,7 +330,7 @@
 
 .artifact-container h1{
     font-weight: 600;
-    font-size: 1em;
+    font-size: 1em; 
     margin-block: 0.5em;
     font-family: cursive;
 }
@@ -340,7 +340,13 @@
     font-family: cursive;
 }
 
+
 /* Media queries $$$$$$$$$$$$$$$$$$$$$$$$$$$ */
+@media only screen and (max-width: 1000px) and (min-width: 900px){
+    .resilience{
+        font-size: 3em;
+    }
+}
 @media only screen and (max-width: 900px) and (min-width: 750px){
     .miner{
         width: 7.5em;
@@ -348,6 +354,9 @@
     .miner-swing{
         width: 15em;
         height: 15em;
+    }
+    .resilience{
+        font-size: 2.4em;
     }
 }
 
@@ -358,6 +367,9 @@
     .miner-swing{
         width: 12em;
         height: 12em;
+    }
+    .resilience{
+        font-size: 2em;
     }
 }
 
@@ -375,5 +387,11 @@
     .miner-swing{
         width: 12.5em;
         height: 12em;
+    }
+    .breaking-container{
+        width: 80%;
+    }
+    .resilience{
+        font-size: 2.5em;
     }
 }
