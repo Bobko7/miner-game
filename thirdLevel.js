@@ -30,7 +30,11 @@ import {showCoins,
     displayResilience,
     displayResilienceFancy,
     checkMiner,
-    checkMinerSwingBack} from './commonLevelsCode.js';
+    checkMinerSwingBack,
+    createArtifact,
+    createRandomBetween0and17,
+    hideImagesRandom
+} from './commonLevelsCode.js';
 
 //Index of the block selected by the user and the block
 let indexOfChosenBlock;
@@ -178,21 +182,10 @@ meter.addEventListener("click", () => {
 catch(er){};
 
 //Create new images for the artifacts and set them the css properties
-const img1 = document.createElement("img");
-img1.src = 'images/viking-brooch.png';
-img1.style.zIndex = "-1";
-img1.style.position = "absolute";
-img1.style.transform = "scale(0.7)";
-const img2 = document.createElement("img");
-img2.src = 'images/roman-oil-lamp.png';
-img2.style.position = "absolute";
-img2.style.zIndex = "-1";
-img2.style.transform = "scale(0.7)";
-const img3 = document.createElement("img");
-img3.src = 'images/celctic-torc.png';
-img3.style.position = "absolute";
-img3.style.zIndex = "-1";
-img3.style.transform = "scale(0.7)";
+const img1 = createArtifact("images/viking-brooch.png", -1, "absolute", 0.7);
+const img2 = createArtifact("images/roman-oil-lamp.png", -1, "absolute", 0.7);
+const img3 = createArtifact("images/celctic-torc.png", -1, "absolute", 0.7)
+
 let artifactsIndexes = [];
 //Check if the there are random indexes for the artifacts in the localStorage, if not, create ones
 if (!localStorage.getItem('levelThreeArtifactsIndexes')) {
@@ -229,18 +222,10 @@ while(!secondRandom){
 else{
     // Retrieve blocks data from localStorage
        artifactsIndexes = JSON.parse(localStorage.getItem("levelThreeArtifactsIndexes"));
-    }
-//Function to create a random number between 0 and 17
-function createRandomBetween0and17(){
-        return Math.floor(Math.random() * 18);
 }
+
 //Function to hide the artifacts at the random places
-function hideImagesRandom(){
-    blocks[artifactsIndexes[0]].appendChild(img1);
-    blocks[artifactsIndexes[1]].appendChild(img2);
-    blocks[artifactsIndexes[2]].appendChild(img3);
-}
-hideImagesRandom();
+hideImagesRandom(blocks,artifactsIndexes, img1, img2, img3);
 
 function checkSpecialBlocks(){
     Array.from(blocks).indexOf(chosenBlock) == artifactsIndexes[0]

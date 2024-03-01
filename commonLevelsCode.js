@@ -331,3 +331,25 @@ export function displayResilienceFancy(localStorageNameOfData, indexOfChosenBloc
         }
 }, 20)
 }
+
+//Create new images for the artifacts and set them custom CSS properties
+export function createArtifact(src, zIndex, position, scale) {
+    const img = document.createElement("img");
+    img.src = src;
+    img.style.position = position || "absolute";
+    img.style.zIndex = zIndex || "-1";
+    img.style.transform = `scale(${scale || 1})`;
+    return img;
+}
+
+//Function to create a random number between 0 and 17
+export function createRandomBetween0and17(){
+    return Math.floor(Math.random() * 18);
+}
+
+export function hideImagesRandom(blocks, artifactsIndexes, img1, img2, img3){
+    blocks[artifactsIndexes[0]].appendChild(img1);
+    blocks[artifactsIndexes[1]].appendChild(img2);
+    blocks[artifactsIndexes[2]].appendChild(img3);
+}
+

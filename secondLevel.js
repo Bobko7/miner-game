@@ -30,7 +30,11 @@ import {showCoins,
     displayResilience,
     displayResilienceFancy,
     checkMinerSwingBack,
-    checkMiner} from './commonLevelsCode.js';
+    checkMiner,
+    createArtifact,
+    createRandomBetween0and17,
+    hideImagesRandom
+} from './commonLevelsCode.js';
 
 //Index of the block selected by the user and the block
 let indexOfChosenBlock;
@@ -194,19 +198,10 @@ function unlockLevelThreeAttempt(){
 }
 
 //Create new images for the artifacts and set them custom CSS properties
-const img1 = document.createElement("img");
-img1.src = 'images/scarab-amulet.png';
-img1.style.zIndex = "-1";
-img1.style.position = "absolute";
-const img2 = document.createElement("img");
-img2.src = 'images/funerary-mask.png';
-img2.style.position = "absolute";
-img2.style.zIndex = "-1";
-const img3 = document.createElement("img");
-img3.src = 'images/egyptyan-canopic-jar.png';
-img3.style.position = "absolute";
-img3.style.zIndex = "-1";
-img3.style.transform = "scale(0.7)";
+const img1 = createArtifact("images/scarab-amulet.png", -1, "absolute", 0.7);
+const img2 = createArtifact("images/funerary-mask.png", -1, "absolute", 0.7);
+const img3 = createArtifact("images/egyptyan-canopic-jar.png", -1, "absolute", 0.7);
+
 let artifactsIndexes = [];
 //Check if the there are random indexes for the artifacts in the localStorage, if not, create ones
 if (!localStorage.getItem('levelTwoArtifactsIndexes')) {
@@ -243,18 +238,10 @@ while(!secondRandom){
 else{
     // Retrieve blocks data from localStorage
        artifactsIndexes = JSON.parse(localStorage.getItem("levelOneArtifactsIndexes"));
-    }
-//Function to create a random number between 0 and 17
-function createRandomBetween0and17(){
-        return Math.floor(Math.random() * 18);
 }
+
 //Function to hide the artifacts at the random places
-function hideImagesRandom(){
-    blocks[artifactsIndexes[0]].appendChild(img1);
-    blocks[artifactsIndexes[1]].appendChild(img2);
-    blocks[artifactsIndexes[2]].appendChild(img3);
-}
-hideImagesRandom();
+hideImagesRandom(blocks, artifactsIndexes, img1, img2, img3);
 
 //Function to check if a block with an artifact has been broken
 function checkSpecialBlocks(){

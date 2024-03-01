@@ -31,7 +31,11 @@ import {showCoins,
     displayResilience,
     displayResilienceFancy,
     checkMinerSwingBack,
-    checkMiner} from './commonLevelsCode.js';
+    checkMiner,
+    createArtifact,
+    createRandomBetween0and17,
+    hideImagesRandom
+} from './commonLevelsCode.js';
 
 //Index of the block selected by the user and the block
 let indexOfChosenBlock;
@@ -192,22 +196,15 @@ function unlockLevelTwoAttempt(){
 }
 
 //Create new images for the artifacts and set them custom CSS properties
-const img1 = document.createElement("img");
-img1.src = 'images/coin-alexander-the-great.png';
-img1.style.zIndex = "-1";
-img1.style.position = "absolute";
-const img2 = document.createElement("img");
-img2.src = 'images/coin-julius-caesar.png';
-img2.style.position = "absolute";
-img2.style.zIndex = "-1";
-const img3 = document.createElement("img");
-img3.src = 'images/ancient-pot.png';
-img3.style.position = "absolute";
-img3.style.zIndex = "-1";
-img3.style.transform = "scale(0.7)";
+const img1 = createArtifact('images/coin-alexander-the-great.png', -1, "absolute", 0.7);
+const img2 = createArtifact('images/coin-julius-caesar.png', -1, "absolute", 0.7);
+const img3 = createArtifact('images/ancient-pot.png', -1, "absolute", 0.7);
+
 let artifactsIndexes = [];
 
 //Check if the there are random indexes for the artifacts in the localStorage, if not, create ones
+
+
 if (!localStorage.getItem('levelOneArtifactsIndexes')) {
 // Initialize blocks array with default values
 let randomNums = [];
@@ -242,22 +239,14 @@ while(!secondRandom){
 else{
     // Retrieve blocks data from localStorage
        artifactsIndexes = JSON.parse(localStorage.getItem("levelOneArtifactsIndexes"));
-    }
-//Function to create a random number between 0 and 17
-function createRandomBetween0and17(){
-        return Math.floor(Math.random() * 18);
 }
+
 //Function to hide the artifacts at the random places
-function hideImagesRandom(){
-    blocks[artifactsIndexes[0]].appendChild(img1);
-    blocks[artifactsIndexes[1]].appendChild(img2);
-    blocks[artifactsIndexes[2]].appendChild(img3);
-}
-hideImagesRandom();
+hideImagesRandom(blocks, artifactsIndexes, img1, img2, img3);
 
 //Function to check if a block with an artifact has been broken
 function checkSpecialBlocks(){
-    Array.from(blocks).indexOf(chosenBlock) == artifactsIndexes[0]
+    Array.from(blocks).indexOf(chosenBlock) == artifactsIndexes[0];
         if(Array.from(blocks).indexOf(chosenBlock) == artifactsIndexes[0]){
         localStorage.setItem("coins", Number(localStorage.getItem("coins")) + 30);
         currentArtifact = img1;
@@ -270,7 +259,7 @@ function checkSpecialBlocks(){
             localStorage.setItem("coins", Number(localStorage.getItem("coins")) + 70);
             currentArtifact = img3;
         }
-    }
+}
 
 //Function to check if an artifact is found and display information about it on the screen
 function showArtifactInfo(artifact){
@@ -294,8 +283,7 @@ function showArtifactInfo(artifact){
         }
     }
 
-//After the artifact info window is display, make it disappear with any click on the screen
-window.addEventListener("click", ()=>{
+ window.addEventListener("click", ()=>{
     artifactContainer.style.visibility = "hidden";
     currentArtifact = null;
 })
