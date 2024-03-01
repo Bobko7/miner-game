@@ -19,6 +19,7 @@ import {showCoins,
     moveMinerToBlock,
     minerBlockBreakingAnimation,
     moveElementToElement,
+    checkForBrokenBlocks,
     blockCollapse,
     checkLocalStorageForCoins,
     getBlocksData,
@@ -70,33 +71,7 @@ createBlocksData();
 checkLocalStorageForMaxDamage();
 
 //When the page is loaded check if there are broken blocks from the last session
-const resilienceBetween1000and1500 = [];
-const resilienceBetween0and1000 = [];
-const resilience0 = [];
-blocksSecond.forEach((block, index)=>{
-    if(block.resilience > 1500 && block.resilience < 2500){
-        resilienceBetween1000and1500.push(index);
-    }
-    else if(block.resilience < 1500 && block.resilience > 0){
-        resilienceBetween0and1000.push(index);
-    }
-    else if(block.resilience == 0){
-        resilience0.push(index);
-    }
-});
-
-//When the page is loaded display the respective images for the broken blocks
-blocks.forEach((block, index)=>{
-    if(resilienceBetween1000and1500.includes(index)){
-        block.querySelector("img").src = 'images/broken-block-level-two-1.png';
-    }
-    else if(resilienceBetween0and1000.includes(index)){
-        block.querySelector("img").src = 'images/broken-block-level-two-2.png';
-    }
-    else if(resilience0.includes(index)){
-        block.style.visibility = "hidden";
-    }
-})
+checkForBrokenBlocks(blocksSecond, blocks, 2500, 1500, 'images/broken-block-level-two-1.png', 'images/broken-block-level-two-2.png');
 
 // Apply the transition on click for each block
 blocks.forEach((block, index) => {
@@ -285,10 +260,8 @@ hideImagesRandom();
 function checkSpecialBlocks(){
     Array.from(blocks).indexOf(chosenBlock) == artifactsIndexes[0]
         if(Array.from(blocks).indexOf(chosenBlock) == artifactsIndexes[0]){
-        console.log(Number(localStorage.getItem("coins")) + 30);
         localStorage.setItem("coins", Number(localStorage.getItem("coins")) + 30);
         currentArtifact = img1;
-        console.log(currentArtifact);
         }
         else if(Array.from(blocks).indexOf(chosenBlock) == artifactsIndexes[1]){
             localStorage.setItem("coins", Number(localStorage.getItem("coins")) + 50);

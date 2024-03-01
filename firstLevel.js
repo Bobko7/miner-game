@@ -20,6 +20,7 @@ import {showCoins,
     moveMinerToBlock,
     minerBlockBreakingAnimation,
     moveElementToElement,
+    checkForBrokenBlocks,
     blockCollapse,
     checkLocalStorageForCoins,
     getBlocksData,
@@ -67,34 +68,8 @@ createBlocksData();
 //Checks if there is a maxDamage variable saved in localStorage, if not creates one
 checkLocalStorageForMaxDamage();
 
-//When the page is loaded check if there are broken blocks from the last session
-const resilienceBetween1000and1500 = [];
-const resilienceBetween0and1000 = [];
-const resilience0 = [];
-blocksSecond.forEach((block, index)=>{
-    if(block.resilience > 1000 && block.resilience < 1500){
-        resilienceBetween1000and1500.push(index);
-    }
-    else if(block.resilience < 1000 && block.resilience > 0){
-        resilienceBetween0and1000.push(index);
-    }
-    else if(block.resilience == 0){
-        resilience0.push(index);
-    }
-});
-
-//When the page is loaded display the respective images for the broken blocks
-blocks.forEach((block, index)=>{
-    if(resilienceBetween1000and1500.includes(index)){
-        block.querySelector("img").src = 'images/broken-block1.png';
-    }
-    else if(resilienceBetween0and1000.includes(index)){
-        block.querySelector("img").src = 'images/broken-block2.png';
-    }
-    else if(resilience0.includes(index)){
-        block.style.visibility = "hidden";
-    }
-})
+//Check if there are broken blocks from the last session
+checkForBrokenBlocks(blocksSecond, blocks, 1500, 1000, 'images/broken-block1.png', 'images/broken-block2.png');
 
 // Apply the transition on click for each block
 blocks.forEach((block, index) => {

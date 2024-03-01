@@ -227,22 +227,33 @@ export function moveElementToElement(elementToBeMoved, elementTarget, inaccuracy
     elementToBeMoved.style.left = targetRect.left + inaccuracyX + 'px';
 }
 
-//Function to create blocks data and save it to local storage
-export function createBlocksData(localStorageNameOfData, blocksSecond){
-    if (!localStorage.getItem(`${localStorageNameOfData}`)) {
-        // Initialize blocks array with default values
-        blocksSecond.forEach((block) => {
-            block.resilience = 2000;
-            block.lowResilience = false;
-        });
-        // Save initial block data to localStorage
-        saveBlockData(blocksSecond);
-    } else {
-        // Retrieve blocks data from localStorage
-        
-        blocksSecond = getBlocksData('blocksDataLevelOne');
-        console.log(blocksSecond);
-    }
+export function checkForBrokenBlocks(blocksCopy, blocks, upperBorder, lowerBorder, brokenBlockImage1, brokenBLockImage2){
+    const resilienceBetween1000and1500 = [];
+    const resilienceBetween0and1000 = [];
+    const resilience0 = [];
+    blocksCopy.forEach((block, index)=>{
+        if(block.resilience > lowerBorder && block.resilience < upperBorder){
+            resilienceBetween1000and1500.push(index);
+        }
+        else if(block.resilience < lowerBorder && block.resilience > 0){
+            resilienceBetween0and1000.push(index);
+        }
+        else if(block.resilience == 0){
+            resilience0.push(index);
+        }
+    });
+
+    blocks.forEach((block, index)=>{
+        if(resilienceBetween1000and1500.includes(index)){
+            block.querySelector("img").src = `${brokenBlockImage1}`;
+        }
+        else if(resilienceBetween0and1000.includes(index)){
+            block.querySelector("img").src = `${brokenBLockImage2}`;
+        }
+        else if(resilience0.includes(index)){
+            block.style.visibility = "hidden";
+        }
+    })
 }
 
 //Function to save a change in blocks data to local storage
