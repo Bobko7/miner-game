@@ -71,7 +71,6 @@ function createBlocksData(){
 }
 createBlocksData();
 
-console.log(getBlocksData('blocksDataLevelThree'));
 // Now blocksSecond should have the resilience property
 //Checks if there is a maxDamage variable saved in localStorage, if not creates one
 checkLocalStorageForMaxDamage();
@@ -81,7 +80,7 @@ const resilienceBetween1000and1500 = [];
 const resilienceBetween0and1000 = [];
 const resilience0 = [];
 blocksSecond.forEach((block, index)=>{
-    if(block.resilience > 5000 && block.resilience < 2500){
+    if(block.resilience < 5000 && block.resilience > 2500){
         resilienceBetween1000and1500.push(index);
     }
     else if(block.resilience < 2500 && block.resilience > 0){
@@ -91,7 +90,6 @@ blocksSecond.forEach((block, index)=>{
         resilience0.push(index);
     }
 });
-
 //When the page is loaded display the respective images for the broken blocks
 blocks.forEach((block, index)=>{
     if(resilienceBetween1000and1500.includes(index)){
@@ -161,10 +159,10 @@ meter.addEventListener("click", () => {
     meter.style.pointerEvents = "none";
     setTimeout(()=>{
         meter.style.pointerEvents = "all";
-    }, 1000)
+    }, 1300)
     if(!chosenBlock.lowResilience){
         //Function to check the resilience of the block and display the according image
-        checkResilience(chosenBlock, 'blocksDataLevelThree', indexOfChosenBlock, 2500, 1500, 'images/broken-block-level-three1.png', 'images/broken-block-level-three2.png');
+        checkResilience(chosenBlock, 'blocksDataLevelThree', indexOfChosenBlock, 5000, 2500, 'images/broken-block-level-three1.png', 'images/broken-block-level-three2.png');
     }
     //Check if the resilience is below 0 
     if(getBlocksData('blocksDataLevelThree')[indexOfChosenBlock].resilience <= 0){
@@ -190,7 +188,6 @@ meter.addEventListener("click", () => {
             setTimeout(()=>{      
                 miner.style.visibility = "visible";
                 minerSwingBack.style.display = "none";
-                unlockLevelThreeAttempt();
         }, 1200)
         }, 200)
     }
@@ -215,12 +212,14 @@ const img1 = document.createElement("img");
 img1.src = 'images/viking-brooch.png';
 img1.style.zIndex = "-1";
 img1.style.position = "absolute";
+img1.style.transform = "scale(0.7)";
 const img2 = document.createElement("img");
 img2.src = 'images/roman-oil-lamp.png';
 img2.style.position = "absolute";
 img2.style.zIndex = "-1";
+img2.style.transform = "scale(0.7)";
 const img3 = document.createElement("img");
-img3.src = 'images/celtic-torc.png';
+img3.src = 'images/celctic-torc.png';
 img3.style.position = "absolute";
 img3.style.zIndex = "-1";
 img3.style.transform = "scale(0.7)";

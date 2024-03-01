@@ -1,5 +1,5 @@
 .store-container{
-    background: url('images/store-background.png');
+    background: url('images/store-background-second.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -7,6 +7,7 @@
     height: 100vh;
     display: grid;
     grid-template-rows: repeat(3, 1fr);
+    overflow: hidden;
 }
 
 .links{
@@ -25,8 +26,13 @@
     cursor: pointer;
 }
 
+.store-to-game:hover{
+    transform: scale(1.1);
+}
 .store-to-game{
-    position: absolute;
+    transition: all 0.4s ease-in-out;
+    position: relative;
+    display: inline-block;
     font-size: 2em;
     background: rgba(255, 255, 255, 0.21);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -48,7 +54,7 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    left: 0.5em;
+    left: 0em;
     top: 1.5em;
 }
 .store-coin-image{
@@ -116,16 +122,44 @@
 .item3{
     grid-row: span 1;
 }
-/*
-.items{
-    border: 3px solid red;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-direction: column;
-    height: 100%;
-}*/
 
 .pickaxe-store-item{
     font-size: 3em;
+}
+
+@media only screen and (max-width: 900px) and (min-width: 700px){
+    .store-price{
+        font-size: 2.5em;
+    }
+    .store-buy-button{
+        font-size: 0.8em;
+        left: 68%;
+    }
+}
+
+@media only screen and (max-width: 700px) and (min-width: 600px){
+    .store-price{
+        font-size: 2em;
+    }
+    .store-buy-button{
+        font-size: 0.6em;
+        left: 69%;
+    }
+}
+
+@media only screen and (max-width: 600px){
+    .store-price{
+        font-size: 1.5em;
+    }
+    .store-buy-button{
+        font-size: 0.6em;
+        top: 55%;
+    }
+    .store-coin-image{
+        width: 1.7em;
+        height: 1.7em;
+    }
+    .store-coins{
+        font-size: 1.5em;
+    }
 }

@@ -45,7 +45,7 @@ function scrollToTopSmoothly() {
 
   const levelThreeContainer = document.querySelector(".level-three");
   const levelThreeLink = document.querySelector(".level-three-link");
-  if(localStorage.getItem("levelThreeCleared")){
+  if(localStorage.getItem("levelTwoCleared")){
     levelThreeContainer.classList.remove("chained-level");
     levelThreeLink.href = 'third.html';
     levelThreeLink.querySelector(".chains").style.visibility = "hidden";

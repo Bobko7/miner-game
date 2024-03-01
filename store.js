@@ -6,8 +6,35 @@ const coinsLabel = document.querySelector('.store-coins');
 const buyItem1 = document.querySelector(".buy-item1");
 const buyItem2 = document.querySelector(".buy-item2");
 const buyItem3 = document.querySelector(".buy-item3");
-
+const backInTheGame = document.querySelector(".store-to-game-link");
 coinsLabel.innerHTML = "" + gameCoins;
+
+const previousURL = document.referrer;
+backInTheGame.href = previousURL;
+if(localStorage.getItem("maxDamage") == 800){
+    buyItem1.innerHTML = "Bought";
+        buyItem1.style.pointerEvents = "none";
+        buyItem1.style.background = "lightgray";
+}
+else if(localStorage.getItem('maxDamage') == 1000){
+    buyItem1.innerHTML = "Bought";
+        buyItem1.style.pointerEvents = "none";
+        buyItem1.style.background = "lightgray";
+        buyItem2.innerHTML = "Bought";
+        buyItem2.style.pointerEvents = "none";
+        buyItem2.style.background = "lightgray";
+}
+else if(localStorage.getItem("maxDamage") == 2000){
+    buyItem1.innerHTML = "Bought";
+        buyItem1.style.pointerEvents = "none";
+        buyItem1.style.background = "lightgray";
+        buyItem2.innerHTML = "Bought";
+        buyItem2.style.pointerEvents = "none";
+        buyItem2.style.background = "lightgray";
+        buyItem3.innerHTML = "Bought";
+        buyItem3.style.pointerEvents = "none";
+        buyItem3.style.background = "lightgray";
+}
 
 buyItem1.addEventListener("click", ()=>{
     if(gameCoins >= 100){
