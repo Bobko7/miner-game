@@ -34,15 +34,16 @@ function scrollToTopSmoothly() {
     scrollToTopSmoothly();
   };
 
+  // If level one is cleared, unlock level two
   const levelTwoContainer = document.querySelector(".level-two");
   const levelTwoLink = document.querySelector(".level-two-link");
   if(localStorage.getItem("levelOneCleared")){
-    console.log(levelTwoContainer, levelTwoLink);
     levelTwoContainer.classList.remove("chained-level");
     levelTwoLink.href = 'secondLevel.html';
     levelTwoLink.querySelector(".chains").style.visibility = "hidden";
   }
 
+  //If level two is cleared, unlock level three
   const levelThreeContainer = document.querySelector(".level-three");
   const levelThreeLink = document.querySelector(".level-three-link");
   if(localStorage.getItem("levelTwoCleared")){
