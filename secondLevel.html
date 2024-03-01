@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Level 1</title>
+    <title>Level 2</title>
     <link rel="icon" href="images/hat-icon.png">
     <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="game.css">
-    <script src="game.js" defer type="module"></script>
-    <script src="commonLevelsCode.js" type="module" defer></script>
+    <link rel="stylesheet" href="levelsStyling.css">
     <link rel="preload" href="images/miner-walking-left-fast.gif" as="image">
     <link rel="preload" href="images/real-block-breaking.gif" as="image">
     <link rel="preload" href="images/miner-walking-right-animation-fast.gif" as="image">
@@ -25,11 +23,13 @@
     <link rel="preload" href="images/miner-block-breaking-animation-pickaxe-1.gif" as="image"> 
     <link rel="preload" href="images/miner-block-breaking-animation-pickaxe-2.gif" as="image"> 
     <link rel="preload" href="images/miner-block-breaking-animation-pickaxe-3.gif" as="image"> 
+    <script src="secondLevel.js" type="module" defer></script>
+    <script src="commonLevelsCode.js" type="module" defer></script>
     <script src="https://kit.fontawesome.com/94421114f4.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <!--Start change-->
-    <div class="main-container">
+    <div class="main-container-second-level">
         <!-- Levels Link $$$$$$$$$$$$$$$$$$$$$$$$$ -->
         <a href="index.html" class="levels-link" title="Levels">
             <div class="levels-link-container">
@@ -53,12 +53,12 @@
             <h1 class="artifact-name"></h1>
             <p class="artifact-info"></p>
         </div>
-            <img src="images/miner.png" alt="" class="miner">
+            <img src="images/miner.png" alt="" class="miner-level-two">
             <img src="images/miner-swing-back.png" alt="" class="miner-swing miner-swing-back">
         <!-- </div> -->
          <!--Displaying each block to be broken-->
          <div class="breaking-container">
-            <h1 class="resilience">Resilience: 2000</h1>
+            <h1 class="resilience">Resilience: 4000</h1>
             <div class="meter">
                 <div class="meter-stop"></div>
             </div>
@@ -67,62 +67,62 @@
                 <h1 class="click-here-text">Click up there!</h1>
             </div>
          </div>
-         <div class="background-upper-part"></div>
-         <div class="blocks">
+         <div class="background-upper-part-level-two"></div>
+         <div class="blocks-second-level">
             <!--Earth Blocks $$$$$$$$$$$$$$$$$$$$$$$$-->
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
+            <div class="block block-level-two">
+                <img src="images/block-level-two.png" alt="">
             </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
+            <div class="block block-level-two">
+                <img src="images/block-level-two.png" alt="">
             </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
+            <div class="block block-level-two">
+                <img src="images/block-level-two.png" alt="">
             </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
+            <div class="block block-level-two">
+                <img src="images/block-level-two.png" alt="">
             </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
+            <div class="block block-level-two">
+                <img src="images/block-level-two.png" alt="">
             </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
+            <div class="block block-level-two">
+                <img src="images/block-level-two.png" alt="">
             </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
+            <div class="block block-level-two">
+                <img src="images/block-level-two.png" alt="">
             </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
+            <div class="block block-level-two">
+                <img src="images/block-level-two.png" alt="">
             </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
+            <div class="block block-level-two">
+                <img src="images/block-level-two.png" alt="">
             </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
+            <div class="block block-level-two">
+                <img src="images/block-level-two.png" alt="">
             </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
+            <div class="block block-level-two">
+                <img src="images/block-level-two.png" alt="">
             </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
+            <div class="block block-level-two">
+                <img src="images/block-level-two.png" alt="">
             </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
+            <div class="block block-level-two">
+                <img src="images/block-level-two.png" alt="">
             </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
+            <div class="block block-level-two">
+                <img src="images/block-level-two.png" alt="">
             </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
+            <div class="block block-level-two">
+                <img src="images/block-level-two.png" alt="">
             </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
+            <div class="block block-level-two">
+                <img src="images/block-level-two.png" alt="">
             </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
+            <div class="block block-level-two">
+                <img src="images/block-level-two.png" alt="">
             </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
+            <div class="block block-level-two">
+                <img src="images/block-level-two.png" alt="">
             </div>
         </div>
     </div>
