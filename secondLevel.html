@@ -3,10 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page title $$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->
     <title>Level 2</title>
+    <!-- Page window icon $$$$$$$$$$$$$$$$$$$$$$ -->
     <link rel="icon" href="images/hat-icon.png">
+    <!-- Links to stylesheets -->
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="levelsStyling.css">
+    <!-- Links to javascript files $$$$$$$$$$$$$ -->
+    <script src="secondLevel.js" type="module" defer></script>
+    <script src="commonLevelsCode.js" type="module" defer></script>
+    <!-- Preload the needed images and animations -->
     <link rel="preload" href="images/miner-walking-left-fast.gif" as="image">
     <link rel="preload" href="images/real-block-breaking.gif" as="image">
     <link rel="preload" href="images/miner-walking-right-animation-fast.gif" as="image">
@@ -23,12 +30,10 @@
     <link rel="preload" href="images/miner-block-breaking-animation-pickaxe-1.gif" as="image"> 
     <link rel="preload" href="images/miner-block-breaking-animation-pickaxe-2.gif" as="image"> 
     <link rel="preload" href="images/miner-block-breaking-animation-pickaxe-3.gif" as="image"> 
-    <script src="secondLevel.js" type="module" defer></script>
-    <script src="commonLevelsCode.js" type="module" defer></script>
+    <!-- Link to Font Awesome $$$$$$$$$$$$$$$$$$$$$$$$ -->
     <script src="https://kit.fontawesome.com/94421114f4.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <!--Start change-->
     <div class="main-container-second-level">
         <!-- Levels Link $$$$$$$$$$$$$$$$$$$$$$$$$ -->
         <a href="index.html" class="levels-link" title="Levels">
@@ -37,7 +42,7 @@
             </div>
         </a>
         <!-- Coins $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->
-        <div class="coins-div">
+        <div class="coins-container">
             <img src="images/coin.png" alt="" class="coins-image">
             <h1 class="coins"></h1>
         </div>
@@ -47,17 +52,20 @@
                 <i class="fa-solid fa-store"></i>
             </div>
         </a>
-        <!--Miner image $$$$$$$$$$$$$$$$$$$$$$$-->
+
+        <!-- Artifact information $$$$$$$$$$$$$$$$$ -->
         <div class="artifact-container">
             <img src="" alt="" class="artifact-image">
             <h1 class="artifact-name"></h1>
             <p class="artifact-info"></p>
         </div>
+
+        <!--Miner images $$$$$$$$$$$$$$$$$$$$$$$-->
             <img src="images/miner.png" alt="" class="miner-level-two">
             <img src="images/miner-swing-back.png" alt="" class="miner-swing miner-swing-back">
-        <!-- </div> -->
-         <!--Displaying each block to be broken-->
-         <div class="breaking-container">
+
+        <!--Block breaking container $$$$$$$$$$$-->
+        <div class="breaking-container">
             <h1 class="resilience">Resilience: 4000</h1>
             <div class="meter">
                 <div class="meter-stop"></div>
@@ -66,65 +74,68 @@
                 <img src="images/hand-pointer.png" alt="" class="click-here-image">
                 <h1 class="click-here-text">Click up there!</h1>
             </div>
-         </div>
-         <div class="background-upper-part-level-two"></div>
-         <div class="blocks-second-level">
-            <!--Earth Blocks $$$$$$$$$$$$$$$$$$$$$$$$-->
-            <div class="block block-level-two">
-                <img src="images/block-level-two.png" alt="">
-            </div>
-            <div class="block block-level-two">
-                <img src="images/block-level-two.png" alt="">
-            </div>
-            <div class="block block-level-two">
-                <img src="images/block-level-two.png" alt="">
-            </div>
-            <div class="block block-level-two">
-                <img src="images/block-level-two.png" alt="">
-            </div>
-            <div class="block block-level-two">
-                <img src="images/block-level-two.png" alt="">
-            </div>
-            <div class="block block-level-two">
-                <img src="images/block-level-two.png" alt="">
-            </div>
-            <div class="block block-level-two">
-                <img src="images/block-level-two.png" alt="">
-            </div>
-            <div class="block block-level-two">
-                <img src="images/block-level-two.png" alt="">
-            </div>
-            <div class="block block-level-two">
-                <img src="images/block-level-two.png" alt="">
-            </div>
-            <div class="block block-level-two">
-                <img src="images/block-level-two.png" alt="">
-            </div>
-            <div class="block block-level-two">
-                <img src="images/block-level-two.png" alt="">
-            </div>
-            <div class="block block-level-two">
-                <img src="images/block-level-two.png" alt="">
-            </div>
-            <div class="block block-level-two">
-                <img src="images/block-level-two.png" alt="">
-            </div>
-            <div class="block block-level-two">
-                <img src="images/block-level-two.png" alt="">
-            </div>
-            <div class="block block-level-two">
-                <img src="images/block-level-two.png" alt="">
-            </div>
-            <div class="block block-level-two">
-                <img src="images/block-level-two.png" alt="">
-            </div>
-            <div class="block block-level-two">
-                <img src="images/block-level-two.png" alt="">
-            </div>
-            <div class="block block-level-two">
-                <img src="images/block-level-two.png" alt="">
-            </div>
         </div>
+
+        <!-- Separate the upper from the lower part of the background -->
+        <div class="background-upper-part-level-two"></div>
+        <div class="blocks-second-level">
+
+        <!--Earth Blocks $$$$$$$$$$$$$$$$$$$$$$$$-->
+        <div class="block block-level-two">
+            <img src="images/block-level-two.png" alt="">
+        </div>
+        <div class="block block-level-two">
+            <img src="images/block-level-two.png" alt="">
+        </div>
+        <div class="block block-level-two">
+            <img src="images/block-level-two.png" alt="">
+        </div>
+        <div class="block block-level-two">
+            <img src="images/block-level-two.png" alt="">
+        </div>
+        <div class="block block-level-two">
+            <img src="images/block-level-two.png" alt="">
+        </div>
+        <div class="block block-level-two">
+            <img src="images/block-level-two.png" alt="">
+        </div>
+        <div class="block block-level-two">
+            <img src="images/block-level-two.png" alt="">
+        </div>
+        <div class="block block-level-two">
+            <img src="images/block-level-two.png" alt="">
+        </div>
+        <div class="block block-level-two">
+            <img src="images/block-level-two.png" alt="">
+        </div>
+        <div class="block block-level-two">
+            <img src="images/block-level-two.png" alt="">
+        </div>
+        <div class="block block-level-two">
+            <img src="images/block-level-two.png" alt="">
+        </div>
+        <div class="block block-level-two">
+            <img src="images/block-level-two.png" alt="">
+        </div>
+        <div class="block block-level-two">
+            <img src="images/block-level-two.png" alt="">
+        </div>
+        <div class="block block-level-two">
+            <img src="images/block-level-two.png" alt="">
+        </div>
+        <div class="block block-level-two">
+            <img src="images/block-level-two.png" alt="">
+        </div>
+        <div class="block block-level-two">
+            <img src="images/block-level-two.png" alt="">
+        </div>
+        <div class="block block-level-two">
+            <img src="images/block-level-two.png" alt="">
+        </div>
+        <div class="block block-level-two">
+            <img src="images/block-level-two.png" alt="">
+        </div>
+    </div>
     </div>
 </body>
 </html>

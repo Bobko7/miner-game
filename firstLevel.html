@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page title $$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->
     <title>Level 1</title>
+    <!-- Page window icon $$$$$$$$$$$$$$$$$$$$$ -->
     <link rel="icon" href="images/hat-icon.png">
+    <!-- Links to stylesheets $$$$$$$$$$$$$$$$$ -->
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="levelsStyling.css">
+    <!-- Links to javascript files $$$$$$$$$$$$$ -->
     <script src="firstLevel.js" defer type="module"></script>
     <script src="commonLevelsCode.js" type="module" defer></script>
+    <!-- Prealod the needed images and animations -->
     <link rel="preload" href="images/miner-walking-left-fast.gif" as="image">
     <link rel="preload" href="images/real-block-breaking.gif" as="image">
     <link rel="preload" href="images/miner-walking-right-animation-fast.gif" as="image">
@@ -25,10 +30,10 @@
     <link rel="preload" href="images/miner-block-breaking-animation-pickaxe-1.gif" as="image"> 
     <link rel="preload" href="images/miner-block-breaking-animation-pickaxe-2.gif" as="image"> 
     <link rel="preload" href="images/miner-block-breaking-animation-pickaxe-3.gif" as="image"> 
+    <!-- Link to Font Awesome $$$$$$$$$$$$$$$$$$$ -->
     <script src="https://kit.fontawesome.com/94421114f4.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <!--Start change-->
     <div class="main-container">
         <!-- Levels Link $$$$$$$$$$$$$$$$$$$$$$$$$ -->
         <a href="index.html" class="levels-link" title="Levels">
@@ -37,7 +42,7 @@
             </div>
         </a>
         <!-- Coins $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->
-        <div class="coins-div">
+        <div class="coins-container">
             <img src="images/coin.png" alt="" class="coins-image">
             <h1 class="coins"></h1>
         </div>
@@ -47,16 +52,19 @@
                 <i class="fa-solid fa-store"></i>
             </div>
         </a>
-        <!--Miner image $$$$$$$$$$$$$$$$$$$$$$$-->
+
+        <!-- Artifact information $$$$$$$$$$$$$$ -->
         <div class="artifact-container">
             <img src="" alt="" class="artifact-image">
             <h1 class="artifact-name"></h1>
             <p class="artifact-info"></p>
         </div>
+
+        <!--Miner images $$$$$$$$$$$$$$$$$$$$$$$-->
             <img src="images/miner.png" alt="" class="miner">
             <img src="images/miner-swing-back.png" alt="" class="miner-swing miner-swing-back">
-        <!-- </div> -->
-         <!--Displaying each block to be broken-->
+
+         <!--Block breaking container $$$$$$$$$$$$$$-->
          <div class="breaking-container">
             <h1 class="resilience">Resilience: 2000</h1>
             <div class="meter">
@@ -67,63 +75,66 @@
                 <h1 class="click-here-text">Click up there!</h1>
             </div>
          </div>
+
+         <!-- Separate the upper from the lower part of the background -->
          <div class="background-upper-part"></div>
          <div class="blocks">
-            <!--Earth Blocks $$$$$$$$$$$$$$$$$$$$$$$$-->
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
-            </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
-            </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
-            </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
-            </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
-            </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
-            </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
-            </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
-            </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
-            </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
-            </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
-            </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
-            </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
-            </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
-            </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
-            </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
-            </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
-            </div>
-            <div class="block">
-                <img src="images/earth-cube.png" alt="">
-            </div>
+            
+        <!--Earth Blocks $$$$$$$$$$$$$$$$$$$$$$$$-->
+        <div class="block">
+        <img src="images/earth-cube.png" alt="">
+        </div>
+        <div class="block">
+            <img src="images/earth-cube.png" alt="">
+        </div>
+        <div class="block">
+            <img src="images/earth-cube.png" alt="">
+        </div>
+        <div class="block">
+            <img src="images/earth-cube.png" alt="">
+        </div>
+        <div class="block">
+            <img src="images/earth-cube.png" alt="">
+        </div>
+        <div class="block">
+            <img src="images/earth-cube.png" alt="">
+        </div>
+        <div class="block">
+            <img src="images/earth-cube.png" alt="">
+        </div>
+        <div class="block">
+            <img src="images/earth-cube.png" alt="">
+        </div>
+        <div class="block">
+            <img src="images/earth-cube.png" alt="">
+        </div>
+        <div class="block">
+            <img src="images/earth-cube.png" alt="">
+        </div>
+        <div class="block">
+            <img src="images/earth-cube.png" alt="">
+        </div>
+        <div class="block">
+            <img src="images/earth-cube.png" alt="">
+        </div>
+        <div class="block">
+            <img src="images/earth-cube.png" alt="">
+        </div>
+        <div class="block">
+            <img src="images/earth-cube.png" alt="">
+        </div>
+        <div class="block">
+            <img src="images/earth-cube.png" alt="">
+        </div>
+        <div class="block">
+            <img src="images/earth-cube.png" alt="">
+        </div>
+        <div class="block">
+            <img src="images/earth-cube.png" alt="">
+        </div>
+        <div class="block">
+            <img src="images/earth-cube.png" alt="">
+        </div>
         </div>
     </div>
 </body>

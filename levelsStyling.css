@@ -47,7 +47,7 @@
 }
 
 /* Coins $$$$$$$$$$$$$$$$$$$$$$$$$$$*/
-.coins-div{
+.coins-container{
     position: absolute;
     top: 0.5em;
     align-self: flex-start;
