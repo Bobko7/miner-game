@@ -1,27 +1,21 @@
-//Getting the miner and the blocks
+//Retrieve the miner and the blocks
 const miner = document.querySelector(".miner");
 let blocks = document.querySelectorAll(".block");
 let blocksSecond = [...blocks];
-//Getting the container with the meter
+//Retrieve the container with the meter
 const breakingContainer = document.querySelector(".breaking-container");
-const breakingBlock = document.querySelector(".block-to-break");
 const meter = document.querySelector(".meter");
 const meterStop = document.querySelector(".meter-stop");
 let resilienceHeading = document.querySelector(".resilience");
-//Getting the images of miner swinging
+//Retrieve the images of miner swinging
 const minerSwingBack = document.querySelector(".miner-swing-back");
-//Getting the artifact container and its children elements
+//Retrieve the artifact container and its children elements
 const artifactContainer = document.querySelector(".artifact-container");
 const artifactImage = document.querySelector('.artifact-image');
 const artifactName = document.querySelector('.artifact-name');
 const artifactInfo = document.querySelector('.artifact-info');
-//Get coins heading
-const coinsHeading = document.querySelector(".coins");
 
-//Remove this after finished: ease for debugging
-//localStorage.removeItem("blocksDataLevelOne");
-
-//Import from the file with the common code
+//Import from commonLevelsCode.js
 import {showCoins,
     moveMinerToBlock,
     minerBlockBreakingAnimation,
@@ -51,9 +45,7 @@ let currentArtifact = null;
 checkLocalStorageForCoins();
 //Show the coins on the game page
 showCoins();
-
-//Set blocksData array if it's not already in localStorage
-
+//Check which miner skin to display
 checkMiner(miner);
 
 function createBlocksData(){
@@ -67,13 +59,11 @@ function createBlocksData(){
         saveBlockData('blocksDataLevelOne', blocksSecond);
     } else {
         // Retrieve blocks data from localStorage
-        
         blocksSecond = getBlocksData('blocksDataLevelOne');
-        console.log(blocksSecond);
     }
 }
 createBlocksData();
-// Now blocksSecond should have the resilience property
+
 //Checks if there is a maxDamage variable saved in localStorage, if not creates one
 checkLocalStorageForMaxDamage();
 
@@ -92,7 +82,7 @@ blocksSecond.forEach((block, index)=>{
         resilience0.push(index);
     }
 });
-console.log(resilienceBetween1000and1500, resilienceBetween0and1000, resilience0);
+
 //When the page is loaded display the respective images for the broken blocks
 blocks.forEach((block, index)=>{
     if(resilienceBetween1000and1500.includes(index)){
@@ -212,6 +202,7 @@ meter.addEventListener("click", () => {
 });}
 catch(er){};
 
+//Check if every single block is broken to unlock level two
 function unlockLevelTwoAttempt(){
     let allHidden = true;
     for(let block of blocks){
@@ -225,7 +216,7 @@ function unlockLevelTwoAttempt(){
     }
 }
 
-//Create new images for the artifacts and set them the css properties
+//Create new images for the artifacts and set them custom CSS properties
 const img1 = document.createElement("img");
 img1.src = 'images/coin-alexander-the-great.png';
 img1.style.zIndex = "-1";
@@ -240,11 +231,10 @@ img3.style.position = "absolute";
 img3.style.zIndex = "-1";
 img3.style.transform = "scale(0.7)";
 let artifactsIndexes = [];
-//Check if the there are random indexes for the artifacts in the localStorage
-//If not, create ones
+
+//Check if the there are random indexes for the artifacts in the localStorage, if not, create ones
 if (!localStorage.getItem('levelOneArtifactsIndexes')) {
 // Initialize blocks array with default values
-//create and save them in local storage
 let randomNums = [];
 let random = createRandomBetween0and17();
 let secondRandom = false;
@@ -290,21 +280,18 @@ function hideImagesRandom(){
 }
 hideImagesRandom();
 
+//Function to check if a block with an artifact has been broken
 function checkSpecialBlocks(){
     Array.from(blocks).indexOf(chosenBlock) == artifactsIndexes[0]
         if(Array.from(blocks).indexOf(chosenBlock) == artifactsIndexes[0]){
-        console.log(Number(localStorage.getItem("coins")) + 30);
         localStorage.setItem("coins", Number(localStorage.getItem("coins")) + 30);
         currentArtifact = img1;
-        console.log(currentArtifact);
         }
         else if(Array.from(blocks).indexOf(chosenBlock) == artifactsIndexes[1]){
-            console.log(typeof Number(localStorage.getItem("coins")) + 50);
             localStorage.setItem("coins", Number(localStorage.getItem("coins")) + 50);
             currentArtifact = img2;
         }
         else if(Array.from(blocks).indexOf(chosenBlock) == artifactsIndexes[2]){
-            console.log(typeof Number(localStorage.getItem("coins")) + 70);
             localStorage.setItem("coins", Number(localStorage.getItem("coins")) + 70);
             currentArtifact = img3;
         }
@@ -315,13 +302,13 @@ function showArtifactInfo(artifact){
     if(artifact == img1){
         artifactContainer.style.visibility = "visible";
         artifactImage.src = img1.src;
-        artifactName.innerHTML = 'Golden coin of Alexander the great';
+        artifactName.innerHTML = 'Silver coin of Alexander the great';
         artifactInfo.innerHTML = "Alexander the Great was an ancient Macedonian ruler and one of history's most successful military commanders, known for his conquests that extended the Macedonian Empire across three continents. He was tutored by Aristotle and became king of Macedonia at age 20, embarking on campaigns that resulted in the defeat of the Persian Empire and the spread of Hellenistic culture. His empire stretched from Greece to Egypt and into modern-day India before his death at the age of 32.";
     }
     else if(artifact == img2){
         artifactContainer.style.visibility = "visible";
         artifactImage.src = img2.src;
-        artifactName.innerHTML = 'Golden coin of Julius Caesar';
+        artifactName.innerHTML = 'Gold coin of Julius Caesar';
         artifactInfo.innerHTML = "Julius Caesar was a Roman statesman, general, and dictator who played a critical role in the events that led to the demise of the Roman Republic and the rise of the Roman Empire. He was a brilliant military strategist, known for his conquest of Gaul and his decisive victory in the Civil War against Pompey. Caesar's assassination in 44 BC by a group of Roman senators led to a period of political instability and ultimately the end of the Roman Republic.";
         }
     else if(artifact == img3){

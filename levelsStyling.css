@@ -367,7 +367,7 @@
     }
 }
 @media only screen and (max-width: 900px) and (min-width: 750px){
-    .miner{
+    .miner, .miner-level-two, .miner-level-three{
         width: 7.5em;
     }
     .miner-swing{
@@ -383,7 +383,7 @@
 }
 
 @media only screen and (max-width: 750px) and (min-width: 600px){
-    .miner{
+    .miner, .miner-level-two, .miner-level-three{
         width: 6em;
     }
     .miner-swing{
@@ -406,7 +406,7 @@
     .block{
         width: 21%;
     }
-    .miner{
+    .miner, .miner-level-two, .miner-level-three{
         width: 6.5em;
     }
     .miner-swing{

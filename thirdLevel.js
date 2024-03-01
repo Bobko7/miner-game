@@ -1,26 +1,20 @@
-//Getting the miner and the blocks
+//Retrieve the miner and the blocks
 const miner = document.querySelector(".miner-level-three");
 let blocks = document.querySelectorAll(".block");
 let blocksSecond = [...blocks];
-//Getting the container with the meter
+//Retrieve the container with the meter
 const breakingContainer = document.querySelector(".breaking-container");
-const breakingBlock = document.querySelector(".block-to-break");
 const meter = document.querySelector(".meter");
 const meterStop = document.querySelector(".meter-stop");
-let resilienceHeading = document.querySelector(".resilience");
-//Getting the images of miner swinging
+//Retrieve the images of miner swinging
 const minerSwingBack = document.querySelector(".miner-swing-back");
-//Getting the artifact container and its children elements
+//Retrieve the artifact container and its children elements
 const artifactContainer = document.querySelector(".artifact-container");
 const artifactImage = document.querySelector('.artifact-image');
 const artifactName = document.querySelector('.artifact-name');
 const artifactInfo = document.querySelector('.artifact-info');
-//Get coins heading
-const coinsHeading = document.querySelector(".coins");
-//Remove this after finished: ease for debugging
-//localStorage.removeItem("blocksDataLevelOne");
 
-//Import from the file with the common code
+//Import from commonLevelsCode.js
 import {showCoins,
     moveMinerToBlock,
     minerBlockBreakingAnimation,
@@ -51,6 +45,7 @@ checkLocalStorageForCoins();
 //Show the coins on the game page
 showCoins();
 
+//Check which miner skin to display
 checkMiner(miner);
 
 //Set blocksData array if it's not already in localStorage
@@ -71,7 +66,6 @@ function createBlocksData(){
 }
 createBlocksData();
 
-// Now blocksSecond should have the resilience property
 //Checks if there is a maxDamage variable saved in localStorage, if not creates one
 checkLocalStorageForMaxDamage();
 
@@ -224,11 +218,9 @@ img3.style.position = "absolute";
 img3.style.zIndex = "-1";
 img3.style.transform = "scale(0.7)";
 let artifactsIndexes = [];
-//Check if the there are random indexes for the artifacts in the localStorage
-//If not, create ones
+//Check if the there are random indexes for the artifacts in the localStorage, if not, create ones
 if (!localStorage.getItem('levelThreeArtifactsIndexes')) {
 // Initialize blocks array with default values
-//create and save them in local storage
 let randomNums = [];
 let random = createRandomBetween0and17();
 let secondRandom = false;

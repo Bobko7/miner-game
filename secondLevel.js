@@ -1,28 +1,20 @@
-//Getting the miner and the blocks
+//Retrieve the miner and the blocks
 const miner = document.querySelector(".miner-level-two");
 let blocks = document.querySelectorAll(".block");
 let blocksSecond = [...blocks];
-//Getting the container with the meter
+//Retrieve the container with the meter
 const breakingContainer = document.querySelector(".breaking-container");
-const breakingBlock = document.querySelector(".block-to-break");
 const meter = document.querySelector(".meter");
 const meterStop = document.querySelector(".meter-stop");
-let resilienceHeading = document.querySelector(".resilience");
-//Getting the images of miner swinging
-const minerSwings = document.querySelectorAll(".miner-swing");
+//Retrieve the images of miner swinging
 const minerSwingBack = document.querySelector(".miner-swing-back");
-//Getting the artifact container and its children elements
+//Retrieve the artifact container and its children elements
 const artifactContainer = document.querySelector(".artifact-container");
 const artifactImage = document.querySelector('.artifact-image');
 const artifactName = document.querySelector('.artifact-name');
 const artifactInfo = document.querySelector('.artifact-info');
-//Get coins heading
-const coinsHeading = document.querySelector(".coins");
 
-//Remove this after finished: ease for debugging
-//localStorage.removeItem("blocksDataLevelOne");
-
-//Import from the file with the common code
+//Import from commonLevelsCode.js
 import {showCoins,
     moveMinerToBlock,
     minerBlockBreakingAnimation,
@@ -53,11 +45,10 @@ checkLocalStorageForCoins();
 //Show the coins on the game page
 showCoins();
 
-//Check which image of the miner to display
+//Check which miner skin to display
 checkMiner(miner);
 
 //Set blocksData array if it's not already in localStorage
-
 function createBlocksData(){
     if (!localStorage.getItem(`blocksDataLevelTwo`)) {
         // Initialize blocks array with default values
@@ -75,7 +66,6 @@ function createBlocksData(){
 }
 createBlocksData();
 
-// Now blocksSecond should have the resilience property
 //Checks if there is a maxDamage variable saved in localStorage, if not creates one
 checkLocalStorageForMaxDamage();
 
@@ -143,7 +133,7 @@ blocks.forEach((block, index) => {
             breakingContainer.style.visibility = "visible";}, 1000);
     });
 }) 
-console.log(getBlocksData('blocksDataLevelTwo'))
+
 //Stop the meter with a click
 try{
 meter.addEventListener("click", () => {
@@ -214,6 +204,7 @@ meter.addEventListener("click", () => {
 });}
 catch(er){};
 
+//Check if every single block is broken to unlock level three
 function unlockLevelThreeAttempt(){
     let allHidden = true;
     for(let block of blocks){
@@ -226,7 +217,8 @@ function unlockLevelThreeAttempt(){
         window.location.href = 'index.html';
     }
 }
-//Create new images for the artifacts and set them the css properties
+
+//Create new images for the artifacts and set them custom CSS properties
 const img1 = document.createElement("img");
 img1.src = 'images/scarab-amulet.png';
 img1.style.zIndex = "-1";
@@ -241,11 +233,9 @@ img3.style.position = "absolute";
 img3.style.zIndex = "-1";
 img3.style.transform = "scale(0.7)";
 let artifactsIndexes = [];
-//Check if the there are random indexes for the artifacts in the localStorage
-//If not, create ones
+//Check if the there are random indexes for the artifacts in the localStorage, if not, create ones
 if (!localStorage.getItem('levelTwoArtifactsIndexes')) {
 // Initialize blocks array with default values
-//create and save them in local storage
 let randomNums = [];
 let random = createRandomBetween0and17();
 let secondRandom = false;
@@ -292,6 +282,7 @@ function hideImagesRandom(){
 }
 hideImagesRandom();
 
+//Function to check if a block with an artifact has been broken
 function checkSpecialBlocks(){
     Array.from(blocks).indexOf(chosenBlock) == artifactsIndexes[0]
         if(Array.from(blocks).indexOf(chosenBlock) == artifactsIndexes[0]){
