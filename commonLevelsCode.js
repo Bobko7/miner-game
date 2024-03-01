@@ -73,7 +73,6 @@ export function checkResilience(block, localStorageName, indexOfChosenBlock, fir
 
 
 export function displayResilience(localStorageNameOfData, indexOfChosenBlock){
-    console.log(getBlocksData(`${localStorageNameOfData}`));
     resilienceHeading.innerHTML = resilienceHeading.innerHTML.slice(0, 11) + getBlocksData(`${localStorageNameOfData}`)[indexOfChosenBlock].resilience;
 }
 

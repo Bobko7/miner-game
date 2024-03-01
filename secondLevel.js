@@ -275,7 +275,6 @@ function createRandomBetween0and17(){
 }
 //Function to hide the artifacts at the random places
 function hideImagesRandom(){
-    console.log(blocks, artifactsIndexes);
     blocks[artifactsIndexes[0]].appendChild(img1);
     blocks[artifactsIndexes[1]].appendChild(img2);
     blocks[artifactsIndexes[2]].appendChild(img3);

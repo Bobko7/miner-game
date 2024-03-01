@@ -269,18 +269,14 @@ hideImagesRandom();
 function checkSpecialBlocks(){
     Array.from(blocks).indexOf(chosenBlock) == artifactsIndexes[0]
         if(Array.from(blocks).indexOf(chosenBlock) == artifactsIndexes[0]){
-        console.log(Number(localStorage.getItem("coins")) + 30);
         localStorage.setItem("coins", Number(localStorage.getItem("coins")) + 30);
         currentArtifact = img1;
-        console.log(currentArtifact);
         }
         else if(Array.from(blocks).indexOf(chosenBlock) == artifactsIndexes[1]){
-            console.log(typeof Number(localStorage.getItem("coins")) + 50);
             localStorage.setItem("coins", Number(localStorage.getItem("coins")) + 50);
             currentArtifact = img2;
         }
         else if(Array.from(blocks).indexOf(chosenBlock) == artifactsIndexes[2]){
-            console.log(typeof Number(localStorage.getItem("coins")) + 70);
             localStorage.setItem("coins", Number(localStorage.getItem("coins")) + 70);
             currentArtifact = img3;
         }
