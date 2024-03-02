@@ -1,13 +1,108 @@
+h1{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
 .ending-container{
     width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     overflow: hidden;
     background: url("images/reality-background.png");
+    background-repeat: repeat;
+    background-size: 30em 30em;
 }
 
+.fa-star{
+    position: absolute;
+    top: 0.3em;
+    color: rgb(255, 183, 0);
+    font-size: 8em;
+    text-shadow: 0px 0px 5px darkgoldenrod;
+    /* filter:drop-shadow(0px 0px 5px darkgoldenrod); */
+    animation: glowing 0.8s infinite alternate;
+}
+
+@keyframes glowing {
+    0% {
+      text-shadow: 0 0 10px goldenrod;
+      transform: scale(1);
+    }
+    25%{
+        text-shadow: 0 0 15px goldenrod;
+        transform: scale(1.05);
+    }
+    50% {
+      text-shadow: 0 0 20px goldenrod;
+      transform: scale(1.1);
+    }
+    75%{
+        text-shadow: 0 0 15px goldenrod;
+        transform: scale(1.05);
+    }
+    100% {
+      text-shadow: 0 0 10px goldenrod;
+      transform: scale(1);
+    }
+  }
+
 .heading-container{
-    border: 3px solid green;
+    border: 1em solid white;
+    border-radius: 14px;
+    padding: 1em 2em;
+}
+
+.heading-container h1{
+    text-align: center;
+    font-size: 5em;
+    font-weight: 700;
+    /* color: white; */
+    background: -webkit-linear-gradient(300deg, white 5%, gold 5% 30%, white 30% 
+    50%, gold 50% 80%, white 80%);
+    -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.restart{
+    position: absolute;
+    bottom: 2em;
+    color: white;
+    font-weight: 500;
+    font-size: 1.6em;
+    animation: changeOpacity 1s infinite alternate;
+}
+
+@keyframes changeOpacity{
+    0%{
+        filter: opacity(1);
+    }
+    25%{
+        filter: opacity(0.6);
+
+    }
+    50%{
+        filter: opacity(0.3);
+
+    }
+    75%{
+        filter: opacity(0.7);
+
+    }
+    100%{
+        filter: opacity(1);
+
+    }
+}
+@media only screen and (max-width: 600px){
+    .heading-container{
+        width:  60%;
+    }
+    .heading-container h1{
+        font-size: 3.4em;
+    }
+    .restart{
+        font-size: 1.3em;
+    }
 }
