@@ -237,7 +237,7 @@ while(!secondRandom){
 //If there are random indexes for the artifacts, retrieve them
 else{
     // Retrieve blocks data from localStorage
-       artifactsIndexes = JSON.parse(localStorage.getItem("levelOneArtifactsIndexes"));
+    artifactsIndexes = JSON.parse(localStorage.getItem("levelTwoArtifactsIndexes"));
 }
 
 //Function to hide the artifacts at the random places

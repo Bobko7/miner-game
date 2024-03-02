@@ -266,21 +266,18 @@ function showArtifactInfo(artifact){
     if(artifact == img1){
         artifactContainer.style.visibility = "visible";
         artifactImage.src = img1.src;
-        artifactImage.style.width = "40%";
         artifactName.innerHTML = 'Silver coin of Alexander the great';
         artifactInfo.innerHTML = "Alexander the Great was an ancient Macedonian ruler and one of history's most successful military commanders, known for his conquests that extended the Macedonian Empire across three continents. He was tutored by Aristotle and became king of Macedonia at age 20, embarking on campaigns that resulted in the defeat of the Persian Empire and the spread of Hellenistic culture. His empire stretched from Greece to Egypt and into modern-day India before his death at the age of 32.";
     }
     else if(artifact == img2){
         artifactContainer.style.visibility = "visible";
         artifactImage.src = img2.src;
-        artifactImage.style.width = "40%";
         artifactName.innerHTML = 'Gold coin of Julius Caesar';
         artifactInfo.innerHTML = "Julius Caesar was a Roman statesman, general, and dictator who played a critical role in the events that led to the demise of the Roman Republic and the rise of the Roman Empire. He was a brilliant military strategist, known for his conquest of Gaul and his decisive victory in the Civil War against Pompey. Caesar's assassination in 44 BC by a group of Roman senators led to a period of political instability and ultimately the end of the Roman Republic.";
         }
     else if(artifact == img3){
         artifactContainer.style.visibility = "visible";
         artifactImage.src = img3.src;
-        artifactImage.style.width = "40%";
         artifactName.innerHTML = 'A pot from Ancient Greece';
         artifactInfo.innerHTML = "Greek pottery, renowned for its exquisite craftsmanship and intricate designs, served both practical and artistic purposes, offering insights into ancient Greek culture and mythology through depictions of gods, heroes, and everyday life. These ceramic vessels, often adorned with black-figure or red-figure painting techniques, were used for various functions including storage, transport, and ritual offerings.";
         }
