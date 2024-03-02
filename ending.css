@@ -1,0 +1,13 @@
+.ending-container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: url("images/reality-background.png");
+}
+
+.heading-container{
+    border: 3px solid green;
+}
