@@ -8,16 +8,15 @@
     background-size: 30em 30em;
 }
 
-/*Main Headings $$$$$$$$$$$$$$$$$$*/
-.main-container h1{
-    font-family:cursive;
-    color: white;
-    text-shadow: 2px 2px 5px black;
-}
-
+/*Main Heading $$$$$$$$$$$$$$$$$$*/
 .main-container h1:nth-of-type(1){
     font-size: 5em;
     margin-block: 0.6em 0.5em;
+    color: white;
+    text-shadow: 2px 2px 5px black;
+    /*font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    letter-spacing: 0.1em;*/
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 /* Levels Styling $$$$$$$$$$$$$$$$$$$$$ */

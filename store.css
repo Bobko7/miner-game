@@ -1,3 +1,7 @@
+h1{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
 .store-container{
     background: url('images/store-background-second.png');
     background-repeat: no-repeat;
