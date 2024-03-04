@@ -162,6 +162,8 @@ meter.addEventListener("click", () => {
             setTimeout(()=>{      
                 miner.style.visibility = "visible";
                 minerSwingBack.style.display = "none";
+                //Checks if level three is cleared
+                checkLevelThree();
         }, 1200)
         }, 200)
     }
@@ -180,6 +182,20 @@ meter.addEventListener("click", () => {
 }, 1000);
 });}
 catch(er){};
+
+//Check if every single block is broken for the final screen
+function checkLevelThree(){
+    let allHidden = true;
+    for(let block of blocks){
+        if(block.style.visibility != "hidden"){
+            allHidden = false;
+        }
+    }
+    if(allHidden){
+        localStorage.setItem("levelThreeCleared", true);
+        window.location.href = 'ending.html';
+    }
+}
 
 //Create new images for the artifacts and set them the css properties
 const img1 = createArtifact("images/viking-brooch.png", -1, "absolute", 0.7);
